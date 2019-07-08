@@ -138,33 +138,3 @@ def check_filetype(filename):
 def percentile_rank(df):
 	for i in df.columns:
 		df_perc[i] = df[i].rank(pct=True)
-
-
-
-'''
-def execute_spider(gamer_df, position):
-
-	plt.figure()
-	plt.axis('off')
-	plt.text(0.5,0.5,position + " Rankings and Plots",ha='center',va='center')
-	pdf.savefig()
-	plt.close()
-
-	for player_row_index in range(1, len(gamer_df.index)+1):
-		make_spider( player_row_index, gamer_df, position)
-		print (gamer_df['Gamertag'][player_row_index]+' added to report. Row Index: '+str(player_row_index))
-	pdf.close()
-
-def create_all_reports():
-	position = ['PG', 'SG', 'SF', 'PF', 'C']
-	for pos in position:
-		execute_spider(datasource(pos),pos)
-		print (pos + " Report Generated")
-	print("All Reports Generated")
-'''
-
-
-
-
-
-
