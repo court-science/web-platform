@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Court Science</title>
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div class="welcome" id="welcome-message">
-        Welcome Court Science Fans! Get excited for our MVP coming soon...
+    <div class="navigation-bar">
+        <ul class="navigation-bar">
+            <li class="navigation-bar-item"><a href="#home">HOME</a></li>
+            <li class="navigation-bar-item"><a href="#demo">DEMO</a></li>
+            <li class="navigation-bar-item"><a href="#contact">CONTACT</a></li>
+        </ul>
     </div>
-<form class="form-inline" method="POST" action="{{ url_for('output') }}">
+    <div class="body-section-1" id="home">
+        <h2 class="title">WHO WE ARE</h2>
+        <p class="body-text">
+            Court Science is a web-based platform that makes the power of data science accessible
+            to basketball players, coaches, and leagues worldwide. We aim to bridge the gap
+            between STEM and sports, by leveraging data science to provide basketball enthusiasts
+            with key data insights including visualizations, boosting their game to the next level.
+            We're currently in our early stages of development, so please try out our demo and tell
+            us what you think below!
+        </p>
+    </div>
+    <div class="body-section-2" id="demo">
+        <h2 class="title">TRY IT NOW</h2>
+        <ol class="body-text">
+            <li>Upload a csv file of your stats with the following format:</li>
+            <li>Select the features you would like to visualize</li>
+            <li>Click the "Go" button to view your data visualized</li>
+        </ol>
+    </div>
+    <div id="contact" class="body-section-1">
+        <h2 class="title">GET IN TOUCH</h2>
+    </div>
 </body>
 </html>

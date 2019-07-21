@@ -1,5 +1,50 @@
-.welcome {
-    font-size: 40px;
-    text-align: center;
-    font-family: "Times New Roman", Times, serif;
+.navigation-bar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 98.4%;
 }
+
+.navigation-bar-item {
+    float: left;
+    cursor: pointer;
+}
+
+.navigation-bar-item > a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.body-section-1 {
+    background-color: #f2f2f2;
+    padding: 5%
+}
+
+.title {
+    font-family: "Arial Black", Gadget, sans-serif;
+    text-align: center;
+    font-size: 40px;
+}
+
+.body-text {
+    font-family: Arial, Gadget, sans-serif;
+    text-align: center;
+    line-height: 2;
+    color: #333333;
+    font-size: 24px;
+}
+
+.body-section-2 {
+    background-color: white;
+    padding: 5%
+}
+
