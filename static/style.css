@@ -48,3 +48,11 @@
     padding: 5%
 }
 
+.email-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+    height: 25%;
+    padding: 5%;
+}
