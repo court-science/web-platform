@@ -34,16 +34,19 @@
                     <li>Leave boxes with missing info empty.</li>
                     <li>Once ready, download your spreadsheet as a CSV and upload it.</li>
                 </ul>
-            <div class="csv-upload">
-                <label for="file-input">
-                    <img src="https://cms.jotform.com/uploads/image_upload/image_upload/global/21355_upload.png"/>
-                </label>
-
-                <input id="file-input" type="file" accept=".text/csv"/>
-            </div>
             <li>Select the features you would like to visualize</li>
             <li>Click the "Go" button to view your data visualized</li>
         </ol>
+        <form action="/main.py" method="post">
+            <div class="csv-upload">
+                <label for="file-input">
+                    <img alt="input" src="https://cms.jotform.com/uploads/image_upload/image_upload/global/21355_upload.png"/>
+                </label>
+
+                <input id="file-input" type="file" accept=".text/csv"/>
+                <input type="submit" value="Submit"
+            </div>
+        </form>
     </div>
     <div id="contact" class="body-section-1">
         <h2 class="title">GET IN TOUCH</h2>
@@ -55,5 +58,8 @@
                  src="https://farm4.staticflickr.com/3726/13855354235_887ae071c0_b.jpg">
         </a>
     </div>
+<script>
+
+</script>
 </body>
 </html>
