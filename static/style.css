@@ -63,16 +63,3 @@
     height: 25%;
     padding: 5%;
 }
-
-input[type="file"] {
-    display: none;
-}
-
-.csv-upload {
-    display: block;
-    width: 25%;
-    height: 25%;
-    padding-left: 14%;
-    padding-top: 5%;
-    padding-bottom: 5%;
-}

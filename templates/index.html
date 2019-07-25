@@ -30,22 +30,33 @@
                 <ul>
                     <li>The first 4 columns must contain general player info with mandatory labels at the top row: <b>"FULL NAME"</b>,
                     <b>"TEAM"</b>, <b>"POS"</b>, and <b>"AGE"</b>.</li>
-                    <li>The rest of the columns can contain any stats of your choice, as long as they're properly labelled.</li>
+                    <li>The rest of the columns can contain stats of your choice from the following label options: <b>"FTA"</b>,
+                    <b>"FT%"</b>, <b>"2PA"</b>, <b>"2P%"</b>, <b>"3PA"</b>, <b>"3P%"</b>, <b>"PPG"</b>,
+                    <b>"APG"</b>, <b>"RPG"</b>, <b>"SPG"</b>, <b>"BPG"</b></li>
+                    <li>Ensure all labels are spelled exactly the same as above (case sensitive).</li>
                     <li>Leave boxes with missing info empty.</li>
                     <li>Once ready, download your spreadsheet as a CSV and upload it.</li>
                 </ul>
             <li>Select the features you would like to visualize</li>
             <li>Click the "Go" button to view your data visualized</li>
         </ol>
-        <form action="/main.py" method="post">
-            <div class="csv-upload">
-                <label for="file-input">
-                    <img alt="input" src="https://cms.jotform.com/uploads/image_upload/image_upload/global/21355_upload.png"/>
-                </label>
-
-                <input id="file-input" type="file" accept=".text/csv"/>
-                <input type="submit" value="Submit"
-            </div>
+        <form action="" method="post">
+            Select a file:<br>
+            <input type="file" name="myCSV" accept=".text/csv"><br><br>
+            Select 5 applicable stats to visualize:<br>
+            <input type="checkbox" name="stat1" value="FTA"> FTA<br>
+            <input type="checkbox" name="stat2" value="FT%"> FT%<br>
+            <input type="checkbox" name="stat3" value="2PA"> 2PA<br>
+            <input type="checkbox" name="stat4" value="2P%"> 2P%<br>
+            <input type="checkbox" name="stat5" value="3PA"> 3PA<br>
+            <input type="checkbox" name="stat6" value="3P%"> 3P%<br>
+            <input type="checkbox" name="stat7" value="PPG"> PPG<br>
+            <input type="checkbox" name="stat8" value="APG"> APG<br>
+            <input type="checkbox" name="stat9" value="RPG"> RPG<br>
+            <input type="checkbox" name="stat10" value="SPG"> SPG<br>
+            <input type="checkbox" name="stat11" value="BPG"> BPG<br><br>
+            <input type="submit" value="Submit">
+            <input type="reset">
         </form>
     </div>
     <div id="contact" class="body-section-1">
