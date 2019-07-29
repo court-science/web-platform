@@ -19,13 +19,10 @@ from math import pi
 import decimal
 import matplotlib.backends.backend_pdf
 
-sheet = '2018-19 NBA Stats.csv'
-stats = ['PPG','APG','RPG','BPG','SPG']
 my_palette = ['b','g','r','y','p','o']
-pdf = matplotlib.backends.backend_pdf.PdfPages('TEST' + ' Spider Plots.pdf')
+pdf = matplotlib.backends.backend_pdf.PdfPages('Spider Plots.pdf')
 
 def create_dataframe(sheet):
-
 	df = pd.read_csv(sheet)
 	df = df.fillna(0)
 	df = df.drop(0)
@@ -33,7 +30,6 @@ def create_dataframe(sheet):
 	return df
 
 def generate_spider_plots(player_row_index, df, stats):
-
 	my_dpi=96
 	fig = plt.figure(figsize=(1000/my_dpi, 1000/my_dpi), dpi=my_dpi)
 	color = my_palette[1]
@@ -86,3 +82,5 @@ def court_science_magic(sheet, stats):
 		generate_spider_plots(player_row_index, full_df, stats)
 		print (full_df['FULL NAME'][player_row_index]+' added to report. Row Index: '+str(player_row_index))
 	pdf.close()
+
+court_science_magic("2018-19 NBA Stats.csv", ['FTA', 'FT%', '2PA', '2P%', '3PA'])

@@ -40,7 +40,7 @@
             <li>Select the features you would like to visualize</li>
             <li>Click the "Go" button to view your data visualized</li>
         </ol>
-        <form action="{{ url_for('main')}}" method="post">
+        <form action="{{ url_for('main')}}" method="post" enctype="multipart/form-data">
             Select a file:<br>
             <input type="file" name="myCSV" accept=".csv"><br><br>
             Select 5 applicable stats to visualize:<br>
