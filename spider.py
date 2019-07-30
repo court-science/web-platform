@@ -18,9 +18,19 @@ import pandas as pd
 from math import pi
 import decimal
 import matplotlib.backends.backend_pdf
+from random import randint
 
 my_palette = ['b','g','r','y','p','o']
-pdf = matplotlib.backends.backend_pdf.PdfPages('Spider Plots.pdf')
+pdf_id = randint(0, 1000)
+pdf_name = 'Spider Plots id_' + str(pdf_id) + '.pdf'
+pdf = matplotlib.backends.backend_pdf.PdfPages(pdf_name)
+
+
+def send_pdf_path():
+	pdf_path = "../" + str(pdf)
+
+	return pdf_path
+
 
 def create_dataframe(sheet):
 	df = pd.read_csv(sheet)
@@ -59,7 +69,7 @@ def generate_spider_plots(player_row_index, df, stats):
 		plt.ylim(0,100)
 
 		# Ind1
-		fig.suptitle(full_df['FULL NAME'][player_row_index]+'\nRank '+str(player_row_index))
+		fig.suptitle(full_df['FULL NAME'][player_row_index]+'\nPlayer #'+str(player_row_index))
 		values=df.loc[player_row_index].values.flatten().tolist()
 		values += values[:1]
 		ax.plot(angles, values, color=color, linewidth=2, linestyle='solid')
@@ -82,5 +92,3 @@ def court_science_magic(sheet, stats):
 		generate_spider_plots(player_row_index, full_df, stats)
 		print (full_df['FULL NAME'][player_row_index]+' added to report. Row Index: '+str(player_row_index))
 	pdf.close()
-
-court_science_magic("2018-19 NBA Stats.csv", ['FTA', 'FT%', '2PA', '2P%', '3PA'])
