@@ -23,7 +23,7 @@ def main():
         court_science_magic(csv_name, user_stats)
         pdf_filepath = send_pdf_path()
 
-        return render_template('response.html', pdf_filepath=pdf_filepath)
+        return render_template('response.html', pdf_filepath = pdf_filepath)
 
 
 if __name__ == '__main__':
