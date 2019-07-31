@@ -38,33 +38,33 @@
                     <li>Once ready, download your spreadsheet as a CSV and upload it.</li>
                 </ul>
             <li>Select the features you would like to visualize</li>
-            <li>Click the "Go" button to view your data visualized</li>
-        </ol>
+            <li>Click the "Submit" button to view your data visualized!</li>
+        </ol><br><br>
         <form action="{{ url_for('main')}}" method="post" enctype="multipart/form-data">
-            Select a file:<br>
+            <p class="form-text"><b>Select a file:</b></p><br>
             <input type="file" name="myCSV" accept=".csv"><br><br>
-            Select 5 applicable stats to visualize:<br>
-            <input type="checkbox" name="stat1" value="FTA"> FTA<br>
+            <p class="form-text"><b>Select 5 applicable stats to visualize:</b></p><br>
+            <input type="checkbox" name="stat1" value="FTA">FTA<br>
             <input type="hidden"   name="stat1" value="false">
-            <input type="checkbox" name="stat2" value="FT%"> FT%<br>
+            <input type="checkbox" name="stat2" value="FT%">FT%<br>
             <input type="hidden"   name="stat2" value="false">
-            <input type="checkbox" name="stat3" value="2PA"> 2PA<br>
+            <input type="checkbox" name="stat3" value="2PA">2PA<br>
             <input type="hidden"   name="stat3" value="false">
-            <input type="checkbox" name="stat4" value="2P%"> 2P%<br>
+            <input type="checkbox" name="stat4" value="2P%">2P%<br>
             <input type="hidden"   name="stat4" value="false">
-            <input type="checkbox" name="stat5" value="3PA"> 3PA<br>
+            <input type="checkbox" name="stat5" value="3PA">3PA<br>
             <input type="hidden"   name="stat5" value="false">
-            <input type="checkbox" name="stat6" value="3P%"> 3P%<br>
+            <input type="checkbox" name="stat6" value="3P%">3P%<br>
             <input type="hidden"   name="stat6" value="false">
-            <input type="checkbox" name="stat7" value="PPG"> PPG<br>
+            <input type="checkbox" name="stat7" value="PPG">PPG<br>
             <input type="hidden"   name="stat7" value="false">
-            <input type="checkbox" name="stat8" value="APG"> APG<br>
+            <input type="checkbox" name="stat8" value="APG">APG<br>
             <input type="hidden"   name="stat8" value="false">
-            <input type="checkbox" name="stat9" value="RPG"> RPG<br>
+            <input type="checkbox" name="stat9" value="RPG">RPG<br>
             <input type="hidden"   name="stat9" value="false">
-            <input type="checkbox" name="stat10" value="SPG"> SPG<br>
+            <input type="checkbox" name="stat10" value="SPG">SPG<br>
             <input type="hidden"   name="stat10" value="false">
-            <input type="checkbox" name="stat11" value="BPG"> BPG<br><br>
+            <input type="checkbox" name="stat11" value="BPG">BPG<br><br><br>
             <input type="hidden"   name="stat11" value="false">
             <input type="submit" value="Submit">
             <input type="reset">
