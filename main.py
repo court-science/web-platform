@@ -12,7 +12,7 @@ def home():
 def main():
     if request.method == 'POST':
         user_csv = request.files['myCSV']
-        csv_name = user_csv.filename
+        csv_name = "static/" + user_csv.filename
         user_csv.save(csv_name)
         print(csv_name)
         user_stats = []
