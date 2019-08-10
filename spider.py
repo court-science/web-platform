@@ -23,7 +23,6 @@ from random import randint
 my_palette = ['b','g','r','y','p','o']
 pdf_id = randint(0, 1000)
 pdf_name = 'static/Spider Plots id_' + str(pdf_id) + '.pdf'
-pdf = matplotlib.backends.backend_pdf.PdfPages(pdf_name)
 
 
 def create_dataframe(sheet):
@@ -79,8 +78,9 @@ def generate_spider_plots(player_row_index, df, stats):
 
 
 def court_science_magic(sheet, stats):
-	global full_df 
+	global full_df, pdf
 	full_df = create_dataframe(sheet)
+	pdf = matplotlib.backends.backend_pdf.PdfPages(pdf_name)
 
 	for player_row_index in range(1, len(full_df.index)+1):
 		generate_spider_plots(player_row_index, full_df, stats)
