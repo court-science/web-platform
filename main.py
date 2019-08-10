@@ -3,6 +3,7 @@ from spider import court_science_magic, send_pdf_path
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -12,7 +13,7 @@ def home():
 def main():
     if request.method == 'POST':
         user_csv = request.files['myCSV']
-        csv_name = "static/" + user_csv.filename
+        csv_name = "tmp/" + user_csv.filename
         user_csv.save(csv_name)
         print(csv_name)
         user_stats = []
