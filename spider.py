@@ -22,8 +22,7 @@ from random import randint
 
 my_palette = ['b','g','r','y','p','o']
 pdf_id = randint(0, 1000)
-pdf_name = 'static/Spider Plots id_' + str(pdf_id) + '.pdf'
-
+pdf_name = 'tmp/Spider Plots id_' + str(pdf_id) + '.pdf'
 
 def create_dataframe(sheet):
 	df = pd.read_csv(sheet)
@@ -74,7 +73,6 @@ def generate_spider_plots(player_row_index, df, stats):
 	#fig.tight_layout()
 	pdf.savefig(fig)
 	plt.close()
-	#fig.savefig(full_df['FULL NAME'][player_row_index]+".pdf")
 
 
 def court_science_magic(sheet, stats):
@@ -89,4 +87,4 @@ def court_science_magic(sheet, stats):
 
 
 def send_pdf_path():
-	return pdf_name[7:]
+	return pdf_name
