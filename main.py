@@ -14,16 +14,16 @@ def main():
     if request.method == 'POST':
         user_csv = request.files['myCSV']
         print(user_csv)
-        
-        csv_name = "/tmp/" + user_csv.filename
-        print(csv_name)
-        
+
         user_stats = []
+
         for i in range(11):
             if request.form['stat' + str(i + 1)] != 'false':
                 user_stats.append(request.form['stat' + str(i + 1)])
         print(user_stats)
-        court_science_magic(csv_name, user_stats)
+
+        court_science_magic(user_csv, user_stats)
+
         pdf_path = send_pdf_path()
         new_path = "gs://statsheet-storage-bucket//tmp/" + pdf_path
         os.rename(pdf_path, new_path)
