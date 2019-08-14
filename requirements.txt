@@ -1,3 +1,9 @@
-Flask==1.0.2
 matplotlib==3.1.1
 pandas==0.25.0
+Flask==1.1.1
+google-cloud==0.34.0
+google-cloud-datastore==1.9.0
+google-cloud-storage==1.18.0
+numpy==1.17.0
+pandas-util==0.0.1
+six==1.12.0
