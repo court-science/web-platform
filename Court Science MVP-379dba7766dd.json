@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "court-science-mvp",
+  "private_key_id": "379dba7766ddd3c40a98320ef09cab4ae6fc5e6c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDWFokHp8W00cov\nDtWh0ObrOmEKBQa+tsodUq/VhUlGq+lVYvTyCebmTsvW0hwdCTR41kz8AH7Tj2sY\n2cQryxUqZiXPH4BYOQItc+v0wuv93HJLfIs0W3A0n0TaimsWGIIshLb2iF9oSVS+\n5s+9aLkcdP21wCJNu3C9QQvIMs1WfWvMyQ2fDqMn77N6HOy+b1z+rhDM5CKtVCdI\nz0DHQU/qeAnLQNvv9xPLZvKgM6ARjUgIJ49dn7cs0iC6GeXKsD2CQjS2JSQ2jh2p\nnEimKVLM4myQ6viaPBDoZyMqBfhwm6tuDJ/i5bcap2/MutLZZrHTSJ3Z6+ykWY4h\nGgxHFk8JAgMBAAECggEAEWxX1lpIeDLvKRWEXCUd1/TCN0ApuH10lT6YnhBZAnIE\n/TyemfClnKZ6xybGIDRSs4dgUE2DhNj6ErWNVjGSzUavKsxB5Bwuoc+ae0reTSSi\n3iMaiqYq63NvVXhYpv2TYYdjAw0d86UtKxSqgTwbvZXFXKRwfkJEFnjr2i0NQk2w\nXDvMS9NkCHYZ+Jcheh88bB0FuwtbgE6oQBLJVv0yn4oLfLmRXWyfxM1lL4MewUqC\ncXLTHjJVI8PgGa1mmUCZK2aspoc5WLKIKZUx6YDzEV7+NCLI3KEEiP4/BXujswvp\nwRwUvONq/9k5kGFkiTtvFV/EzwUNEkEtrT3mQTnXoQKBgQD39icvVIxkO1tfBZO0\nq0YmAFF47wdRXX71Lxy2GE+b+ZLBMfacNpW7sr98OLLVnTJVuWKv6e+X0+ooqMKL\nL//9aaNX609WTxzCKAd3Z7XAj8GIFyLM3YG7FVsO1g5yf5QMC84/EaJptCjjADHY\nGBKbcH6q+dV9HJWbMdoQsg+uoQKBgQDdB0OYE7LkVId+bPvJGUnWwpVn1gjmqauX\nWg3cZEU7HsdwoK3SN/AXTzOIDDvAdRMTw41COr9Z+jZr0qgXG0m5yZzEH7sFlCxW\ng9N3V2F3gDhLKnkKkbXC+dVkRk3NPqRitT66PO547Vy41+/AfIN/7F/akBUu8PIY\ngiLg5URPaQKBgCfTU0vYyou2tOA4JxcXgzbLSkqgKY6585AxtuzQTskAdr+s5K0G\nX1o8RWEQQjjo/JKkKeOTMTYzhSJuqIBufzEWbHPMiXuVTUsp3rkg4SJCdJUFEkPR\nN+rybSOe4ccmEoM0yjV7AZj0pLSA7YCFrUdl9BJF+jIUCztX8GxKDRbBAoGBAMAK\nhbJmuzIkN62jJ4lszXkpjAKyNv2jQhG5Dv4EqRpa/dJf6WcTbynxiMaWSnxHvJGZ\ngOygeo3FFu/MEnwxG3evMuQ85ZRNT9DDrUKty2O3JjI47v495/1GcSA07Xh9Cvsw\nmxXZxyGOqtd31zoZdW/6grY2JhGpC9A7ke5xhU6xAoGBAJNJ1lsFq3Qy6Dk+ZPyh\n9yqlonW5VT8JHcE4WcXxjmXVx53hlBRQFxF7vZGb1RRGUNEgAaI/NsbrPjUOwUSE\nDh4CymAAoqFKsEJhRzFaSy2jkIV7Iqtz8RgDMWK+8B3tTYBj8ZXotvh64rIq5Ll1\nmXMC6WwEfACEHyeeH+SH7ClQ\n-----END PRIVATE KEY-----\n",
+  "client_email": "accessing-court-science@court-science-mvp.iam.gserviceaccount.com",
+  "client_id": "111537798603388134040",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/accessing-court-science%40court-science-mvp.iam.gserviceaccount.com"
+}

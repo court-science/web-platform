@@ -19,10 +19,12 @@ from math import pi
 import decimal
 import matplotlib.backends.backend_pdf
 from random import randint
+from google.cloud import storage
+import os
 
 my_palette = ['b','g','r','y','p','o']
 pdf_id = randint(0, 1000)
-pdf_name = 'tmp/Spider Plots id_' + str(pdf_id) + '.pdf'
+pdf_name = '/tmp/Spider_Plots_id_' + str(pdf_id) + '.pdf'
 
 def create_dataframe(sheet):
 	df = pd.read_csv(sheet)
@@ -85,6 +87,23 @@ def court_science_magic(sheet, stats):
 		print (full_df['FULL NAME'][player_row_index]+' added to report. Row Index: '+str(player_row_index))
 	pdf.close()
 
+	upload_blob('statsheet-storage-bucket', pdf_name, pdf_name)
+
+
+	print("PDF report has been uploaded to Google Cloud Storage")
+
+
+def upload_blob(bucket_name, source_file_name, destination_blob_name):
+    """Uploads a file to the bucket."""
+    storage_client = storage.Client()
+    bucket = storage_client.get_bucket(bucket_name)
+    blob = bucket.blob(destination_blob_name)
+
+    blob.upload_from_filename(source_file_name)
+
+    print('File {} uploaded to {}.'.format(
+        source_file_name,
+        bucket_name))
 
 def send_pdf_path():
 	return pdf_name
