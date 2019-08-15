@@ -21,10 +21,12 @@ import matplotlib.backends.backend_pdf
 from random import randint
 from google.cloud import storage
 import os
+import glob
+
 
 my_palette = ['b','g','r','y','p','o']
 pdf_id = randint(0, 1000)
-pdf_name = '/tmp/Spider_Plots_id_' + str(pdf_id) + '.pdf'
+pdf_name = 'tmp/Spider_Plots_id_' + str(pdf_id) + '.pdf'
 
 def create_dataframe(sheet):
 	df = pd.read_csv(sheet)
@@ -32,6 +34,7 @@ def create_dataframe(sheet):
 	df = df.drop(0)
 
 	return df
+
 
 def generate_spider_plots(player_row_index, df, stats):
 	my_dpi=96
@@ -77,6 +80,24 @@ def generate_spider_plots(player_row_index, df, stats):
 	plt.close()
 
 
+def upload_blob(bucket_name, source_file_name, destination_blob_name):
+	"""Uploads a file to the bucket."""
+	global pdf_url
+
+	storage_client = storage.Client()
+	bucket = storage_client.get_bucket(bucket_name)
+	blob = bucket.blob(destination_blob_name)
+
+	blob.upload_from_filename(source_file_name)
+
+	print('File {} uploaded to {}.'.format(
+        source_file_name,
+        bucket_name))
+
+	blob.make_public()
+	pdf_url = blob.public_url
+
+
 def court_science_magic(sheet, stats):
 	global full_df, pdf
 	full_df = create_dataframe(sheet)
@@ -89,26 +110,28 @@ def court_science_magic(sheet, stats):
 
 	upload_blob('statsheet-storage-bucket', pdf_name, pdf_name)
 
-
 	print("PDF report has been uploaded to Google Cloud Storage")
 
+	files = glob.glob('/tmp')
+	for f in files:
+		os.remove(f)
 
-def upload_blob(bucket_name, source_file_name, destination_blob_name):
-    """Uploads a file to the bucket."""
-    storage_client = storage.Client()
-    bucket = storage_client.get_bucket(bucket_name)
-    blob = bucket.blob(destination_blob_name)
 
-    blob.upload_from_filename(source_file_name)
 
-    print('File {} uploaded to {}.'.format(
-        source_file_name,
-        bucket_name))
+def delete_blob(bucket_name, blob_name):
+	"""Deletes a blob from the bucket."""
+	storage_client = storage.Client()
+	bucket = storage_client.get_bucket(bucket_name)
+	blob = bucket.blob(blob_name)
 
-    blob.make_public()
-    global pdf_url
-    pdf_url = blob.public_url
+	blob.delete()
+
+	print('Blob {} deleted.'.format(blob_name))
    
 
 def send_pdf_path():
 	return pdf_url
+
+
+def send_blob_name():
+	return pdf_name
