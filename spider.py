@@ -25,8 +25,6 @@ import datetime
 
 
 my_palette = ['b','g','r','y','p','o']
-pdf_id = datetime.datetime.utcnow().strftime("%Y-%m-%d-%H%M%S")
-pdf_name = '/tmp/Spider_Plots_id_' + str(pdf_id) + '.pdf'
 
 def create_dataframe(sheet):
 	df = pd.read_csv(sheet)
@@ -99,7 +97,11 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
 
 
 def court_science_magic(sheet, stats):
-	global full_df, pdf
+	global full_df, pdf, pdf_id, pdf_name
+
+	pdf_id = datetime.datetime.utcnow().strftime("%Y-%m-%d-%H%M%S")
+	pdf_name = '/tmp/Spider_Plots_id_' + str(pdf_id) + '.pdf'
+
 	full_df = create_dataframe(sheet)
 	pdf = matplotlib.backends.backend_pdf.PdfPages(pdf_name)
 
