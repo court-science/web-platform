@@ -25,9 +25,8 @@ def main():
         court_science_magic(user_csv, user_stats)
 
         pdf_path = send_pdf_path()
-        new_path = "gs://statsheet-storage-bucket//tmp/" + pdf_path[5:]
 
-        return render_template('response.html', pdf_path = new_path) 
+        return render_template('response.html', pdf_path = pdf_path) 
 
 if __name__ == '__main__':
     app.run()
