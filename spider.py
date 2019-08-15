@@ -21,11 +21,11 @@ import matplotlib.backends.backend_pdf
 from random import randint
 from google.cloud import storage
 import os
-import glob
+import datetime
 
 
 my_palette = ['b','g','r','y','p','o']
-pdf_id = randint(0, 1000)
+pdf_id = datetime.datetime.utcnow().strftime("%Y-%m-%d-%H%M%S")
 pdf_name = '/tmp/Spider_Plots_id_' + str(pdf_id) + '.pdf'
 
 def create_dataframe(sheet):
