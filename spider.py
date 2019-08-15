@@ -26,7 +26,7 @@ import glob
 
 my_palette = ['b','g','r','y','p','o']
 pdf_id = randint(0, 1000)
-pdf_name = 'tmp/Spider_Plots_id_' + str(pdf_id) + '.pdf'
+pdf_name = '/tmp/Spider_Plots_id_' + str(pdf_id) + '.pdf'
 
 def create_dataframe(sheet):
 	df = pd.read_csv(sheet)
@@ -112,9 +112,7 @@ def court_science_magic(sheet, stats):
 
 	print("PDF report has been uploaded to Google Cloud Storage")
 
-	files = glob.glob('/tmp')
-	for f in files:
-		os.remove(f)
+	os.remove(pdf_name)
 
 
 
