@@ -105,5 +105,10 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
         source_file_name,
         bucket_name))
 
+    blob.make_public()
+    global pdf_url
+    pdf_url = blob.public_url
+   
+
 def send_pdf_path():
-	return pdf_name
+	return pdf_url
