@@ -28,7 +28,7 @@ my_palette = ['b','g','r','y','p','o']
 def create_dataframe(sheet):
 	df = pd.read_csv(sheet)
 	df = df.fillna(0)
-	df = df.drop(0)
+	df.index += 1
 
 	return df
 
