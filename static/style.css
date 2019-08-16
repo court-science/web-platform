@@ -74,6 +74,13 @@
     box-sizing: border-box;
 }
 
+.spreadsheet {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2%;
+}
+
 .email-button {
     display: block;
     margin-left: auto;
