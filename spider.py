@@ -23,7 +23,6 @@ from google.cloud import storage
 import os
 import datetime
 
-
 my_palette = ['b','g','r','y','p','o']
 
 def create_dataframe(sheet):
@@ -115,7 +114,6 @@ def court_science_magic(sheet, stats):
 	print("PDF report has been uploaded to Google Cloud Storage")
 
 	os.remove(pdf_name)
-
 
 
 def delete_blob(bucket_name, blob_name):
