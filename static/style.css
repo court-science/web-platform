@@ -25,6 +25,13 @@
     text-decoration: none;
 }
 
+li > a {
+    font-family: Arial, Gadget, sans-serif;
+    line-height: 2;
+    color: #F6852F;
+    font-size: 24px;
+}
+
 .logo {
     text-align: right;
     padding: 0%;

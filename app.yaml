@@ -3,5 +3,5 @@ runtime: python37
 handlers:
  - url: /static
    static_dir: static
--  url: /.well-known/acme-challenge
+ - url: /.well-known/acme-challenge
    static_dir: letsencrypt
