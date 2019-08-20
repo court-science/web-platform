@@ -25,6 +25,13 @@
     text-decoration: none;
 }
 
+li > a {
+    font-family: Arial, Gadget, sans-serif;
+    line-height: 2;
+    color: #F6852F;
+    font-size: 24px;
+}
+
 .logo {
     text-align: right;
     padding: 0%;
@@ -72,6 +79,12 @@
     padding: 7%;
     width: 100%;
     box-sizing: border-box;
+}
+
+.spreadsheet {
+    display: block;
+    padding-top: 2%;
+    padding-bottom: 2%;
 }
 
 .email-button {
