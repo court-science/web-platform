@@ -64,7 +64,7 @@ def generate_spider_plots(player_row_index, df, stats):
 
 		# Ind1
 		fig.suptitle(full_df['FULL NAME'][player_row_index]+'\nPlayer #'+str(player_row_index))
-		values=df.loc[player_row_index].values.flatten().tolist()
+		values = df.loc[player_row_index].values.flatten().tolist()
 		values += values[:1]
 		ax.plot(angles, values, color=color, linewidth=2, linestyle='solid')
 		ax.fill(angles, values, color=color, alpha=0.4)
@@ -104,7 +104,7 @@ def court_science_magic(sheet, stats):
 	full_df = create_dataframe(sheet)
 	pdf = matplotlib.backends.backend_pdf.PdfPages(pdf_name)
 
-	for player_row_index in range(1, len(full_df.index)+1):
+	for player_row_index in range(1, len(full_df.index) + 1):
 		generate_spider_plots(player_row_index, full_df, stats)
 		print (full_df['FULL NAME'][player_row_index]+' added to report. Row Index: '+str(player_row_index))
 	pdf.close()
