@@ -99,7 +99,7 @@ def court_science_magic(sheet, stats):
 	global full_df, pdf, pdf_id, pdf_name
 
 	pdf_id = datetime.datetime.utcnow().strftime("%Y-%m-%d-%H%M%S")
-	pdf_name = '/tmp/Spider_Plots_id_' + str(pdf_id) + '.pdf'
+	pdf_name = 'static/pdf/Spider_Plots_id_' + str(pdf_id) + '.pdf'
 
 	full_df = create_dataframe(sheet)
 	pdf = matplotlib.backends.backend_pdf.PdfPages(pdf_name)
@@ -109,11 +109,11 @@ def court_science_magic(sheet, stats):
 		print (full_df['FULL NAME'][player_row_index]+' added to report. Row Index: '+str(player_row_index))
 	pdf.close()
 
-	upload_blob('statsheet-storage-bucket', pdf_name, pdf_name)
+	#upload_blob('statsheet-storage-bucket', pdf_name, pdf_name)
 
 	print("PDF report has been uploaded to Google Cloud Storage")
 
-	os.remove(pdf_name)
+	#os.remove(pdf_name)
 
 
 def delete_blob(bucket_name, blob_name):
@@ -128,7 +128,7 @@ def delete_blob(bucket_name, blob_name):
    
 
 def send_pdf_path():
-	return pdf_url
+	return pdf_name
 
 
 def send_blob_name():
