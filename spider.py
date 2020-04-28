@@ -22,6 +22,7 @@ from random import randint
 from google.cloud import storage
 import os
 import datetime
+import numpy as np
 
 my_palette = ['b','g','r','y','p','o']
 
@@ -39,38 +40,39 @@ def generate_spider_plots(player_row_index, df, stats):
 	color = my_palette[1]
 
 	for x in stats:
-		N = len(stats)
-		df = df[stats].rank(pct=True)*100
+		if df.dtypes[x] == np.int64 or df.dtypes[x] == np.float64:
+			N = len(stats)
+			df = df[stats].rank(pct=True)*100
 		 
-		# What will be the angle of each axis in the plot? (we divide the plot / number of variable)
-		angles = [n / float(N) * 2 * pi for n in range(N)]
-		angles += angles[:1]
+			# What will be the angle of each axis in the plot? (we divide the plot / number of variable)
+			angles = [n / float(N) * 2 * pi for n in range(N)]
+			angles += angles[:1]
 		 
-		# Initialise the spider plot
-		ax = plt.subplot(2,2,1, polar=True)
-		# plt.subplots_adjust(bottom=0.1, right=0.9, top=0.9, left=0.125)
+			# Initialise the spider plot
+			ax = plt.subplot(2,2,1, polar=True)
+			# plt.subplots_adjust(bottom=0.1, right=0.9, top=0.9, left=0.125)
 		 
-		# If you want the first axis to be on top:
-		ax.set_theta_offset(pi / 2)
-		ax.set_theta_direction(-1)
+			# If you want the first axis to be on top:
+			ax.set_theta_offset(pi / 2)
+			ax.set_theta_direction(-1)
 		 
-		# Draw one axe per variable + add labels labels yet
-		plt.xticks(angles[:-1], stats, color='b', size=8)
+			# Draw one axe per variable + add labels labels yet
+			plt.xticks(angles[:-1], stats, color='b', size=8)
 		 
-		# Draw ylabels
-		ax.set_rlabel_position(0)
-		plt.yticks([20,40,60,80,100], ["20","40","60","80","100"], color="grey", size=7)
-		plt.ylim(0,100)
+			# Draw ylabels
+			ax.set_rlabel_position(0)
+			plt.yticks([20,40,60,80,100], ["20","40","60","80","100"], color="grey", size=7)
+			plt.ylim(0,100)
 
-		# Ind1
-		fig.suptitle(full_df['FULL NAME'][player_row_index]+'\nPlayer #'+str(player_row_index))
-		values = df.loc[player_row_index].values.flatten().tolist()
-		values += values[:1]
-		ax.plot(angles, values, color=color, linewidth=2, linestyle='solid')
-		ax.fill(angles, values, color=color, alpha=0.4)
+			# Ind1
+			fig.suptitle(full_df['FULL NAME'][player_row_index]+'\nPlayer #'+str(player_row_index))
+			values = df.loc[player_row_index].values.flatten().tolist()
+			values += values[:1]
+			ax.plot(angles, values, color=color, linewidth=2, linestyle='solid')
+			ax.fill(angles, values, color=color, alpha=0.4)
 		 
-		# Add a title
-		# plt.title(full_df['FULL NAME'], size=11, color=color, y=1.1)
+			# Add a title
+			# plt.title(full_df['FULL NAME'], size=11, color=color, y=1.1)
 
 	#fig.tight_layout()
 	pdf.savefig(fig)
@@ -104,14 +106,20 @@ def court_science_magic(sheet, stats):
 	full_df = create_dataframe(sheet)
 	pdf = matplotlib.backends.backend_pdf.PdfPages(pdf_name)
 
+	col_name = "FULL NAME"
+
+	for col in full_df.columns:
+		if "Name" in col or "NAME" in col or "name" in col:
+			col_name = col
+
 	for player_row_index in range(1, len(full_df.index) + 1):
 		generate_spider_plots(player_row_index, full_df, stats)
-		print (full_df['FULL NAME'][player_row_index]+' added to report. Row Index: '+str(player_row_index))
+		print (full_df[col_name][player_row_index]+' added to report. Row Index: '+str(player_row_index))
 	pdf.close()
 
 	#upload_blob('statsheet-storage-bucket', pdf_name, pdf_name)
 
-	print("PDF report has been uploaded to Google Cloud Storage")
+	#print("PDF report has been uploaded to Google Cloud Storage")
 
 	#os.remove(pdf_name)
 

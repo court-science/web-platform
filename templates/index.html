@@ -48,35 +48,9 @@
             <li>Select the features you would like to visualize</li>
             <li>Click the "Submit" button to view your data visualized!</li>
         </ol><br><br>
-        <input type="file" id="input-file" name="myCSV" accept=".csv"><br><br>
-        <form action="{{ url_for('main')}}" method="post" enctype="multipart/form-data">
+        <form id="input-form" action="{{ url_for('main')}}" method="post" enctype="multipart/form-data">
             <p class="form-text"><b>Select a file:</b></p><br>
             <input type="file" id="test" name="myCSV" accept=".csv"><br><br>
-            <p class="form-text"><b>Select 5 applicable stats to visualize:</b></p><br>
-            <input type="checkbox" name="stat1" value="FTA">FTA<br>
-            <input type="hidden"   name="stat1" value="false">
-            <input type="checkbox" name="stat2" value="FT%">FT%<br>
-            <input type="hidden"   name="stat2" value="false">
-            <input type="checkbox" name="stat3" value="2PA">2PA<br>
-            <input type="hidden"   name="stat3" value="false">
-            <input type="checkbox" name="stat4" value="2P%">2P%<br>
-            <input type="hidden"   name="stat4" value="false">
-            <input type="checkbox" name="stat5" value="3PA">3PA<br>
-            <input type="hidden"   name="stat5" value="false">
-            <input type="checkbox" name="stat6" value="3P%">3P%<br>
-            <input type="hidden"   name="stat6" value="false">
-            <input type="checkbox" name="stat7" value="PPG">PPG<br>
-            <input type="hidden"   name="stat7" value="false">
-            <input type="checkbox" name="stat8" value="APG">APG<br>
-            <input type="hidden"   name="stat8" value="false">
-            <input type="checkbox" name="stat9" value="RPG">RPG<br>
-            <input type="hidden"   name="stat9" value="false">
-            <input type="checkbox" name="stat10" value="SPG">SPG<br>
-            <input type="hidden"   name="stat10" value="false">
-            <input type="checkbox" name="stat11" value="BPG">BPG<br><br><br>
-            <input type="hidden"   name="stat11" value="false">
-            <input type="submit" value="Submit">
-            <input type="reset">
         </form>
     </div>
     <div id="contact" class="body-section-1">
@@ -96,9 +70,34 @@
         const inputCSV = this.files[0];
         Papa.parse(inputCSV, {
 	        complete: function(results) {
-		        let headers = results['data'][0];
-		        console.log(headers)
-	        }
+                let headers = results['data'][0];
+                let sample_data = results['data'][1];
+                let num_str = "0123456789";
+                let headers_filtered = [];
+                let count = 1;
+
+                for (let i = 0; i < headers.length; i++) {
+                    if (num_str.includes(sample_data[i][0])) {
+                        headers_filtered.push(headers[i]);
+                    }
+                }
+
+                console.log(headers_filtered);
+
+                let html_form = document.getElementById("input-form");
+                html_form.insertAdjacentHTML('beforeend', "<p class='form-text'><b>Select 5 applicable stats to visualize:</b></p><br>");
+
+
+                for (const element of headers_filtered) {
+                    let name = "'stat" + String(count) + "'";
+                    let string_to_add = "<input type='checkbox' name=" + name + " value=" + "'"+ element + "'>" + element + "<br>\n" + "<input type='hidden' name=" + name + " value='false'>";
+                    console.log(string_to_add);
+                    html_form.insertAdjacentHTML('beforeend', string_to_add);
+                    count += 1;
+                }
+
+                html_form.insertAdjacentHTML('beforeend', "<input type='submit' value='Submit'>\n" + "<input type='reset'>");
+            }
         });
     }
 </script>

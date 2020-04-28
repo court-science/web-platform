@@ -17,7 +17,9 @@ def main():
 
         user_stats = []
 
-        for i in range(11):
+        #print(len(request.form))
+
+        for i in range(len(request.form)):
             if request.form['stat' + str(i + 1)] != 'false':
                 user_stats.append(request.form['stat' + str(i + 1)])
         print(user_stats)
