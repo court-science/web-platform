@@ -4,6 +4,7 @@
     <title>Court Science</title>
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
      <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <script src="{{ url_for('static', filename='papaparse.min.js') }}"></script>
 </head>
 <body>
     <div class="navigation-bar">
@@ -47,9 +48,10 @@
             <li>Select the features you would like to visualize</li>
             <li>Click the "Submit" button to view your data visualized!</li>
         </ol><br><br>
+        <input type="file" id="input-file" name="myCSV" accept=".csv"><br><br>
         <form action="{{ url_for('main')}}" method="post" enctype="multipart/form-data">
             <p class="form-text"><b>Select a file:</b></p><br>
-            <input type="file" name="myCSV" accept=".csv"><br><br>
+            <input type="file" id="test" name="myCSV" accept=".csv"><br><br>
             <p class="form-text"><b>Select 5 applicable stats to visualize:</b></p><br>
             <input type="checkbox" name="stat1" value="FTA">FTA<br>
             <input type="hidden"   name="stat1" value="false">
@@ -88,7 +90,17 @@
         </a>
     </div>
 <script>
-
+    const inputElement = document.getElementById("test");
+    inputElement.addEventListener("change", handleFiles, false);
+    function handleFiles() {
+        const inputCSV = this.files[0];
+        Papa.parse(inputCSV, {
+	        complete: function(results) {
+		        let headers = results['data'][0];
+		        console.log(headers)
+	        }
+        });
+    }
 </script>
 </body>
 </html>
