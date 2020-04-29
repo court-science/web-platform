@@ -3,7 +3,7 @@
 <head>
     <title>Court Science</title>
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
-     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <script src="{{ url_for('static', filename='papaparse.min.js') }}"></script>
 </head>
 <body>
@@ -51,6 +51,11 @@
         <form id="input-form" action="{{ url_for('main')}}" method="post" enctype="multipart/form-data">
             <p class="form-text"><b>Select a file:</b></p><br>
             <input type="file" id="test" name="myCSV" accept=".csv"><br><br>
+            <div id="form-div">
+                <div id="inner-div">
+
+                </div>
+            </div>
         </form>
     </div>
     <div id="contact" class="body-section-1">
@@ -84,19 +89,24 @@
 
                 console.log(headers_filtered);
 
-                let html_form = document.getElementById("input-form");
-                html_form.insertAdjacentHTML('beforeend', "<p class='form-text'><b>Select 5 applicable stats to visualize:</b></p><br>");
+                let inner_div = document.getElementById("inner-div");
+                inner_div.remove();
+                let html_form = document.getElementById("form-div");
+                var newDiv = document.createElement("div");
+                newDiv.id = "inner-div";
+                html_form.appendChild(newDiv);
+                newDiv.insertAdjacentHTML('beforeend', "<p class='form-text'><b>Select 5 applicable stats to visualize:</b></p><br>");
 
 
                 for (const element of headers_filtered) {
                     let name = "'stat" + String(count) + "'";
                     let string_to_add = "<input type='checkbox' name=" + name + " value=" + "'"+ element + "'>" + element + "<br>\n" + "<input type='hidden' name=" + name + " value='false'>";
                     console.log(string_to_add);
-                    html_form.insertAdjacentHTML('beforeend', string_to_add);
+                    newDiv.insertAdjacentHTML('beforeend', string_to_add);
                     count += 1;
                 }
 
-                html_form.insertAdjacentHTML('beforeend', "<input type='submit' value='Submit'>\n" + "<input type='reset'>");
+                newDiv.insertAdjacentHTML('beforeend', "<input type='submit' value='Submit'>\n" + "<input type='reset'>");
             }
         });
     }
