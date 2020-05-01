@@ -12,16 +12,21 @@ def home():
 @app.route('/main', methods = ['POST'])
 def main():
     if request.method == 'POST':
-        user_csv = request.files['myCSV']
+        if 'Data selection' in request.form:
+            user_csv = request.form['Data selection']
+            final_index = len(request.form)
+        else:
+            user_csv = request.files['myCSV']
+            final_index = len(request.form) + 1
         print(user_csv)
 
         user_stats = []
 
-        #print(len(request.form))
+        print(request.form)
 
-        for i in range(len(request.form)):
-            if request.form['stat' + str(i + 1)] != 'false':
-                user_stats.append(request.form['stat' + str(i + 1)])
+        for i in range(1, final_index):
+            if request.form['stat' + str(i)] != 'false':
+                user_stats.append(request.form['stat' + str(i)])
         print(user_stats)
 
         court_science_magic(user_csv, user_stats)
