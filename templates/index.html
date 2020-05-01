@@ -51,6 +51,11 @@
         <form id="input-form" action="{{ url_for('main')}}" method="post" enctype="multipart/form-data">
             <p class="form-text"><b>Select a file:</b></p><br>
             <input type="file" id="test" name="myCSV" accept=".csv"><br><br>
+            <label for="drop-down">Choose data source:</label>
+            <select id="drop-down" name="Data selection">
+                <option value="">Select</option>
+                <option value="https://raw.githubusercontent.com/court-science/MVP/master/2018-19%20NBA%20Stats.csv">2018-2019 Season</option>
+            </select>
             <div id="form-div">
                 <div id="inner-div">
 
@@ -70,12 +75,14 @@
     </div>
 <script>
     const inputElement = document.getElementById("test");
-    inputElement.addEventListener("change", handleFiles, false);
-    function handleFiles() {
-        const inputCSV = this.files[0];
+    const dropDown = document.getElementById("drop-down");
+
+    function papaParse(inputCSV) {
         Papa.parse(inputCSV, {
-	        complete: function(results) {
+            download: true,
+            complete: function(results) {
                 let headers = results['data'][0];
+                console.log(headers);
                 let sample_data = results['data'][1];
                 let num_str = "0123456789";
                 let headers_filtered = [];
@@ -95,7 +102,7 @@
                 var newDiv = document.createElement("div");
                 newDiv.id = "inner-div";
                 html_form.appendChild(newDiv);
-                newDiv.insertAdjacentHTML('beforeend', "<p class='form-text'><b>Select 5 applicable stats to visualize:</b></p><br>");
+                newDiv.insertAdjacentHTML('beforeend', "<p class='form-text'><b>Select your stats to visualize:</b></p><br>");
 
 
                 for (const element of headers_filtered) {
@@ -106,9 +113,32 @@
                     count += 1;
                 }
 
-                newDiv.insertAdjacentHTML('beforeend', "<input type='submit' value='Submit'>\n" + "<input type='reset'>");
+                newDiv.insertAdjacentHTML('beforeend', "<input type='submit' value='Submit'>\n" + "<input type='reset' onclick='resetButton()'>");
             }
         });
+    }
+
+    function resetButton() {
+        dropDown.disabled = false;
+        inputElement.disabled = false;
+    }
+
+
+    console.log(dropDown.value);
+
+    inputElement.addEventListener("change", handleFiles, false);
+    function handleFiles() {
+        const inputCSV = this.files[0];
+        papaParse(inputCSV);
+        dropDown.disabled = true;
+    }
+
+    dropDown.addEventListener("change", handleLocalFiles, false);
+    function handleLocalFiles() {
+        if (dropDown.value != "") {
+            papaParse(dropDown.value);
+            inputElement.disabled = true;
+        }
     }
 </script>
 </body>

@@ -34,13 +34,13 @@ def create_dataframe(sheet):
 	return df
 
 
-def generate_spider_plots(player_row_index, df, stats):
+def generate_spider_plots(player_row_index, df, stats, name_index):
 	my_dpi=96
 	fig = plt.figure(figsize=(1000/my_dpi, 1000/my_dpi), dpi=my_dpi)
 	color = my_palette[1]
 
 	for x in stats:
-		if df.dtypes[x] == np.int64 or df.dtypes[x] == np.float64:
+		#if df.dtypes[x] == np.int64 or df.dtypes[x] == np.float64:
 			N = len(stats)
 			df = df[stats].rank(pct=True)*100
 		 
@@ -65,7 +65,7 @@ def generate_spider_plots(player_row_index, df, stats):
 			plt.ylim(0,100)
 
 			# Ind1
-			fig.suptitle(full_df['FULL NAME'][player_row_index]+'\nPlayer #'+str(player_row_index))
+			fig.suptitle(full_df[name_index][player_row_index]+'\nPlayer #'+str(player_row_index))
 			values = df.loc[player_row_index].values.flatten().tolist()
 			values += values[:1]
 			ax.plot(angles, values, color=color, linewidth=2, linestyle='solid')
@@ -111,9 +111,10 @@ def court_science_magic(sheet, stats):
 	for col in full_df.columns:
 		if "Name" in col or "NAME" in col or "name" in col:
 			col_name = col
+			break
 
 	for player_row_index in range(1, len(full_df.index) + 1):
-		generate_spider_plots(player_row_index, full_df, stats)
+		generate_spider_plots(player_row_index, full_df, stats, col_name)
 		print (full_df[col_name][player_row_index]+' added to report. Row Index: '+str(player_row_index))
 	pdf.close()
 
