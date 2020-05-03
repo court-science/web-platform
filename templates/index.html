@@ -5,6 +5,7 @@
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <script src="{{ url_for('static', filename='papaparse.min.js') }}"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 <body>
     <div class="navigation-bar">
@@ -48,13 +49,13 @@
             <li>Select the features you would like to visualize</li>
             <li>Click the "Submit" button to view your data visualized!</li>
         </ol><br><br>
-        <form id="input-form" action="{{ url_for('main')}}" method="post" enctype="multipart/form-data">
+        <form id="input-form">
             <p class="form-text"><b>Select a file:</b></p><br>
             <input type="file" id="test" name="myCSV" accept=".csv"><br><br>
             <label for="drop-down">Choose data source:</label>
             <select id="drop-down" name="Data selection">
                 <option value="">Select</option>
-                <option value="https://raw.githubusercontent.com/court-science/MVP/master/2018-19%20NBA%20Stats.csv">2018-2019 Season</option>
+                <option value="https://raw.githubusercontent.com/court-science/MVP/master/2018-2019%20NBA%20Player%20Stats%20-%20Sheet1.csv">2018-2019 NBA Season</option>
             </select>
             <div id="form-div">
                 <div id="inner-div">
@@ -76,24 +77,78 @@
 <script>
     const inputElement = document.getElementById("test");
     const dropDown = document.getElementById("drop-down");
+    //var dataFrame = [];
+
+    function main(data) {
+        console.log(data);
+        var parsed_df = [[]];
+        var lst_stats = [window.name_index];
+        var lst_players = [];
+        for (let i=1; i<window.num_stats + 1; i++) {
+            var element_id = "stat" + i;
+            if (document.getElementById(element_id).checked) {
+                lst_stats.push(parseInt(document.getElementById(element_id).value));
+            }
+        }
+        for (let i=1; i<window.num_players + 1; i++) {
+            var element_id = "name" + i;
+            if (document.getElementById(element_id).checked) {
+                lst_players.push(parseInt(document.getElementById(element_id).value));
+            }
+        }
+
+        console.log(lst_stats);
+        console.log(lst_players);
+
+        for (const index of lst_stats) {
+            parsed_df[0].push(data[0][index]);
+        }
+        for (const index of lst_players) {
+            var new_lst = [];
+            for (const stat of lst_stats) {
+                new_lst.push(data[index][stat]);
+            }
+            parsed_df.push(new_lst);
+        }
+        console.log(parsed_df);
+    }
+
+    function court_science_magic (inputCSV) {
+        Papa.parse(inputCSV, {
+            download: true,
+            dynamicTyping: true,
+            complete: function(results) {
+                main(results['data']);
+            }
+        });
+    }
 
     function papaParse(inputCSV) {
         Papa.parse(inputCSV, {
             download: true,
             complete: function(results) {
-                let headers = results['data'][0];
+                let df = results['data'];
+                window.num_players = df.length - 1;
+                let headers = df[0];
                 console.log(headers);
-                let sample_data = results['data'][1];
+                let sample_data = df[1];
                 let num_str = "0123456789";
                 let headers_filtered = [];
+                let headers_filtered_index = [];
                 let count = 1;
+                window.name_index = 0;
 
                 for (let i = 0; i < headers.length; i++) {
                     if (num_str.includes(sample_data[i][0])) {
                         headers_filtered.push(headers[i]);
+                        headers_filtered_index.push(i);
+                    }
+                    if (headers[i].toUpperCase().includes("NAME")) {
+                        window.name_index = i;
                     }
                 }
 
+                window.num_stats = headers_filtered.length;
                 console.log(headers_filtered);
 
                 let inner_div = document.getElementById("inner-div");
@@ -105,15 +160,25 @@
                 newDiv.insertAdjacentHTML('beforeend', "<p class='form-text'><b>Select your stats to visualize:</b></p><br>");
 
 
-                for (const element of headers_filtered) {
+                for (let i=0; i < headers_filtered.length; i++) {
                     let name = "'stat" + String(count) + "'";
-                    let string_to_add = "<input type='checkbox' name=" + name + " value=" + "'"+ element + "'>" + element + "<br>\n" + "<input type='hidden' name=" + name + " value='false'>";
+                    let string_to_add = "<input type='checkbox' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "<br>\n" + "<input type='hidden' name=" + name + " value='false'>";
                     console.log(string_to_add);
                     newDiv.insertAdjacentHTML('beforeend', string_to_add);
                     count += 1;
                 }
 
-                newDiv.insertAdjacentHTML('beforeend', "<input type='submit' value='Submit'>\n" + "<input type='reset' onclick='resetButton()'>");
+                count = 1;
+
+                for (let i = 1; i < df.length; i++) {
+                    let player_name = df[i][name_index];
+                    let name = "'name" + String(count) + "'";
+                    let string_to_add = "<input type='checkbox' id=" + name + " value=" + "'"+ i + "'>" + player_name + "<br>\n" + "<input type='hidden' name=" + name + " value='false'>";
+                    newDiv.insertAdjacentHTML('beforeend', string_to_add);
+                    count++;
+                }
+
+                newDiv.insertAdjacentHTML('beforeend', "<input type='button' value='Submit' onclick='court_science_magic(inputCSV)'>\n" + "<input type='reset' onclick='resetButton()'>");
             }
         });
     }
@@ -124,19 +189,22 @@
     }
 
 
-    console.log(dropDown.value);
+    var inputCSV = "";
 
     inputElement.addEventListener("change", handleFiles, false);
     function handleFiles() {
-        const inputCSV = this.files[0];
+        inputCSV = this.files[0];
         papaParse(inputCSV);
+        //let dataFrame = returnDF(inputCSV);
         dropDown.disabled = true;
     }
 
     dropDown.addEventListener("change", handleLocalFiles, false);
     function handleLocalFiles() {
         if (dropDown.value != "") {
-            papaParse(dropDown.value);
+            inputCSV = dropDown.value;
+            papaParse(inputCSV);
+            //console.log(d3.csv(dropDown.value));
             inputElement.disabled = true;
         }
     }
