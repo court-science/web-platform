@@ -3,6 +3,7 @@
 <head>
     <title>Court Science</title>
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <script src="{{ url_for('static', filename='papaparse.min.js') }}"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -49,20 +50,20 @@
             <li>Select the features you would like to visualize</li>
             <li>Click the "Submit" button to view your data visualized!</li>
         </ol><br><br>
-        <form id="input-form">
-            <p class="form-text"><b>Select a file:</b></p><br>
-            <input type="file" id="test" name="myCSV" accept=".csv"><br><br>
-            <label for="drop-down">Choose data source:</label>
-            <select id="drop-down" name="Data selection">
-                <option value="">Select</option>
-                <option value="https://raw.githubusercontent.com/court-science/MVP/master/2018-2019%20NBA%20Player%20Stats%20-%20Sheet1.csv">2018-2019 NBA Season</option>
-            </select>
-            <div id="form-div">
-                <div id="inner-div">
 
-                </div>
+        <p class="form-text"><b>Select a file:</b></p><br>
+        <input type="file" id="test" name="myCSV" accept=".csv"><br><br>
+        <label for="drop-down">Choose data source:</label>
+        <select id="drop-down" name="Data selection">
+            <option value="">Select</option>
+            <option value="https://raw.githubusercontent.com/court-science/MVP/master/2018-2019%20NBA%20Player%20Stats%20-%20Sheet1.csv">2018-2019 NBA Season</option>
+        </select>
+        <div id="form-div">
+            <div id="inner-div">
+
             </div>
-        </form>
+        </div>
+
     </div>
     <div id="contact" class="body-section-1">
         <h2 class="title">GET IN TOUCH</h2>
@@ -78,12 +79,37 @@
     const inputElement = document.getElementById("test");
     const dropDown = document.getElementById("drop-down");
     //var dataFrame = [];
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
 
     function main(data) {
         console.log(data);
         var parsed_df = [[]];
         var lst_stats = [window.name_index];
         var lst_players = [];
+        var stats_children = document.getElementById('drop-stats').children;
+        var players_children = document.getElementById('drop-players').children;
+
+        for (ch of stats_children) {
+            lst_stats.push(ch.value);
+        }
+
+        for (ch of players_children) {
+            lst_players.push(ch.value);
+        }
+
+        /*
         for (let i=1; i<window.num_stats + 1; i++) {
             var element_id = "stat" + i;
             if (document.getElementById(element_id).checked) {
@@ -96,6 +122,7 @@
                 lst_players.push(parseInt(document.getElementById(element_id).value));
             }
         }
+        */
 
         console.log(lst_stats);
         console.log(lst_players);
@@ -158,8 +185,12 @@
                 newDiv.id = "inner-div";
                 html_form.appendChild(newDiv);
                 newDiv.insertAdjacentHTML('beforeend', "<p class='form-text'><b>Select your stats to visualize:</b></p><br>");
+                newDiv.insertAdjacentHTML('beforeend', "<div id='stats'><div id='stats-drag'></div><div id='stats-drop'></div></div>");
+                var stats_drag = document.getElementById('stats-drag');
+                var stats_drop = document.getElementById('stats-drop');
+                console.log(stats_drag);
 
-
+                /*
                 for (let i=0; i < headers_filtered.length; i++) {
                     let name = "'stat" + String(count) + "'";
                     let string_to_add = "<input type='checkbox' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "<br>\n" + "<input type='hidden' name=" + name + " value='false'>";
@@ -167,18 +198,75 @@
                     newDiv.insertAdjacentHTML('beforeend', string_to_add);
                     count += 1;
                 }
+                */
+                var n = 1;
+                var id_new = "stats-" + n;
+                var id_tag = "'stats-" + n + "'";
+                stats_drag.insertAdjacentHTML('beforeend', "<div id=" + id_tag + " class='btn-group-vertical myButton'>");
+                console.log(stats_drag);
+                var div_to_add = document.getElementById(id_new);
+                console.log(div_to_add);
 
+                for (let i=0; i < headers_filtered.length; i++) {
+                    if (i != 0 && i % 10 == 0) {
+                        n += 1;
+                        id_new="stats-" + n;
+                        id_tag = "'stats-" + n + "'";
+                        stats_drag.insertAdjacentHTML('beforeend', "<div id=" + id_new + " class='btn-group-vertical myButton'>");
+                        div_to_add = document.getElementById(id_new);
+                    }
+                    let name = "'stat" + String(count) + "'";
+                    let string_to_add = "<button type='button' class='btn btn-primary' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "</button>";
+                    console.log(string_to_add);
+                    div_to_add.insertAdjacentHTML('beforeend', string_to_add);
+                    count += 1;
+                }
+
+                stats_drop.insertAdjacentHTML('beforeend', "<div class='drop-zone' id='drop-stats' ondrop='drop(event)' ondragover='allowDrop(event)'></div>");
                 count = 1;
 
+                newDiv.insertAdjacentHTML('beforeend', "<div class='div-spacing' id='players'><div id='players-drag'></div><div id='players-drop'></div></div>");
+                var players_drag = document.getElementById('players-drag');
+                var players_drop = document.getElementById('players-drop');
+                n = 1;
+                id_new = "players-" + n;
+                id_tag = "'players-" + n + "'";
+                players_drag.insertAdjacentHTML('beforeend', "<div id=" + id_tag + " class='btn-group-vertical myButton'>");
+                console.log(players_drag);
+                div_to_add = document.getElementById(id_new);
+                console.log(div_to_add);
+
                 for (let i = 1; i < df.length; i++) {
+                    if (i != 0 && i % 10 == 0) {
+                        n += 1;
+                        id_new="stats-" + n;
+                        id_tag = "'stats-" + n + "'";
+                        stats_drag.insertAdjacentHTML('beforeend', "<div id=" + id_new + " class='btn-group-vertical myButton'>");
+                        div_to_add = document.getElementById(id_new);
+                    }
                     let player_name = df[i][name_index];
                     let name = "'name" + String(count) + "'";
-                    let string_to_add = "<input type='checkbox' id=" + name + " value=" + "'"+ i + "'>" + player_name + "<br>\n" + "<input type='hidden' name=" + name + " value='false'>";
-                    newDiv.insertAdjacentHTML('beforeend', string_to_add);
+                    let string_to_add = "<button type='button' class='btn btn-primary' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ i + "'>" + player_name + "</button>";
+                    div_to_add.insertAdjacentHTML('beforeend', string_to_add);
                     count++;
                 }
 
-                newDiv.insertAdjacentHTML('beforeend', "<input type='button' value='Submit' onclick='court_science_magic(inputCSV)'>\n" + "<input type='reset' onclick='resetButton()'>");
+                players_drop.insertAdjacentHTML('beforeend', "<div class='drop-zone' id='drop-players' ondrop='drop(event)' ondragover='allowDrop(event)'></div>");
+
+                newDiv.insertAdjacentHTML('beforeend', "<div class=\"btn-group btn-group-toggle div-spacing\" data-toggle=\"buttons\">\n" +
+                    "  <label class=\"btn btn-secondary btn-lg active\">\n" +
+                    "    <input type=\"radio\" name=\"radar\" id=\"radar\" autocomplete=\"off\" checked> Radar Chart\n" +
+                    "  </label>\n" +
+                    "  <label class=\"btn btn-secondary btn-lg\">\n" +
+                    "    <input type=\"radio\" name=\"bar\" id=\"bar\" autocomplete=\"off\"> Bar Chart\n" +
+                    "  </label>\n" +
+                    "  <label class=\"btn btn-secondary btn-lg\">\n" +
+                    "    <input type=\"radio\" name=\"pie\" id=\"pie\" autocomplete=\"off\"> Pie Chart\n" +
+                    "  </label>\n" +
+                    "</div>\n");
+
+                newDiv.insertAdjacentHTML('beforeend', "<div id='submit-reset' class='div-spacing'><button type='button'  class='btn btn-outline-dark btn-lg' value='Submit' onclick='court_science_magic(inputCSV)'>Submit</button>\n" +
+                    "<button type='button'  class='btn btn-outline-dark btn-lg' value='Reset' onclick='resetButton()'>Reset</button></div>");
             }
         });
     }
@@ -209,5 +297,8 @@
         }
     }
 </script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
