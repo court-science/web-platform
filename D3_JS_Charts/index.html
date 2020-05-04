@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<svg width="640" height="350"></svg>
+<style>
+	.bar {
+		fill: steelblue;
+	}
+
+	.bar:hover {
+		fill: brown;
+	}
+</style>
+	<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <title>Charts!</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="data_parse.js"></script>    
+	<script src="RadarChart.js"></script>
+	<script src="Bar_Chart.js"></script>
+	<script src="simpleBarChart.js"></script>
+	<script src="groupedBarChart.js"></script>
+	<style>
+		body {
+		  overflow: hidden;
+		  margin: 0;
+		  font-size: 14px;
+		  font-family: "Helvetica Neue", Helvetica;
+		}
+
+		#chart {
+		  position: absolute;
+		  top: 50px;
+		  left: 100px;
+		}	
+		
+		.axis path,
+		.axis line {
+		fill: none;
+		stroke: #000;
+		shape-rendering: crispEdges;
+		}
+
+		.x.axis path {
+		display: none;
+		}
+
+	</style>
+  </head>
+  <body>
+    <div id="body">
+	  <div id="chart"></div>
+    </div>
+	<button onclick="simpleBarChart()">Bar Chart</button>
+	<button onclick="radar()">Radar Chart</button>
+    <script type="text/javascript" src="script.js"></script>
+
+  </body>
+</html>

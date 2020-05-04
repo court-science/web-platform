@@ -4,3 +4,12 @@ main_test.py
 __pycache__/main.cpython-37.pyc
 
 flask/
+venv/
+.idea/CS_mvp.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/rSettings.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/inspectionProfiles/profiles_settings.xml
+__pycache__/spider.cpython-37.pyc

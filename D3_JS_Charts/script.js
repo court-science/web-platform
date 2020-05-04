@@ -1,34 +1,10 @@
 var w = 500,
 	h = 500;
 
-var colorscale = d3.scale.category10();
+//var colorscale = d3.scaleSequential().domain([1,10])
 
 //Legend titles
 var LegendOptions = ['Player 1','Player 2','Player 3','Player 4'];
-
-//Data
-
-//Data pull from NBA combine
-// d3.csv("https://data.world/achou/nba-draft-combine-measurements/file/2012_nba_draft_combine.csv")
-//     .get(function(error, rows) { console.log(rows); });
-
-//Example CSV data after parsing
-var data = [
-    {"PTS":0.44, "AST":0.23, "REB":0.65,"STL":0.70,"Blocks":0.88},
-    {"PTS":0.59, "AST":0.28, "REB":0.84,"STL":0.59,"Blocks":0.48},
-    {"PTS":0.78, "AST":0.55, "REB":0.64,"STL":0.47,"Blocks":0.28},
-    {"PTS":0.66, "AST":0.73, "REB":0.46,"STL":0.22,"Blocks":0.68},
-    ]
-
-var radar_data = []
-for (var i=0;i<data.length;i++) { 
-    each_stat = []
-    for (let [key, value] of Object.entries(data[i])) { 
-        each_stat.push([{axis: key, value: value}])
-    }
-    radar_data[i]=each_stat.flat(Infinity)
-}
-console.log("RADAR DATA",radar_data)
 
 //Hardcoded example data
 var d = [
@@ -73,7 +49,26 @@ var mycfg = {
 
 //Call function to draw the Radar chart
 //Will expect that data is in %'s
-RadarChart.draw("#chart", radar_data, mycfg);
+//makeRadarChart(url)
+// function makeRadarChart(url) {
+//     var radar_data = getCSVData(url)
+//     console.log("INSIDE RADAR CHART FUNCTION:",radar_data)
+//     RadarChart.draw("#chart", radar_data, mycfg);
+// }
+
+
+//==================================================
+///Trying to dynamically create chart from parsed data 
+//==================================================
+//getReadyData()
+//groupedBarChart(sampleData)
+function radar() {RadarChart.draw("#chart", d, mycfg);}
+//BarChart.draw(d)
+//==================================================
+
+
+
+
 
 ////////////////////////////////////////////
 /////////// Initiate legend ////////////////
