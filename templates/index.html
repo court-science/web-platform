@@ -52,12 +52,16 @@
         </ol><br><br>
 
         <p class="form-text"><b>Select a file:</b></p><br>
-        <input type="file" id="test" name="myCSV" accept=".csv"><br><br>
+        <div class="block spacing">
+        <div class="inner-input"><input type="file" id="test" name="myCSV" accept=".csv"></div>
+        <div class="inner-input">
         <label for="drop-down">Choose data source:</label>
         <select id="drop-down" name="Data selection">
             <option value="">Select</option>
             <option value="https://raw.githubusercontent.com/court-science/MVP/master/2018-2019%20NBA%20Player%20Stats%20-%20Sheet1.csv">2018-2019 NBA Season</option>
         </select>
+        </div>
+        </div>
         <div id="form-div">
             <div id="inner-div">
 
@@ -79,8 +83,12 @@
     const inputElement = document.getElementById("test");
     const dropDown = document.getElementById("drop-down");
     //var dataFrame = [];
-    function allowDrop(ev) {
-        ev.preventDefault();
+    function allowDropStats(ev) {
+        if (document.getElementById('drop-stats').children.length<5) ev.preventDefault();
+    }
+
+    function allowDropPlayers(ev) {
+        if (document.getElementById('drop-players').children.length<3) ev.preventDefault();
     }
 
     function drag(ev) {
@@ -185,7 +193,7 @@
                 newDiv.id = "inner-div";
                 html_form.appendChild(newDiv);
                 newDiv.insertAdjacentHTML('beforeend', "<p class='form-text'><b>Select your stats to visualize:</b></p><br>");
-                newDiv.insertAdjacentHTML('beforeend', "<div id='stats'><div id='stats-drag'></div><div id='stats-drop'></div></div>");
+                newDiv.insertAdjacentHTML('beforeend', "<div id='stats' class='block spacing'><div id='stats-drag' class='inner'></div><div id='stats-drop' class='inner'></div></div>");
                 var stats_drag = document.getElementById('stats-drag');
                 var stats_drop = document.getElementById('stats-drop');
                 console.log(stats_drag);
@@ -216,16 +224,16 @@
                         div_to_add = document.getElementById(id_new);
                     }
                     let name = "'stat" + String(count) + "'";
-                    let string_to_add = "<button type='button' class='btn btn-primary' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "</button>";
+                    let string_to_add = "<button type='button' class='btn btn-primary btn-lg' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "</button>";
                     console.log(string_to_add);
                     div_to_add.insertAdjacentHTML('beforeend', string_to_add);
                     count += 1;
                 }
 
-                stats_drop.insertAdjacentHTML('beforeend', "<div class='drop-zone' id='drop-stats' ondrop='drop(event)' ondragover='allowDrop(event)'></div>");
+                stats_drop.insertAdjacentHTML('beforeend', "<div class='drop-zone' id='drop-stats' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>");
                 count = 1;
 
-                newDiv.insertAdjacentHTML('beforeend', "<div class='div-spacing' id='players'><div id='players-drag'></div><div id='players-drop'></div></div>");
+                newDiv.insertAdjacentHTML('beforeend', "<div class='block spacing' id='players'><div id='players-drag' class='inner'></div><div id='players-drop' class='inner'></div></div>");
                 var players_drag = document.getElementById('players-drag');
                 var players_drop = document.getElementById('players-drop');
                 n = 1;
@@ -251,9 +259,9 @@
                     count++;
                 }
 
-                players_drop.insertAdjacentHTML('beforeend', "<div class='drop-zone' id='drop-players' ondrop='drop(event)' ondragover='allowDrop(event)'></div>");
+                players_drop.insertAdjacentHTML('beforeend', "<div class='drop-zone' id='drop-players' ondrop='drop(event)' ondragover='allowDropPlayers(event)'></div>");
 
-                newDiv.insertAdjacentHTML('beforeend', "<div class=\"btn-group btn-group-toggle div-spacing\" data-toggle=\"buttons\">\n" +
+                newDiv.insertAdjacentHTML('beforeend', "<div class=\"btn-group btn-group-toggle spacing\" data-toggle=\"buttons\">\n" +
                     "  <label class=\"btn btn-secondary btn-lg active\">\n" +
                     "    <input type=\"radio\" name=\"radar\" id=\"radar\" autocomplete=\"off\" checked> Radar Chart\n" +
                     "  </label>\n" +
@@ -274,6 +282,7 @@
     function resetButton() {
         dropDown.disabled = false;
         inputElement.disabled = false;
+        papaParse(inputCSV);
     }
 
 
