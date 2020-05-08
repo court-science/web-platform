@@ -1,8 +1,23 @@
+//[["Player","Pts"],["Kawhi",25],["Lebron",30]]
+// [{"Player":"Kawhi","PTS":25},{"Player":"Lebron" , "PTS":30}]
+function parseData(data) {
+    var df = [];
+    for (var i=1; i<data.length; i++) {
+        var obj = {};
+        for (var j=0; j<data[0].length; j++) {
+            obj[data[0][j]] = data[i][j]
+        }
+        df.push(obj);
+    }
+    console.log(df);
+}
+
 const groupedBarChart = function(rawData) {
+
     var t0 = performance.now()
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
-        width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        width = 700 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
 
     var x0 = d3.scale.ordinal()
         .rangeRoundBands([0, width], .1);
@@ -24,25 +39,34 @@ const groupedBarChart = function(rawData) {
     var color = d3.scale.ordinal()
         .range(["#ca0020","#f4a582","#d5d5d5","#92c5de","#0571b0"]);
 
-    var svg = d3.select('body').append("svg")
+    var svg = d3.select('svg')
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    dataFromSampleGroupedBar(rawData)
+
+    dataFromSampleGroupedBar(rawData);
 
     function dataFromSampleGroupedBar(rawData) {
-        console.log("Running function!")
-        data=[]
-        for (let i=0;i<rawData.length;i++){
-            first_key = Object.keys(rawData[i])[0]
-            first_value = Object.values(rawData[i])[0]
+        var df = [];
+        for (var i=1; i<rawData.length; i++) {
+            var obj = {};
+            for (var j=0; j<rawData[0].length; j++) {
+                obj[rawData[0][j]] = rawData[i][j]
+            }
+            df.push(obj);
+        }
+        console.log(df);
+        var data = [];
+        for (let i=0;i<df.length;i++){
+            first_key = Object.keys(df[i])[0]
+            first_value = Object.values(df[i])[0]
             data[i]={}
             data[i].Player=first_value
 
-            stat_keys = Object.keys(rawData[i]).slice(1,)
-            stat_values = Object.values(rawData[i]).slice(1,)
+            stat_keys = Object.keys(df[i]).slice(1,)
+            stat_values = Object.values(df[i]).slice(1,)
 
             let statsList = []
             stat_keys.reduce((acc ,val, index) => {
@@ -51,7 +75,8 @@ const groupedBarChart = function(rawData) {
             },{});
             data[i].values = statsList
         }
-        console.log(data)
+
+        console.log(data);
 
         var playerNames = data.map(function(d) { return d.Player; });
         var statNames = data[0].values.map(function(d) { return d.stat; });

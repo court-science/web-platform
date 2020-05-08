@@ -1,5 +1,6 @@
-sample = false//true
-var statToPlot = "REB"
+sample = true;
+var statToPlot = "TOPG";
+/*
 sampleParsedData = [
     [
         {name:"Player",value:"Kawhi Leonard"},
@@ -55,8 +56,10 @@ var sampleData = [
 
 //sampleData = d3.csv()
 
+ */
 
-const simpleBarChart = function() {
+
+const simpleBarChart = function(sampleData) {
     var t0 = performance.now()
     //var url = "https://query.data.world/s/d6jhscskd5ep4hfw36eda3lgh6htzg"
     var url = "https://query.data.world/s/d6jhscskd5ep4hfw36eda3lgh6htzg"
@@ -69,8 +72,9 @@ const simpleBarChart = function() {
     },
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
-    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    console.log(height);
     //var parseTime = d3.timeParse("%d-%b-%y");
 
     var x = d3.scaleBand()

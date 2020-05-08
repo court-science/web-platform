@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <script src="{{ url_for('static', filename='papaparse.min.js') }}"></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="{{ url_for('static', filename='Script/groupedBarChart.js') }}"></script>
 </head>
 <body>
     <div class="navigation-bar">
@@ -62,12 +63,52 @@
         </select>
         </div>
         </div>
-        <div id="form-div">
-            <div id="inner-div">
-
+        <div>
+        <div id='left-div' style="float: left; margin-right: 5%; width: 30%">
+            <div class="spacing">
+            <p>Stats</p>
+            <div class='div-container' id='drag-stats' ondrop='drop(event)' ondragover='allowDropStatsBack(event)'></div>
+            </div>
+            <div>
+            <p>Players</p>
+            <div class='div-container' id='drag-players' ondrop='drop(event)' ondragover='allowDropPlayersBack(event)'></div>
+            </div>
+            <div id='submit-reset' class='div-spacing'>
+                <button type='button'  class='btn btn-outline-dark btn-lg' value='Plot It!' onclick='court_science_magic(inputCSV)' style='width: 70%'>Plot It!</button>
+                <button type='button'  class='btn btn-outline-dark btn-lg' value='Reset' onclick='resetButton()' style='width: 29%'>Reset</button>
             </div>
         </div>
-
+        <div id='right-div' style="float: left; width: 65%;">
+            <div id='chart-selection' style="float: left; width: 15%; margin-right: 5%">
+            <p style="text-align: center; font-size: 24px;"><b><u>Chart Type</u></b></p>
+            <div style="float:left; width: 45%; height: 80px;">
+            <label>
+            <input id='radar-input' type="radio" name="test" value="small" checked>
+            <img style="width: 100%; height: 100%" src="{{ url_for('static', filename='Radar_Chart_Button.png') }}">
+            </label>
+            </div>
+            <div style="float:right; width: 45%; height: 80px;">
+            <label>
+            <input id='bar-input' type="radio" name="test" value="big">
+            <img style="width: 100%; height: 100%" src="{{ url_for('static', filename='Bar_Chart_Button.png') }}">
+            </label>
+            </div>
+            </div>
+            <div style="float: left; margin-right: 5%; width: 37%">
+            <p>Stats to Plot</p>
+            <div class='drop-zone' id='drop-stats' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>
+            <p><i id='stats-message'>*Maximum of 7 stats</i></p>
+            </div>
+            <div style="float: left; width: 37%">
+            <p>Players to Compare</p>
+            <div class='drop-zone' id='drop-players' ondrop='drop(event)' ondragover='allowDropPlayers(event)'></div>
+            <p><i id='players-message'>*Maximum of 3 players</i></p>
+            </div>
+            <div id="chart-div" style="float: right; width: 70%; margin-top: 50px;">
+            <img src="{{ url_for('static', filename='Untitled Drawing.png') }}" id="starter-img" width='700' height='400' style="float: right;">
+            </div>
+        </div>
+        </div>
     </div>
     <div id="contact" class="body-section-1">
         <h2 class="title">GET IN TOUCH</h2>
@@ -83,21 +124,38 @@
     const inputElement = document.getElementById("test");
     const dropDown = document.getElementById("drop-down");
     //var dataFrame = [];
+    var target_id = "";
+    var max_players = 3;
+    var max_stats = 7;
+
+
     function allowDropStats(ev) {
-        if (document.getElementById('drop-stats').children.length<5) ev.preventDefault();
+        console.log(target_id);
+        if (document.getElementById('drop-stats').children.length<max_stats && target_id.includes('stat')) ev.preventDefault();
     }
 
     function allowDropPlayers(ev) {
-        if (document.getElementById('drop-players').children.length<3) ev.preventDefault();
+        console.log(target_id);
+        if (document.getElementById('drop-players').children.length<max_players && target_id.includes('name')) ev.preventDefault();
+    }
+
+    function allowDropPlayersBack(ev) {
+        if(target_id.includes('name')) ev.preventDefault();
+    }
+
+    function allowDropStatsBack(ev) {
+        if(target_id.includes('stat')) ev.preventDefault();
     }
 
     function drag(ev) {
         ev.dataTransfer.setData("text", ev.target.id);
+        target_id = ev.target.id;
     }
 
     function drop(ev) {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
+        console.log(data);
         ev.target.appendChild(document.getElementById(data));
     }
 
@@ -146,6 +204,20 @@
             parsed_df.push(new_lst);
         }
         console.log(parsed_df);
+        var div_to_add = document.getElementById('right-div');
+        var chart = document.getElementById('chart-div');
+        //chart.innerHTML='';
+
+        /*
+        if (demo.contains(svg)) {
+            var chart = document.getElementById('chart');
+            chart.remove();
+        }
+        */
+        chart.remove();
+        div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 70%; margin-top: 50px;'><svg width='700' height='400' style='float: right;'></svg></div>");
+        groupedBarChart(parsed_df);
+        //console.log(demo);
     }
 
     function court_science_magic (inputCSV) {
@@ -186,17 +258,24 @@
                 window.num_stats = headers_filtered.length;
                 console.log(headers_filtered);
 
-                let inner_div = document.getElementById("inner-div");
-                inner_div.remove();
-                let html_form = document.getElementById("form-div");
-                var newDiv = document.createElement("div");
-                newDiv.id = "inner-div";
-                html_form.appendChild(newDiv);
-                newDiv.insertAdjacentHTML('beforeend', "<p class='form-text'><b>Select your stats to visualize:</b></p><br>");
-                newDiv.insertAdjacentHTML('beforeend', "<div id='stats' class='block spacing'><div id='stats-drag' class='inner'></div><div id='stats-drop' class='inner'></div></div>");
-                var stats_drag = document.getElementById('stats-drag');
-                var stats_drop = document.getElementById('stats-drop');
-                console.log(stats_drag);
+                //let inner_div = document.getElementById("inner-div");
+                //inner_div.remove();
+                //let html_form = document.getElementById("form-div");
+                //var newDiv = document.createElement("div");
+                //newDiv.id = "inner-div";
+                //html_form.appendChild(newDiv);
+                //newDiv.insertAdjacentHTML('beforeend', "<p class='form-text'><b>Select your stats to visualize:</b></p><br>");
+                //newDiv.insertAdjacentHTML('beforeend', "<div id='stats' class='block spacing'><div id='stats-drag' class='inner'></div><div id='stats-drop' class='inner'></div></div>");
+                var stats_drag = document.getElementById('drag-stats');
+                var players_drag = document.getElementById('drag-players');
+                var stats_drop = document.getElementById('drop-stats');
+                var players_drop = document.getElementById('drop-players');
+                stats_drag.innerHTML = '';
+                players_drag.innerHTML = '';
+                stats_drop.innerHTML = '';
+                players_drop.innerHTML = '';
+                //var stats_drop = document.getElementById('stats-drop');
+                //console.log(stats_drag);
 
                 /*
                 for (let i=0; i < headers_filtered.length; i++) {
@@ -206,7 +285,7 @@
                     newDiv.insertAdjacentHTML('beforeend', string_to_add);
                     count += 1;
                 }
-                */
+
                 var n = 1;
                 var id_new = "stats-" + n;
                 var id_tag = "'stats-" + n + "'";
@@ -215,7 +294,10 @@
                 var div_to_add = document.getElementById(id_new);
                 console.log(div_to_add);
 
+                 */
+
                 for (let i=0; i < headers_filtered.length; i++) {
+                    /*
                     if (i != 0 && i % 10 == 0) {
                         n += 1;
                         id_new="stats-" + n;
@@ -223,16 +305,18 @@
                         stats_drag.insertAdjacentHTML('beforeend', "<div id=" + id_new + " class='btn-group-vertical myButton'>");
                         div_to_add = document.getElementById(id_new);
                     }
+                    */
                     let name = "'stat" + String(count) + "'";
-                    let string_to_add = "<button type='button' class='btn btn-primary btn-lg' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "</button>";
+                    let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "</button>";
                     console.log(string_to_add);
-                    div_to_add.insertAdjacentHTML('beforeend', string_to_add);
+                    stats_drag.insertAdjacentHTML('beforeend', string_to_add);
                     count += 1;
                 }
 
-                stats_drop.insertAdjacentHTML('beforeend', "<div class='drop-zone' id='drop-stats' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>");
+                //stats_drop.insertAdjacentHTML('beforeend', "<div class='drop-zone' id='drop-stats' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>");
                 count = 1;
 
+                /*
                 newDiv.insertAdjacentHTML('beforeend', "<div class='block spacing' id='players'><div id='players-drag' class='inner'></div><div id='players-drop' class='inner'></div></div>");
                 var players_drag = document.getElementById('players-drag');
                 var players_drop = document.getElementById('players-drop');
@@ -243,8 +327,10 @@
                 console.log(players_drag);
                 div_to_add = document.getElementById(id_new);
                 console.log(div_to_add);
+                 */
 
                 for (let i = 1; i < df.length; i++) {
+                    /*
                     if (i != 0 && i % 10 == 0) {
                         n += 1;
                         id_new="stats-" + n;
@@ -252,15 +338,17 @@
                         stats_drag.insertAdjacentHTML('beforeend', "<div id=" + id_new + " class='btn-group-vertical myButton'>");
                         div_to_add = document.getElementById(id_new);
                     }
+                     */
                     let player_name = df[i][name_index];
                     let name = "'name" + String(count) + "'";
-                    let string_to_add = "<button type='button' class='btn btn-primary' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ i + "'>" + player_name + "</button>";
-                    div_to_add.insertAdjacentHTML('beforeend', string_to_add);
+                    let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ i + "'>" + player_name + "</button>";
+                    players_drag.insertAdjacentHTML('beforeend', string_to_add);
                     count++;
                 }
 
-                players_drop.insertAdjacentHTML('beforeend', "<div class='drop-zone' id='drop-players' ondrop='drop(event)' ondragover='allowDropPlayers(event)'></div>");
+                //players_drop.insertAdjacentHTML('beforeend', "<div class='drop-zone' id='drop-players' ondrop='drop(event)' ondragover='allowDropPlayers(event)'></div>");
 
+                /*
                 newDiv.insertAdjacentHTML('beforeend', "<div class=\"btn-group btn-group-toggle spacing\" data-toggle=\"buttons\">\n" +
                     "  <label class=\"btn btn-secondary btn-lg active\">\n" +
                     "    <input type=\"radio\" name=\"radar\" id=\"radar\" autocomplete=\"off\" checked> Radar Chart\n" +
@@ -275,6 +363,8 @@
 
                 newDiv.insertAdjacentHTML('beforeend', "<div id='submit-reset' class='div-spacing'><button type='button'  class='btn btn-outline-dark btn-lg' value='Submit' onclick='court_science_magic(inputCSV)'>Submit</button>\n" +
                     "<button type='button'  class='btn btn-outline-dark btn-lg' value='Reset' onclick='resetButton()'>Reset</button></div>");
+
+                 */
             }
         });
     }
@@ -305,6 +395,32 @@
             inputElement.disabled = true;
         }
     }
+
+    var radar_input = document.getElementById('radar-input');
+    var bar_input = document.getElementById('bar-input');
+    var stats_message = document.getElementById('stats-message');
+    var players_message = document.getElementById('players-message');
+
+    radar_input.addEventListener("change", handleRadar, false);
+    function handleRadar() {
+        if(radar_input.checked) {
+            stats_message.innerHTML = "*Maximum of 7 stats";
+            players_message.innerHTML = "*Maximum of 3 players"
+            max_players=3;
+            max_stats=7;
+        }
+    }
+
+    bar_input.addEventListener("change", handleBar, false);
+    function handleBar() {
+        if(bar_input.checked) {
+            stats_message.innerHTML = "*Maximum of 5 stats";
+            players_message.innerHTML = "*Maximum of 5 players;"
+            max_players=5;
+            max_stats=5;
+        }
+    }
+
 </script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
