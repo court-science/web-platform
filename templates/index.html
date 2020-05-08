@@ -64,12 +64,35 @@
         </div>
         </div>
         <div>
-        <div id='left-div' style="float: left; margin-right: 5%; width: 30%">
+        <div id='left-div' style="float: left; margin-right: 4%; width: 30%">
+            <!--
             <div class="spacing">
+            <p>Chart Type</p>
+            <div class='div-chart-type' id='chart-type'>
+
+            <div style="float:left; width: 22%; height: 80px;">
+            <label>
+            <input id='radar-input' type="radio" name="test" value="small" checked>
+            <img style="width: 100%; height: 100%" src="{{ url_for('static', filename='Radar_Chart_Button.png') }}">
+            </label>
+            </div>
+            <div style="float:right; width: 22%; height: 80px;">
+            <label>
+            <input id='bar-input' type="radio" name="test" value="big">
+            <img style="width: 100%; height: 100%" src="{{ url_for('static', filename='Bar_Chart_Button.png') }}">
+            </label>
+            </div>
+            </div>
+
+            </div>
+            -->
+            <div class="spacing">
+            <input type="text" class="searchInput" id="searchInputStats" onkeyup="searchBarStats()" placeholder="Search for stats">
             <p>Stats</p>
             <div class='div-container' id='drag-stats' ondrop='drop(event)' ondragover='allowDropStatsBack(event)'></div>
             </div>
             <div>
+            <input type="text" class="searchInput" id="searchInputPlayers" onkeyup="searchBarPlayers()" placeholder="Search for players">
             <p>Players</p>
             <div class='div-container' id='drag-players' ondrop='drop(event)' ondragover='allowDropPlayersBack(event)'></div>
             </div>
@@ -78,34 +101,34 @@
                 <button type='button'  class='btn btn-outline-dark btn-lg' value='Reset' onclick='resetButton()' style='width: 29%'>Reset</button>
             </div>
         </div>
-        <div id='right-div' style="float: left; width: 65%;">
-            <div id='chart-selection' style="float: left; width: 15%; margin-right: 5%">
-            <p style="text-align: center; font-size: 24px;"><b><u>Chart Type</u></b></p>
-            <div style="float:left; width: 45%; height: 80px;">
+        <div id='right-div' style='float: left; width: 65%;'>
+            <div id='chart-selection' style="float: left; width: 20%; margin-right: 5%; margin-top: 3%;">
+            <p style="text-align: center; font-size: 24px;"><b>Chart Type</b></p>
+            <div style="float:left; width: 42%; height: 80px;">
             <label>
             <input id='radar-input' type="radio" name="test" value="small" checked>
             <img style="width: 100%; height: 100%" src="{{ url_for('static', filename='Radar_Chart_Button.png') }}">
             </label>
             </div>
-            <div style="float:right; width: 45%; height: 80px;">
+            <div style="float:right; width: 42%; height: 80px;">
             <label>
             <input id='bar-input' type="radio" name="test" value="big">
             <img style="width: 100%; height: 100%" src="{{ url_for('static', filename='Bar_Chart_Button.png') }}">
             </label>
             </div>
             </div>
-            <div style="float: left; margin-right: 5%; width: 37%">
+            <div style="float: left; margin-right: 5%; width: 35%">
             <p>Stats to Plot</p>
             <div class='drop-zone' id='drop-stats' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>
             <p><i id='stats-message'>*Maximum of 7 stats</i></p>
             </div>
-            <div style="float: left; width: 37%">
+            <div style="float: left; width: 35%">
             <p>Players to Compare</p>
             <div class='drop-zone' id='drop-players' ondrop='drop(event)' ondragover='allowDropPlayers(event)'></div>
             <p><i id='players-message'>*Maximum of 3 players</i></p>
             </div>
-            <div id="chart-div" style="float: right; width: 70%; margin-top: 50px;">
-            <img src="{{ url_for('static', filename='Untitled Drawing.png') }}" id="starter-img" width='700' height='400' style="float: right;">
+            <div id="chart-div" style="float: right; width: 100%; margin-top: 30px;">
+            <img src="{{ url_for('static', filename='Radar_Chart_Button.png') }}" id="starter-img" height='500' style="float: right; width: 95%">
             </div>
         </div>
         </div>
@@ -215,7 +238,7 @@
         }
         */
         chart.remove();
-        div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 70%; margin-top: 50px;'><svg width='700' height='400' style='float: right;'></svg></div>");
+        div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 70%; margin-top: 30px;'><svg height='500' style='float: right; width: 95%'></svg></div>");
         groupedBarChart(parsed_df);
         //console.log(demo);
     }
@@ -307,7 +330,7 @@
                     }
                     */
                     let name = "'stat" + String(count) + "'";
-                    let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "</button>";
+                    let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' name='" + headers_filtered[i] + "' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "</button>";
                     console.log(string_to_add);
                     stats_drag.insertAdjacentHTML('beforeend', string_to_add);
                     count += 1;
@@ -341,7 +364,8 @@
                      */
                     let player_name = df[i][name_index];
                     let name = "'name" + String(count) + "'";
-                    let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ i + "'>" + player_name + "</button>";
+                    let name_attr = "'" + player_name + "'";
+                    let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' name=" + name_attr + " draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ i + "'>" + player_name + "</button>";
                     players_drag.insertAdjacentHTML('beforeend', string_to_add);
                     count++;
                 }
@@ -400,14 +424,16 @@
     var bar_input = document.getElementById('bar-input');
     var stats_message = document.getElementById('stats-message');
     var players_message = document.getElementById('players-message');
+    var image_display = document.getElementById('starter-img');
 
     radar_input.addEventListener("change", handleRadar, false);
     function handleRadar() {
         if(radar_input.checked) {
             stats_message.innerHTML = "*Maximum of 7 stats";
-            players_message.innerHTML = "*Maximum of 3 players"
+            players_message.innerHTML = "*Maximum of 3 players";
             max_players=3;
             max_stats=7;
+            image_display.src = 'static/Radar_Chart_Button.png';
         }
     }
 
@@ -418,8 +444,44 @@
             players_message.innerHTML = "*Maximum of 5 players;"
             max_players=5;
             max_stats=5;
+            image_display.src = 'static/Bar_Chart_Button.png';
         }
     }
+
+    function searchBarPlayers() {
+      var input, filter, container, buttons, i, txtValue;
+      input = document.getElementById('searchInputPlayers');
+      filter = input.value.toUpperCase();
+      container = document.getElementById("drag-players");
+      buttons = container.getElementsByTagName('button');
+
+      for (i = 0; i < buttons.length; i++) {
+        txtValue = buttons[i].name;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          buttons[i].style.display = "";
+        } else {
+          buttons[i].style.display = "none";
+        }
+      }
+    }
+
+    function searchBarStats() {
+      var input, filter, container, buttons, i, txtValue;
+      input = document.getElementById('searchInputStats');
+      filter = input.value.toUpperCase();
+      container = document.getElementById("drag-stats");
+      buttons = container.getElementsByTagName('button');
+
+      for (i = 0; i < buttons.length; i++) {
+        txtValue = buttons[i].name;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          buttons[i].style.display = "";
+        } else {
+          buttons[i].style.display = "none";
+        }
+      }
+    }
+
 
 </script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
