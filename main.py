@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, url_for
-from spider import court_science_magic, send_pdf_path, send_blob_name, delete_blob
 import os
 
 app = Flask(__name__)
