@@ -248,7 +248,12 @@
             download: true,
             dynamicTyping: true,
             complete: function(results) {
-                main(results['data']);
+                if(document.getElementById('drop-stats').children.length >=1 && document.getElementById('drop-players').children.length >=1) {
+                    main(results['data']);
+                }
+                else {
+                    alert("Please select stats and players to plot!")
+                }
             }
         });
     }
@@ -267,14 +272,16 @@
                 let headers_filtered_index = [];
                 let count = 1;
                 window.name_index = 0;
+                let name_found = false;
 
                 for (let i = 0; i < headers.length; i++) {
                     if (num_str.includes(sample_data[i][0])) {
                         headers_filtered.push(headers[i]);
                         headers_filtered_index.push(i);
                     }
-                    if (headers[i].toUpperCase().includes("NAME")) {
+                    if (headers[i].toUpperCase().includes("NAME") || !name_found) {
                         window.name_index = i;
+                        name_found = true;
                     }
                 }
 
@@ -444,7 +451,7 @@
             players_message.innerHTML = "*Maximum of 5 players;"
             max_players=5;
             max_stats=5;
-            image_display.src = 'static/Bar_Chart_Button.png';
+            image_display.src = 'static/Bar-Chart (3).png';
         }
     }
 
