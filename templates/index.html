@@ -58,8 +58,9 @@
         <div class="inner-input">
         <label for="drop-down">Choose data source:</label>
         <select id="drop-down" name="Data selection">
-            <option value="">Select</option>
-            <option value="https://raw.githubusercontent.com/court-science/MVP/master/2018-2019%20NBA%20Player%20Stats%20-%20Sheet1.csv">2018-2019 NBA Season</option>
+            <option value="">Select NBA Data Source</option>
+            <option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/2018-2019%20NBA%20Player%20Stats%20-%20Sheet1.csv">2018-2019 NBA Season</option>
+            <option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/nba_draft_combine_all_years.csv">NBA Draft Combine</option>
         </select>
         </div>
         </div>
@@ -149,7 +150,9 @@
     //var dataFrame = [];
     var target_id = "";
     var max_players = 3;
+    var min_players = 1;
     var max_stats = 7;
+    var min_stats = 3;
 
 
     function allowDropStats(ev) {
@@ -180,6 +183,10 @@
         var data = ev.dataTransfer.getData("text");
         console.log(data);
         ev.target.appendChild(document.getElementById(data));
+    }
+
+    function disableDrop(ev) {
+        ev.stopPropagation();
     }
 
     function main(data) {
@@ -248,11 +255,13 @@
             download: true,
             dynamicTyping: true,
             complete: function(results) {
-                if(document.getElementById('drop-stats').children.length >=1 && document.getElementById('drop-players').children.length >=1) {
+                var stats = document.getElementById('drop-stats').children.length;
+                var players = document.getElementById('drop-players').children.length;
+                if(stats >= min_stats && stats <= max_stats && players >= min_players && players <= max_players) {
                     main(results['data']);
                 }
                 else {
-                    alert("Please select stats and players to plot!")
+                    alert("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!")
                 }
             }
         });
@@ -337,7 +346,7 @@
                     }
                     */
                     let name = "'stat" + String(count) + "'";
-                    let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' name='" + headers_filtered[i] + "' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "</button>";
+                    let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' ondragover='disableDrop(event)' ondrop='disableDrop(event)' name='" + headers_filtered[i] + "' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "</button>";
                     console.log(string_to_add);
                     stats_drag.insertAdjacentHTML('beforeend', string_to_add);
                     count += 1;
@@ -372,7 +381,7 @@
                     let player_name = df[i][name_index];
                     let name = "'name" + String(count) + "'";
                     let name_attr = "'" + player_name + "'";
-                    let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' name=" + name_attr + " draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ i + "'>" + player_name + "</button>";
+                    let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' ondragover='disableDrop(event)' ondrop='disableDrop(event)' name=" + name_attr + " draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ i + "'>" + player_name + "</button>";
                     players_drag.insertAdjacentHTML('beforeend', string_to_add);
                     count++;
                 }
@@ -440,6 +449,8 @@
             players_message.innerHTML = "*Maximum of 3 players";
             max_players=3;
             max_stats=7;
+            min_stats = 3;
+            min_players = 1;
             image_display.src = 'static/Radar_Chart_Button.png';
         }
     }
@@ -451,6 +462,8 @@
             players_message.innerHTML = "*Maximum of 5 players;"
             max_players=5;
             max_stats=5;
+            min_stats = 1;
+            min_players = 2;
             image_display.src = 'static/Bar-Chart (3).png';
         }
     }
