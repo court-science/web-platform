@@ -31,7 +31,8 @@
         </p>
     </div>
     <div class="body-section-2" id="demo">
-        <h2 class="title">TRY IT NOW</h2>
+        <div style="margin-bottom: 50px;"><h2 class="title">VISUALIZATION LAB</h2></div>
+        <!--
         <ol class="list-text">
             <li>Upload a csv file of your stats with the following format:</li>
                 <ul>
@@ -51,21 +52,32 @@
             <li>Select the features you would like to visualize</li>
             <li>Click the "Submit" button to view your data visualized!</li>
         </ol><br><br>
-
-        <p class="form-text"><b>Select a file:</b></p><br>
-        <div class="block spacing">
-        <div class="inner-input"><input type="file" id="test" name="myCSV" accept=".csv"></div>
-        <div class="inner-input">
-        <label for="drop-down">Choose data source:</label>
+        -->
+        <div style="margin-bottom: 50px; height: 250px">
+        <div style="float: left; width:30%; margin-right: 33%;">
+        <div class='instructions-container'>
+            <p style="font-size: 24px; font-family: Arial, Gadget, sans-serif;"><b>Instructions:</b></p>
+            <p style="font-family: Arial, Gadget, sans-serif;">1. Select a sample NBA Dataset from the dropdown menu or upload your own spreadsheet (in CSV format). <br>
+            2. Select your chart type. <br>
+            3. Drag and drop the stats you'd like to plot into the 'Stats to Plot' box. <br>
+            4. Drag and drop the players you'd like to compare into the 'Players to Compare' box. <br>
+            5. Have fun!</p>
+        </div>
+        </div>
+        <div style="float: left; width: 37%;">
+        <div style="float: left; margin-right: 7%; margin-top:211px;">
         <select id="drop-down" name="Data selection">
             <option value="">Select NBA Data Source</option>
             <option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/2018-2019%20NBA%20Player%20Stats%20-%20Sheet1.csv">2018-2019 NBA Season</option>
             <option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/nba_draft_combine_all_years.csv">NBA Draft Combine</option>
         </select>
         </div>
+        <div style="float: left; margin-right: 7%; margin-top:211px;"><p>OR</p></div>
+        <div style="float: left; margin-top:190px;"><input type="file" id="test" name="myCSV" accept=".csv"></div>
+        </div>
         </div>
         <div>
-        <div id='left-div' style="float: left; margin-right: 4%; width: 30%">
+        <div id='left-div' style="float: left; margin-right: 4%; width: 30%;">
             <!--
             <div class="spacing">
             <p>Chart Type</p>
@@ -129,7 +141,7 @@
             <p><i id='players-message'>*Maximum of 3 players</i></p>
             </div>
             <div id="chart-div" style="float: right; width: 100%; margin-top: 30px;">
-            <img src="{{ url_for('static', filename='Radar_Chart_Button.png') }}" id="starter-img" height='500' style="float: right; width: 95%">
+            <img src="{{ url_for('static', filename='Radar-Chart.png') }}" id="starter-img" height='550' style="float: right; width: 95%">
             </div>
         </div>
         </div>
@@ -288,123 +300,127 @@
                         headers_filtered.push(headers[i]);
                         headers_filtered_index.push(i);
                     }
-                    if (headers[i].toUpperCase().includes("NAME") || !name_found) {
+                    if (headers[i].toUpperCase().includes("NAME") && !name_found) {
                         window.name_index = i;
                         name_found = true;
                     }
                 }
+                if(!name_found) {
+                    alert("Please include a 'player name' column in your spreadsheet to identify players!")
+                } else {
+                    window.num_stats = headers_filtered.length;
+                    console.log(headers_filtered);
 
-                window.num_stats = headers_filtered.length;
-                console.log(headers_filtered);
+                    //let inner_div = document.getElementById("inner-div");
+                    //inner_div.remove();
+                    //let html_form = document.getElementById("form-div");
+                    //var newDiv = document.createElement("div");
+                    //newDiv.id = "inner-div";
+                    //html_form.appendChild(newDiv);
+                    //newDiv.insertAdjacentHTML('beforeend', "<p class='form-text'><b>Select your stats to visualize:</b></p><br>");
+                    //newDiv.insertAdjacentHTML('beforeend', "<div id='stats' class='block spacing'><div id='stats-drag' class='inner'></div><div id='stats-drop' class='inner'></div></div>");
+                    var stats_drag = document.getElementById('drag-stats');
+                    var players_drag = document.getElementById('drag-players');
+                    var stats_drop = document.getElementById('drop-stats');
+                    var players_drop = document.getElementById('drop-players');
+                    stats_drag.innerHTML = '';
+                    players_drag.innerHTML = '';
+                    stats_drop.innerHTML = '';
+                    players_drop.innerHTML = '';
+                    //var stats_drop = document.getElementById('stats-drop');
+                    //console.log(stats_drag);
 
-                //let inner_div = document.getElementById("inner-div");
-                //inner_div.remove();
-                //let html_form = document.getElementById("form-div");
-                //var newDiv = document.createElement("div");
-                //newDiv.id = "inner-div";
-                //html_form.appendChild(newDiv);
-                //newDiv.insertAdjacentHTML('beforeend', "<p class='form-text'><b>Select your stats to visualize:</b></p><br>");
-                //newDiv.insertAdjacentHTML('beforeend', "<div id='stats' class='block spacing'><div id='stats-drag' class='inner'></div><div id='stats-drop' class='inner'></div></div>");
-                var stats_drag = document.getElementById('drag-stats');
-                var players_drag = document.getElementById('drag-players');
-                var stats_drop = document.getElementById('drop-stats');
-                var players_drop = document.getElementById('drop-players');
-                stats_drag.innerHTML = '';
-                players_drag.innerHTML = '';
-                stats_drop.innerHTML = '';
-                players_drop.innerHTML = '';
-                //var stats_drop = document.getElementById('stats-drop');
-                //console.log(stats_drag);
-
-                /*
-                for (let i=0; i < headers_filtered.length; i++) {
-                    let name = "'stat" + String(count) + "'";
-                    let string_to_add = "<input type='checkbox' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "<br>\n" + "<input type='hidden' name=" + name + " value='false'>";
-                    console.log(string_to_add);
-                    newDiv.insertAdjacentHTML('beforeend', string_to_add);
-                    count += 1;
-                }
-
-                var n = 1;
-                var id_new = "stats-" + n;
-                var id_tag = "'stats-" + n + "'";
-                stats_drag.insertAdjacentHTML('beforeend', "<div id=" + id_tag + " class='btn-group-vertical myButton'>");
-                console.log(stats_drag);
-                var div_to_add = document.getElementById(id_new);
-                console.log(div_to_add);
-
-                 */
-
-                for (let i=0; i < headers_filtered.length; i++) {
                     /*
-                    if (i != 0 && i % 10 == 0) {
-                        n += 1;
-                        id_new="stats-" + n;
-                        id_tag = "'stats-" + n + "'";
-                        stats_drag.insertAdjacentHTML('beforeend', "<div id=" + id_new + " class='btn-group-vertical myButton'>");
-                        div_to_add = document.getElementById(id_new);
+                    for (let i=0; i < headers_filtered.length; i++) {
+                        let name = "'stat" + String(count) + "'";
+                        let string_to_add = "<input type='checkbox' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "<br>\n" + "<input type='hidden' name=" + name + " value='false'>";
+                        console.log(string_to_add);
+                        newDiv.insertAdjacentHTML('beforeend', string_to_add);
+                        count += 1;
                     }
-                    */
-                    let name = "'stat" + String(count) + "'";
-                    let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' ondragover='disableDrop(event)' ondrop='disableDrop(event)' name='" + headers_filtered[i] + "' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "</button>";
-                    console.log(string_to_add);
-                    stats_drag.insertAdjacentHTML('beforeend', string_to_add);
-                    count += 1;
-                }
 
-                //stats_drop.insertAdjacentHTML('beforeend', "<div class='drop-zone' id='drop-stats' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>");
-                count = 1;
+                    var n = 1;
+                    var id_new = "stats-" + n;
+                    var id_tag = "'stats-" + n + "'";
+                    stats_drag.insertAdjacentHTML('beforeend', "<div id=" + id_tag + " class='btn-group-vertical myButton'>");
+                    console.log(stats_drag);
+                    var div_to_add = document.getElementById(id_new);
+                    console.log(div_to_add);
 
-                /*
-                newDiv.insertAdjacentHTML('beforeend', "<div class='block spacing' id='players'><div id='players-drag' class='inner'></div><div id='players-drop' class='inner'></div></div>");
-                var players_drag = document.getElementById('players-drag');
-                var players_drop = document.getElementById('players-drop');
-                n = 1;
-                id_new = "players-" + n;
-                id_tag = "'players-" + n + "'";
-                players_drag.insertAdjacentHTML('beforeend', "<div id=" + id_tag + " class='btn-group-vertical myButton'>");
-                console.log(players_drag);
-                div_to_add = document.getElementById(id_new);
-                console.log(div_to_add);
-                 */
-
-                for (let i = 1; i < df.length; i++) {
-                    /*
-                    if (i != 0 && i % 10 == 0) {
-                        n += 1;
-                        id_new="stats-" + n;
-                        id_tag = "'stats-" + n + "'";
-                        stats_drag.insertAdjacentHTML('beforeend', "<div id=" + id_new + " class='btn-group-vertical myButton'>");
-                        div_to_add = document.getElementById(id_new);
-                    }
                      */
-                    let player_name = df[i][name_index];
-                    let name = "'name" + String(count) + "'";
-                    let name_attr = "'" + player_name + "'";
-                    let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' ondragover='disableDrop(event)' ondrop='disableDrop(event)' name=" + name_attr + " draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ i + "'>" + player_name + "</button>";
-                    players_drag.insertAdjacentHTML('beforeend', string_to_add);
-                    count++;
+
+                    for (let i=0; i < headers_filtered.length; i++) {
+                        /*
+                        if (i != 0 && i % 10 == 0) {
+                            n += 1;
+                            id_new="stats-" + n;
+                            id_tag = "'stats-" + n + "'";
+                            stats_drag.insertAdjacentHTML('beforeend', "<div id=" + id_new + " class='btn-group-vertical myButton'>");
+                            div_to_add = document.getElementById(id_new);
+                        }
+                        */
+                        let name = "'stat" + String(count) + "'";
+                        let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' ondragover='disableDrop(event)' ondrop='disableDrop(event)' name='" + headers_filtered[i] + "' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "</button>";
+                        //console.log(string_to_add);
+                        stats_drag.insertAdjacentHTML('beforeend', string_to_add);
+                        count += 1;
+                    }
+
+                    //stats_drop.insertAdjacentHTML('beforeend', "<div class='drop-zone' id='drop-stats' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>");
+                    count = 1;
+
+                    /*
+                    newDiv.insertAdjacentHTML('beforeend', "<div class='block spacing' id='players'><div id='players-drag' class='inner'></div><div id='players-drop' class='inner'></div></div>");
+                    var players_drag = document.getElementById('players-drag');
+                    var players_drop = document.getElementById('players-drop');
+                    n = 1;
+                    id_new = "players-" + n;
+                    id_tag = "'players-" + n + "'";
+                    players_drag.insertAdjacentHTML('beforeend', "<div id=" + id_tag + " class='btn-group-vertical myButton'>");
+                    console.log(players_drag);
+                    div_to_add = document.getElementById(id_new);
+                    console.log(div_to_add);
+                     */
+
+                    for (let i = 1; i < df.length; i++) {
+                        /*
+                        if (i != 0 && i % 10 == 0) {
+                            n += 1;
+                            id_new="stats-" + n;
+                            id_tag = "'stats-" + n + "'";
+                            stats_drag.insertAdjacentHTML('beforeend', "<div id=" + id_new + " class='btn-group-vertical myButton'>");
+                            div_to_add = document.getElementById(id_new);
+                        }
+                         */
+                        let player_name = df[i][name_index];
+                        let name = "'name" + String(count) + "'";
+                        let name_attr = "'" + player_name + "'";
+                        let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' ondragover='disableDrop(event)' ondrop='disableDrop(event)' name=" + name_attr + " draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ i + "'>" + player_name + "</button>";
+                        console.log(string_to_add);
+                        players_drag.insertAdjacentHTML('beforeend', string_to_add);
+                        count++;
+                    }
+
+                    //players_drop.insertAdjacentHTML('beforeend', "<div class='drop-zone' id='drop-players' ondrop='drop(event)' ondragover='allowDropPlayers(event)'></div>");
+
+                    /*
+                    newDiv.insertAdjacentHTML('beforeend', "<div class=\"btn-group btn-group-toggle spacing\" data-toggle=\"buttons\">\n" +
+                        "  <label class=\"btn btn-secondary btn-lg active\">\n" +
+                        "    <input type=\"radio\" name=\"radar\" id=\"radar\" autocomplete=\"off\" checked> Radar Chart\n" +
+                        "  </label>\n" +
+                        "  <label class=\"btn btn-secondary btn-lg\">\n" +
+                        "    <input type=\"radio\" name=\"bar\" id=\"bar\" autocomplete=\"off\"> Bar Chart\n" +
+                        "  </label>\n" +
+                        "  <label class=\"btn btn-secondary btn-lg\">\n" +
+                        "    <input type=\"radio\" name=\"pie\" id=\"pie\" autocomplete=\"off\"> Pie Chart\n" +
+                        "  </label>\n" +
+                        "</div>\n");
+
+                    newDiv.insertAdjacentHTML('beforeend', "<div id='submit-reset' class='div-spacing'><button type='button'  class='btn btn-outline-dark btn-lg' value='Submit' onclick='court_science_magic(inputCSV)'>Submit</button>\n" +
+                        "<button type='button'  class='btn btn-outline-dark btn-lg' value='Reset' onclick='resetButton()'>Reset</button></div>");
+
+                     */
                 }
-
-                //players_drop.insertAdjacentHTML('beforeend', "<div class='drop-zone' id='drop-players' ondrop='drop(event)' ondragover='allowDropPlayers(event)'></div>");
-
-                /*
-                newDiv.insertAdjacentHTML('beforeend', "<div class=\"btn-group btn-group-toggle spacing\" data-toggle=\"buttons\">\n" +
-                    "  <label class=\"btn btn-secondary btn-lg active\">\n" +
-                    "    <input type=\"radio\" name=\"radar\" id=\"radar\" autocomplete=\"off\" checked> Radar Chart\n" +
-                    "  </label>\n" +
-                    "  <label class=\"btn btn-secondary btn-lg\">\n" +
-                    "    <input type=\"radio\" name=\"bar\" id=\"bar\" autocomplete=\"off\"> Bar Chart\n" +
-                    "  </label>\n" +
-                    "  <label class=\"btn btn-secondary btn-lg\">\n" +
-                    "    <input type=\"radio\" name=\"pie\" id=\"pie\" autocomplete=\"off\"> Pie Chart\n" +
-                    "  </label>\n" +
-                    "</div>\n");
-
-                newDiv.insertAdjacentHTML('beforeend', "<div id='submit-reset' class='div-spacing'><button type='button'  class='btn btn-outline-dark btn-lg' value='Submit' onclick='court_science_magic(inputCSV)'>Submit</button>\n" +
-                    "<button type='button'  class='btn btn-outline-dark btn-lg' value='Reset' onclick='resetButton()'>Reset</button></div>");
-
-                 */
             }
         });
     }
@@ -451,7 +467,7 @@
             max_stats=7;
             min_stats = 3;
             min_players = 1;
-            image_display.src = 'static/Radar_Chart_Button.png';
+            image_display.src = 'static/Radar-Chart.png';
         }
     }
 
