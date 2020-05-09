@@ -12,37 +12,35 @@ function parseData(data) {
     console.log(df);
 }
 
-const groupedBarChart = function(rawData) {
-
+function groupedBarChart(rawData) {
     var t0 = performance.now()
+    console.log("Starting to plot:", t0)
+
+    var svg = d3.select('chart-div')
+        .append('svg')
+
+    console.log(svg)
+
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
-        width = 700 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+    width = 400 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
-    var x0 = d3.scale.ordinal()
-        .rangeRoundBands([0, width], .1);
+    var margin = {top: 20, right: 100, bottom: 30, left: 40};
 
-    var x1 = d3.scale.ordinal();
+    
+    var x0 = d3.scaleBand()
+        .rangeRound([0, width], 0.5)
+        .padding(0.15);
 
-    var y = d3.scale.linear()
-        .range([height, 0]);
+    var x1 = d3.scaleBand();
 
-    var xAxis = d3.svg.axis()
-        .scale(x0)
-        .tickSize(0)
-        .orient("bottom");
+    var y = d3.scaleLinear()
+        .rangeRound([height, 0]);
 
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left");
-
-    var color = d3.scale.ordinal()
+    var color = d3.scaleOrdinal()
         .range(["#ca0020","#f4a582","#d5d5d5","#92c5de","#0571b0"]);
 
-    var svg = d3.select('svg')
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-    .append("g")
+    svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
@@ -82,8 +80,11 @@ const groupedBarChart = function(rawData) {
         var statNames = data[0].values.map(function(d) { return d.stat; });
 
         x0.domain(playerNames);
-        x1.domain(statNames).rangeRoundBands([0, x0.rangeBand()]);
+        x1.domain(statNames).rangeRound([0, x0.bandwidth()]);
         y.domain([0, d3.max(data, function(Player) { return d3.max(Player.values, function(d) { return d.value; }); })]);
+
+        var xAxis = d3.axisBottom().scale(x0)
+        var yAxis = d3.axisLeft().scale(y);
 
         svg.append("g")
             .attr("class", "x axis")
@@ -113,7 +114,7 @@ const groupedBarChart = function(rawData) {
         slice.selectAll("rect")
             .data(function(d) { return d.values; })
         .enter().append("rect")
-            .attr("width", x1.rangeBand())
+        .attr("width", x1.bandwidth())
             .attr("x", function(d) { return x1(d.stat); })
             .style("fill", function(d) { return color(d.stat) })
             .attr("y", function(d) { return y(0); })
@@ -133,7 +134,13 @@ const groupedBarChart = function(rawData) {
             .attr("height", function(d) { return height - y(d.value); });
 
         //Legend
-        var legend = svg.selectAll(".legend")
+        
+        
+        var legendHolder = svg.append('g')
+        // translate the holder to the right side of the graph
+            .attr('transform', "translate(" + (margin.left + width) + ",0)")
+
+        var legend = legendHolder.selectAll(".legend")
             .data(data[0].values.map(function(d) { return d.stat; }).reverse())
         .enter().append("g")
             .attr("class", "legend")

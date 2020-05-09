@@ -260,6 +260,11 @@
         div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 70%; margin-top: 30px;'><svg height='500' style='float: right; width: 95%'></svg></div>");
         groupedBarChart(parsed_df);
         //console.log(demo);
+        if(bar_input.checked) {
+            groupedBarChart(parsed_df);
+        } else if(radar_input.checked) {
+            radarChart(parsed_df);
+        }
     }
 
     function court_science_magic (inputCSV) {
