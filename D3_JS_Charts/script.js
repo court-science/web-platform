@@ -62,7 +62,7 @@ var mycfg = {
 //==================================================
 //getReadyData()
 //groupedBarChart(sampleData)
-function radar() {RadarChart.draw("#chart", d, mycfg);}
+//function radar() {RadarChart.draw("#chart", sampleRawData, mycfg);}
 //BarChart.draw(d)
 //==================================================
 

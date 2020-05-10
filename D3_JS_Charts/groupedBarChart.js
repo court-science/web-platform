@@ -1,10 +1,10 @@
-const testGroupedBarChart = function(rawData) {
+const groupedBarChart = function(rawData) {
     console.log("Passing this data into groupedBarChart:",rawData)
     var t0 = performance.now()
     var svg = d3.select('svg')
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom;
+    height = +svg.attr("height") - margin.top - margin.bottom,
+    width = +svg.attr("width") - margin.left - margin.right;
 
     var x0 = d3.scaleBand()
         .rangeRound([0, width], 0.5)
@@ -24,17 +24,23 @@ const testGroupedBarChart = function(rawData) {
     dataFromSampleGroupedBar(rawData)
 
     function dataFromSampleGroupedBar(rawData) {
+
         console.log("Running parsing function!")
+        var plotData =  rawData.filter(function(rawData) {
+            return rawData.Plot == true;
+        });
+        for (i=0;i<plotData.length;i++){delete plotData[i].Plot}
+
         //convert data into JSON object in the shape of: [{bar_cluster: bar_cluster_label , values: [{bar1:value1},{bar2:value2},...]}]
         var data = [];
-        for (let i=0;i<rawData.length;i++){
-            first_key = Object.keys(rawData[i])[0]
-            first_value = Object.values(rawData[i])[0]
+        for (let i=0;i<plotData.length;i++){
+            first_key = Object.keys(plotData[i])[0]
+            first_value = Object.values(plotData[i])[0]
             data[i]={}
             data[i].Player=first_value
 
-            stat_keys = Object.keys(rawData[i]).slice(1,)
-            stat_values = Object.values(rawData[i]).slice(1,)
+            stat_keys = Object.keys(plotData[i]).slice(1,)
+            stat_values = Object.values(plotData[i]).slice(1,)
 
             let statsList = []
             stat_keys.reduce((acc ,val, index) => {

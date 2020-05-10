@@ -1,24 +1,6 @@
 var RadarChart = {
     draw: function(id, d, options){
-    var cfg = {
-       radius: 5,
-       w: 600,
-       h: 600,
-       factor: 1,
-       factorLegend: .85,
-       levels: 3,
-       maxValue: 0,
-       radians: 2 * Math.PI,
-       opacityArea: 0.5,
-       ToRight: 5,
-       TranslateX: 80,
-       TranslateY: 30,
-       ExtraWidthX: 100,
-       ExtraWidthY: 100,
-       color:  d3.scaleOrdinal()
-       .range(["#ca0020","#f4a582","#d5d5d5","#92c5de","#0571b0"])
-      };
-      
+     
       if('undefined' !== typeof options){
         for(var i in options){
           if('undefined' !== typeof options[i]){
@@ -26,21 +8,51 @@ var RadarChart = {
           }
         }
       }
-      cfg.maxValue = Math.max(cfg.maxValue, d3.max(d, function(i){return d3.max(i.map(function(o){return o.value;}))}));
-      var allAxis = (d[0].map(function(i, j){return i.axis}));
-      var total = allAxis.length;
-      var radius = cfg.factor*Math.min(cfg.w/2, cfg.h/2);
-      var Format = d3.format('%');
-      d3.select(id).select("svg").remove();
+
+      // d3.select(id).select("svg").remove();
       
-      var g = d3.select(id)
-              .append("svg")
-              .attr("width", cfg.w+cfg.ExtraWidthX)
-              .attr("height", cfg.h+cfg.ExtraWidthY)
-              .append("g")
-              .attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
-              ;
-  
+      // var g = d3.select(id)
+      //         .append("svg")
+      //         .attr("width", cfg.w+cfg.ExtraWidthX)
+      //         .attr("height", cfg.h+cfg.ExtraWidthY)
+      //         .append("g")
+      //         .attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
+      //         ;
+      
+      var g = d3.select("svg");
+
+      var cfg = {
+        radius: 5,
+        h: +g.attr("height"),
+        w: h,
+        factor: 1,
+        factorLegend: .85,
+        levels: 3,
+        maxValue: 0,
+        radians: 2 * Math.PI,
+        opacityArea: 0.5,
+        ToRight: 5,
+        TranslateX: 80,
+        TranslateY: 30,
+        ExtraWidthX: 100,
+        ExtraWidthY: 100,
+        color:  d3.scaleOrdinal()
+        .range(["#ca0020","#f4a582","#d5d5d5","#92c5de","#0571b0"])
+       };
+
+       cfg.maxValue = Math.max(cfg.maxValue, d3.max(d, function(i){return d3.max(i.map(function(o){return o.value;}))}));
+       var allAxis = (d[0].map(function(i, j){return i.axis}));
+       var total = allAxis.length;
+       var radius = cfg.factor*Math.min(cfg.w/2, cfg.h/2);
+       var Format = d3.format('%');
+       
+       g
+        .attr("width", cfg.w+cfg.ExtraWidthX)
+        .attr("height", cfg.h+cfg.ExtraWidthY)
+        .append("g")
+        .attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
+        ;
+
       var tooltip;
       
       //Circular segments
@@ -62,21 +74,21 @@ var RadarChart = {
       }
   
       //Text indicating at what % each level is
-      // for(var j=0; j<cfg.levels; j++){
-      //   var levelFactor = cfg.factor*radius*((j+1)/cfg.levels);
-      //   g.selectAll(".levels")
-      //    .data([1]) //dummy data
-      //    .enter()
-      //    .append("svg:text")
-      //    .attr("x", function(d){return levelFactor*(1-cfg.factor*Math.sin(0));})
-      //    .attr("y", function(d){return levelFactor*(1-cfg.factor*Math.cos(0));})
-      //    .attr("class", "legend")
-      //    .style("font-family", "sans-serif")
-      //    .style("font-size", "10px")
-      //    .attr("transform", "translate(" + (cfg.w/2-levelFactor + cfg.ToRight) + ", " + (cfg.h/2-levelFactor) + ")")
-      //    .attr("fill", "#737373")
-      //    .text(Format((j+1)*cfg.maxValue/cfg.levels));
-      // }
+      for(var j=0; j<cfg.levels; j++){
+        var levelFactor = cfg.factor*radius*((j+1)/cfg.levels);
+        g.selectAll(".levels")
+         .data([1]) //dummy data
+         .enter()
+         .append("svg:text")
+         .attr("x", function(d){return levelFactor*(1-cfg.factor*Math.sin(0));})
+         .attr("y", function(d){return levelFactor*(1-cfg.factor*Math.cos(0));})
+         .attr("class", "legend")
+         .style("font-family", "sans-serif")
+         .style("font-size", "10px")
+         .attr("transform", "translate(" + (cfg.w/2-levelFactor + cfg.ToRight) + ", " + (cfg.h/2-levelFactor) + ")")
+         .attr("fill", "#737373")
+         .text(Format((j+1)*cfg.maxValue/cfg.levels));
+      }
       
       series = 0;
   
