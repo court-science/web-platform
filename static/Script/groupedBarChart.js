@@ -1,33 +1,12 @@
-//[["Player","Pts"],["Kawhi",25],["Lebron",30]]
-// [{"Player":"Kawhi","PTS":25},{"Player":"Lebron" , "PTS":30}]
-function parseData(data) {
-    var df = [];
-    for (var i=1; i<data.length; i++) {
-        var obj = {};
-        for (var j=0; j<data[0].length; j++) {
-            obj[data[0][j]] = data[i][j]
-        }
-        df.push(obj);
-    }
-    console.log(df);
-}
-
-function groupedBarChart(rawData) {
+const groupedBarChart = function(rawData) {
     var t0 = performance.now()
     console.log("Starting to plot:", t0)
-
-    var svg = d3.select('chart-div')
-        .append('svg')
-
-    console.log(svg)
-
+    console.log("Passing this data into groupedBarChart:",rawData)
+    var svg = d3.select('svg')
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 400 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    height = +svg.attr("height") - margin.top - margin.bottom,
+    width = 500 - margin.left - margin.right;
 
-    var margin = {top: 20, right: 100, bottom: 30, left: 40};
-
-    
     var x0 = d3.scaleBand()
         .rangeRound([0, width], 0.5)
         .padding(0.15);
@@ -43,28 +22,27 @@ function groupedBarChart(rawData) {
     svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-
-    dataFromSampleGroupedBar(rawData);
+    dataFromSampleGroupedBar(rawData)
 
     function dataFromSampleGroupedBar(rawData) {
-        var df = [];
-        for (var i=1; i<rawData.length; i++) {
-            var obj = {};
-            for (var j=0; j<rawData[0].length; j++) {
-                obj[rawData[0][j]] = rawData[i][j]
-            }
-            df.push(obj);
-        }
-        console.log(df);
+
+        console.log("Running parsing function on:", rawData)
+        var plotData =  rawData.filter(function(rawData) {
+            return rawData.Plot == true;
+        });
+        for (i=0;i<plotData.length;i++){delete plotData[i].Plot}
+
+        console.log("Data after players not being plotted have been removed:", plotData)
+        //convert data into JSON object in the shape of: [{bar_cluster: bar_cluster_label , values: [{bar1:value1},{bar2:value2},...]}]
         var data = [];
-        for (let i=0;i<df.length;i++){
-            first_key = Object.keys(df[i])[0]
-            first_value = Object.values(df[i])[0]
+        for (let i=0;i<plotData.length;i++){
+            first_key = Object.keys(plotData[i])[0]
+            first_value = Object.values(plotData[i])[0]
             data[i]={}
             data[i].Player=first_value
 
-            stat_keys = Object.keys(df[i]).slice(1,)
-            stat_values = Object.values(df[i]).slice(1,)
+            stat_keys = Object.keys(plotData[i]).slice(1,)
+            stat_values = Object.values(plotData[i]).slice(1,)
 
             let statsList = []
             stat_keys.reduce((acc ,val, index) => {
@@ -74,7 +52,7 @@ function groupedBarChart(rawData) {
             data[i].values = statsList
         }
 
-        console.log(data);
+        console.log("Shaped data ready for plotting:",data);
 
         var playerNames = data.map(function(d) { return d.Player; });
         var statNames = data[0].values.map(function(d) { return d.stat; });
@@ -84,7 +62,7 @@ function groupedBarChart(rawData) {
         y.domain([0, d3.max(data, function(Player) { return d3.max(Player.values, function(d) { return d.value; }); })]);
 
         var xAxis = d3.axisBottom().scale(x0)
-        var yAxis = d3.axisLeft().scale(y);
+        var yAxis = d3.axisLeft().scale(y);    
 
         svg.append("g")
             .attr("class", "x axis")
@@ -114,7 +92,7 @@ function groupedBarChart(rawData) {
         slice.selectAll("rect")
             .data(function(d) { return d.values; })
         .enter().append("rect")
-        .attr("width", x1.bandwidth())
+            .attr("width", x1.bandwidth())
             .attr("x", function(d) { return x1(d.stat); })
             .style("fill", function(d) { return color(d.stat) })
             .attr("y", function(d) { return y(0); })
@@ -134,13 +112,7 @@ function groupedBarChart(rawData) {
             .attr("height", function(d) { return height - y(d.value); });
 
         //Legend
-        
-        
-        var legendHolder = svg.append('g')
-        // translate the holder to the right side of the graph
-            .attr('transform', "translate(" + (margin.left + width) + ",0)")
-
-        var legend = legendHolder.selectAll(".legend")
+        var legend = svg.selectAll(".legend")
             .data(data[0].values.map(function(d) { return d.stat; }).reverse())
         .enter().append("g")
             .attr("class", "legend")

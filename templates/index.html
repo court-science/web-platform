@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <script src="{{ url_for('static', filename='papaparse.min.js') }}"></script>
-    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="{{ url_for('static', filename='Script/groupedBarChart.js') }}"></script>
+    <script src="{{ url_for('static', filename='Script/RadarChart.js') }}"></script>
 </head>
 <body>
     <div class="navigation-bar">
@@ -258,12 +259,13 @@
         */
         chart.remove();
         div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 70%; margin-top: 30px;'><svg height='500' style='float: right; width: 95%'></svg></div>");
-        groupedBarChart(parsed_df);
         //console.log(demo);
         if(bar_input.checked) {
-            groupedBarChart(parsed_df);
+            //groupedBarChart(parsed_df);
+            groupedBarChart(sampleRawData)
         } else if(radar_input.checked) {
-            radarChart(parsed_df);
+            //radarChart(parsed_df);
+            radarChart(sampleRawData);
         }
     }
 
