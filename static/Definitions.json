@@ -1,5 +1,25 @@
 {
   "PPG": "Points Per Game",
-  "POINTS PER GAME": "Points Per Game",
-  "dependencies": ""
+  "APG": "Assists Per Game",
+  "RPG": "Rebounds Per Game",
+  "SPG": "Steals Per Game",
+  "BPG": "Blocks Per Game",
+  "GP": "Games Played",
+  "MPG": "Minutes Per Game",
+  "MIN%": "",
+  "USG%": "Usage Percentage: The percentage of team plays used by a player when he is on the floor",
+  "TOR%": "Turnover Percentage: Percentage of plays that end in a player turnover",
+  "FTA": "Free Throw Attempts: # of free throws attempted per game",
+  "FT%": "Free Throw Percentage: ",
+  "2PA": "2 Point Attempts: # of 2 point shots attempted per game",
+  "2P%": "2 Point Field Goal Percentage: The percentage of 2 point field goal attempts of a specified criteria that a player or team makes",
+  "3PA": "3 Point Attempts: # of 3 point shots attempted per game",
+  "3P%": "3 Point Field Goal Percentage: The percentage of 3 point field goal attempts that a player makes",
+  "EFG%": "Effective Field Goal Percentage: Measures field goal percentage adjusting for made 3-point field goals being 1.5 times more valuable than made 2-point field goals.",
+  "TS%": "True Shooting Percentage: A shooting percentage that factors in the value of three-point field goals and free throws in addition to conventional two-point field goals",
+  "TRB%": "Total Rebound Percentage: The percentage of a team's defensive rebounds that a player has while on the court",
+  "AST%": "Assist Percentage: The percentage of teammate field goals a player assisted on while he was on the floor",
+  "TOPG": "Turnovers Per Game",
+  "VI": "",
+  "ORTG": "Offensive Rating: Team points scored per 100 possessions while player is on court"
 }

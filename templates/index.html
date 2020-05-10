@@ -55,7 +55,7 @@
         </ol><br><br>
         -->
         <div style="margin-bottom: 50px; height: 250px">
-        <div style="float: left; width:30%; margin-right: 33%;">
+        <div style="float: left; width:30%; margin-right: 32%;">
         <div class='instructions-container'>
             <p style="font-size: 24px; font-family: Arial, Gadget, sans-serif;"><b>Instructions:</b></p>
             <p style="font-family: Arial, Gadget, sans-serif;">1. Select a sample NBA Dataset from the dropdown menu or upload your own spreadsheet (in CSV format). <br>
@@ -124,7 +124,7 @@
             <img style="width: 100%; height: 100%" title="Radar Chart" src="{{ url_for('static', filename='Radar_Chart_Button.png') }}">
             </label>
             </div>
-            <div style="float:right; width: 42%; height: 80px;">
+            <div style="float: right; width: 42%; height: 80px;">
             <label>
             <input id='bar-input' type="radio" name="radio-button" value="Bar">
             <img style="width: 100%; height: 100%" title="Bar Chart" src="{{ url_for('static', filename='Bar_Chart_Button.png') }}">
@@ -217,14 +217,44 @@
         return obj_df;
     }
 
+    function loadJSON(callback) {
+
+        var xobj = new XMLHttpRequest();
+            xobj.overrideMimeType("application/json");
+        xobj.open('GET', 'static/Definitions.json', true); // Replace 'my_data' with the path to your file
+        xobj.onreadystatechange = function () {
+              if (xobj.readyState == 4 && xobj.status == "200") {
+                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                callback(xobj.responseText);
+              }
+        };
+        xobj.send(null);
+     }
+
+    function getHoverDefinition(stat, id) {
+    loadJSON(function(response) {
+    // Parse JSON string into object
+        var JSON_parsed = JSON.parse(response);
+        var stat_to_search = stat.toUpperCase();
+        console.log(JSON_parsed.hasOwnProperty(stat_to_search));
+        if (JSON_parsed.hasOwnProperty(stat_to_search)) {
+            document.getElementById(id).title = JSON_parsed[stat_to_search];
+            console.log(document.getElementById(id).title);
+        }
+        console.log(JSON_parsed);
+    });
+    }
+
 
     function main(data) {
         console.log(data);
-        var parsed_df = [[]];
+        //var parsed_df = [[]];
         var lst_stats = [window.name_index];
         var lst_players = [];
         var stats_children = document.getElementById('drop-stats').children;
         var players_children = document.getElementById('drop-players').children;
+        var div_to_add = document.getElementById('right-div');
+        var chart = document.getElementById('chart-div');
 
         for (ch of stats_children) {
             lst_stats.push(parseInt(ch.value));
@@ -255,7 +285,7 @@
         var obj_df = CSV_to_parsed_df(data, lst_players, lst_stats);
         console.log(obj_df);
 
-
+        /*
         for (const index of lst_stats) {
             parsed_df[0].push(data[0][index]);
         }
@@ -267,11 +297,10 @@
             parsed_df.push(new_lst);
         }
         console.log(parsed_df);
-        var div_to_add = document.getElementById('right-div');
-        var chart = document.getElementById('chart-div');
+
         //chart.innerHTML='';
 
-        /*
+
         if (demo.contains(svg)) {
             var chart = document.getElementById('chart');
             chart.remove();
@@ -392,7 +421,7 @@
                         let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' ondragover='disableDrop(event)' ondrop='disableDrop(event)' name='" + headers_filtered[i] + "' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "</button>";
                         //console.log(string_to_add);
                         stats_drag.insertAdjacentHTML('beforeend', string_to_add);
-                        
+                        getHoverDefinition(headers_filtered[i], id);
                         count += 1;
                     }
 
@@ -469,7 +498,7 @@
         inputCSV = this.files[0];
         papaParse(inputCSV);
         //let dataFrame = returnDF(inputCSV);
-        dropDown.disabled = true;
+        //dropDown.disabled = true;
     }
 
     dropDown.addEventListener("change", handleLocalFiles, false);
@@ -478,7 +507,7 @@
             inputCSV = dropDown.value;
             papaParse(inputCSV);
             //console.log(d3.csv(dropDown.value));
-            inputElement.disabled = true;
+            //inputElement.disabled = true;
         }
     }
 

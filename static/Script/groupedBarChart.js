@@ -5,7 +5,7 @@ const groupedBarChart = function(rawData) {
     var svg = d3.select('svg')
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
     height = +svg.attr("height") - margin.top - margin.bottom,
-    width = 500 - margin.left - margin.right;
+    width = 900 - margin.left - margin.right;
 
     var x0 = d3.scaleBand()
         .rangeRound([0, width], 0.5)

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for
 import os
+import spider
 
 app = Flask(__name__)
 
@@ -28,9 +29,9 @@ def main():
                 user_stats.append(request.form['stat' + str(i)])
         print(user_stats)
 
-        court_science_magic(user_csv, user_stats)
+        spider.court_science_magic(user_csv, user_stats)
 
-        pdf_path = send_pdf_path()
+        pdf_path = spider.send_pdf_path()
 
         return render_template('response.html', pdf_path = pdf_path)
 
