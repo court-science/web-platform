@@ -120,14 +120,14 @@
             <p style="text-align: center; font-size: 24px;"><b>Chart Type</b></p>
             <div style="float:left; width: 42%; height: 80px;">
             <label>
-            <input id='radar-input' type="radio" name="test" value="small" checked>
-            <img style="width: 100%; height: 100%" src="{{ url_for('static', filename='Radar_Chart_Button.png') }}">
+            <input id='radar-input' type="radio" name="radio-button" value="Radar" checked>
+            <img style="width: 100%; height: 100%" title="Radar Chart" src="{{ url_for('static', filename='Radar_Chart_Button.png') }}">
             </label>
             </div>
             <div style="float:right; width: 42%; height: 80px;">
             <label>
-            <input id='bar-input' type="radio" name="test" value="big">
-            <img style="width: 100%; height: 100%" src="{{ url_for('static', filename='Bar_Chart_Button.png') }}">
+            <input id='bar-input' type="radio" name="radio-button" value="Bar">
+            <img style="width: 100%; height: 100%" title="Bar Chart" src="{{ url_for('static', filename='Bar_Chart_Button.png') }}">
             </label>
             </div>
             </div>
@@ -160,6 +160,8 @@
 <script>
     const inputElement = document.getElementById("test");
     const dropDown = document.getElementById("drop-down");
+    const radar_input = document.getElementById('radar-input');
+    const bar_input = document.getElementById('bar-input');
     //var dataFrame = [];
     var target_id = "";
     var max_players = 3;
@@ -202,6 +204,20 @@
         ev.stopPropagation();
     }
 
+    function CSV_to_parsed_df(data, rows, cols) {
+        var obj_df = [];
+        for (var i=1; i<data.length; i++) {
+            var obj = {};
+            for (var col of cols) {
+                obj[data[0][col]] = data[i][col];
+            }
+            obj['Plot'] = rows.includes(i);
+            obj_df.push(obj)
+        }
+        return obj_df;
+    }
+
+
     function main(data) {
         console.log(data);
         var parsed_df = [[]];
@@ -211,11 +227,11 @@
         var players_children = document.getElementById('drop-players').children;
 
         for (ch of stats_children) {
-            lst_stats.push(ch.value);
+            lst_stats.push(parseInt(ch.value));
         }
 
         for (ch of players_children) {
-            lst_players.push(ch.value);
+            lst_players.push(parseInt(ch.value));
         }
 
         /*
@@ -235,6 +251,10 @@
 
         console.log(lst_stats);
         console.log(lst_players);
+
+        var obj_df = CSV_to_parsed_df(data, lst_players, lst_stats);
+        console.log(obj_df);
+
 
         for (const index of lst_stats) {
             parsed_df[0].push(data[0][index]);
@@ -259,13 +279,14 @@
         */
         chart.remove();
         div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 70%; margin-top: 30px;'><svg height='500' style='float: right; width: 95%'></svg></div>");
-        //console.log(demo);
-        if(bar_input.checked) {
-            //groupedBarChart(parsed_df);
-            groupedBarChart(sampleRawData)
-        } else if(radar_input.checked) {
-            //radarChart(parsed_df);
-            radarChart(sampleRawData);
+
+        if(radar_input.checked) {
+            console.log("Plotting Radar Chart!");
+            radarChart(obj_df);
+        } else {
+            console.log("Plotting Bar Chart!");
+            groupedBarChart(obj_df);
+
         }
     }
 
@@ -367,9 +388,11 @@
                         }
                         */
                         let name = "'stat" + String(count) + "'";
+                        let id = "stat" + String(count);
                         let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' ondragover='disableDrop(event)' ondrop='disableDrop(event)' name='" + headers_filtered[i] + "' draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ headers_filtered_index[i] + "'>" + headers_filtered[i] + "</button>";
                         //console.log(string_to_add);
                         stats_drag.insertAdjacentHTML('beforeend', string_to_add);
+                        if
                         count += 1;
                     }
 
@@ -459,8 +482,7 @@
         }
     }
 
-    var radar_input = document.getElementById('radar-input');
-    var bar_input = document.getElementById('bar-input');
+
     var stats_message = document.getElementById('stats-message');
     var players_message = document.getElementById('players-message');
     var image_display = document.getElementById('starter-img');
