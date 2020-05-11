@@ -23,58 +23,35 @@
     <div class="body-section-top" id="home">
         <h2 class="title">WHO WE ARE</h2>
         <p class="body-text">
-            Court Science is a web-based platform that makes the power of data science accessible
-            to basketball players, coaches, and leagues worldwide. We aim to bridge the gap
-            between STEM and sports, by leveraging data science to provide basketball enthusiasts
-            with key data insights including visualizations, boosting their game to the next level.
-            We're currently in our early stages of development, so please try out our demo and tell
-            us what you think below!
+            Court Science is a non-profit organization that aims to bridge the gap
+            between STEM and sports by making the power of Data Science accessible to basketball enthusiasts worldwide,
+            through our online <a class="body-link" href="#demo">Visualization Lab</a> and community initiatives. In light
+            of COVID-19, we have shifted all of our outreach efforts remotely (Youth Basketball Data Camp coming soon!),
+            and hope our simple web-based tools can empower you to explore new dimensions of your favourite sport through
+            a data lens, while learning something new about STEM. It's as easy as a few clicks and you're on your way!
         </p>
     </div>
     <div class="body-section-2" id="demo">
         <div style="margin-bottom: 50px;"><h2 class="title">VISUALIZATION LAB</h2></div>
-        <!--
+        <b class="list-text" style="font-size: 36px;">5 Steps to Court Science Magic:</b>
         <ol class="list-text">
-            <li>Upload a csv file of your stats with the following format:</li>
-                <ul>
-                    <img class="spreadsheet" src="{{ url_for('static', filename='Screenshot (1).png') }}">
-                    <li>The first 4 columns must contain general player info with mandatory labels at the top row: <b>"FULL NAME"</b>,
-                    <b>"TEAM"</b>, <b>"POS"</b>, and <b>"AGE"</b>.</li>
-                    <li>The rest of the columns can contain stats of your choice from the following label options: <b>"FTA"</b>,
-                    <b>"FT%"</b>, <b>"2PA"</b>, <b>"2P%"</b>, <b>"3PA"</b>, <b>"3P%"</b>, <b>"PPG"</b>,
-                    <b>"APG"</b>, <b>"RPG"</b>, <b>"SPG"</b>, <b>"BPG"</b></li>
-                    <li>Ensure all labels are spelled exactly the same as above (case sensitive).</li>
-                    <li>Leave boxes with missing info empty.</li>
-                    <li>Once ready, download your spreadsheet as a CSV and upload it.</li>
-                    <li>Don't have a spreadsheet? No problem, <a
-                            href="https://storage.cloud.google.com/statsheet-storage-bucket/Sample.xlsx%20-%20Sheet1.csv" download>
-                        <b>download our sample sheet</b></a>!</li>
-                </ul>
-            <li>Select the features you would like to visualize</li>
-            <li>Click the "Submit" button to view your data visualized!</li>
+            <li>Select a sample NBA Dataset from the dropdown menu or upload your own spreadsheet (in CSV format).</li>
+            <li>Select your chart type.</li>
+            <li>Drag and drop the stats you'd like to plot into the 'Stats to Plot' box.</li>
+            <li>Drag and drop the players you'd like to compare into the 'Players to Compare' box.</li>
+            <li>Watch your visualizations being created in real-time and have fun!</li>
         </ol><br><br>
-        -->
-        <div style="margin-bottom: 50px; height: 250px">
-        <div style="float: left; width:30%; margin-right: 32%;">
-        <div class='instructions-container'>
-            <p style="font-size: 24px; font-family: Arial, Gadget, sans-serif;"><b>Instructions:</b></p>
-            <p style="font-family: Arial, Gadget, sans-serif;">1. Select a sample NBA Dataset from the dropdown menu or upload your own spreadsheet (in CSV format). <br>
-            2. Select your chart type. <br>
-            3. Drag and drop the stats you'd like to plot into the 'Stats to Plot' box. <br>
-            4. Drag and drop the players you'd like to compare into the 'Players to Compare' box. <br>
-            5. Have fun!</p>
-        </div>
-        </div>
+        <div style="margin-bottom: 50px; height: 70px">
         <div style="float: left; width: 37%;">
-        <div style="float: left; margin-right: 7%; margin-top:211px;">
+        <div style="float: left; margin-right: 7%; margin-top: 18px;">
         <select id="drop-down" name="Data selection">
             <option value="">Select NBA Data Source</option>
             <option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/2018-2019%20NBA%20Player%20Stats%20-%20Sheet1.csv">2018-2019 NBA Season</option>
             <option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/nba_draft_combine_all_years.csv">NBA Draft Combine</option>
         </select>
         </div>
-        <div style="float: left; margin-right: 7%; margin-top:211px;"><p>OR</p></div>
-        <div style="float: left; margin-top:190px;"><input type="file" id="test" name="myCSV" accept=".csv"></div>
+        <div style="float: left; margin-right: 7%; margin-top: 18px;"><p>OR</p></div>
+        <div style="float: left;"><input type="file" id="test" name="myCSV" accept=".csv"></div>
         </div>
         </div>
         <div>
@@ -111,8 +88,7 @@
             <div class='div-container' id='drag-players' ondrop='drop(event)' ondragover='allowDropPlayersBack(event)'></div>
             </div>
             <div id='submit-reset' class='div-spacing'>
-                <button type='button'  class='btn btn-outline-dark btn-lg' value='Plot It!' onclick='court_science_magic(inputCSV)' style='width: 70%'>Plot It!</button>
-                <button type='button'  class='btn btn-outline-dark btn-lg' value='Reset' onclick='resetButton()' style='width: 29%'>Reset</button>
+                <button type='button'  class='btn btn-outline-dark btn-lg' value='Reset' onclick='resetButton()' style='width: 100%'>Reset</button>
             </div>
         </div>
         <div id='right-div' style='float: left; width: 65%;'>
@@ -134,12 +110,12 @@
             <div style="float: left; margin-right: 5%; width: 35%">
             <p>Stats to Plot</p>
             <div class='drop-zone' id='drop-stats' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>
-            <p><i id='stats-message'>*Maximum of 7 stats</i></p>
+            <p><i id='stats-message'>*Drop 3-7 stats</i></p>
             </div>
             <div style="float: left; width: 35%">
             <p>Players to Compare</p>
             <div class='drop-zone' id='drop-players' ondrop='drop(event)' ondragover='allowDropPlayers(event)'></div>
-            <p><i id='players-message'>*Maximum of 3 players</i></p>
+            <p><i id='players-message'>*Drop 1-3 players</i></p>
             </div>
             <div id="chart-div" style="float: right; width: 100%; margin-top: 30px;">
             <img src="{{ url_for('static', filename='Radar-Chart.png') }}" id="starter-img" height='550' style="float: right; width: 95%">
@@ -198,6 +174,7 @@
         var data = ev.dataTransfer.getData("text");
         console.log(data);
         ev.target.appendChild(document.getElementById(data));
+        court_science_magic(inputCSV);
     }
 
     function disableDrop(ev) {
@@ -307,7 +284,7 @@
         }
         */
         chart.remove();
-        div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 70%; margin-top: 30px;'><svg height='500' style='float: right; width: 95%'></svg></div>");
+        div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 100%; margin-top: 30px;'><svg height='550' style='float: right; width: 95%'></svg></div>");
 
         if(radar_input.checked) {
             console.log("Plotting Radar Chart!");
@@ -330,7 +307,7 @@
                     main(results['data']);
                 }
                 else {
-                    alert("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!")
+                    console.log("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!");
                 }
             }
         });
@@ -498,7 +475,7 @@
         inputCSV = this.files[0];
         papaParse(inputCSV);
         //let dataFrame = returnDF(inputCSV);
-        //dropDown.disabled = true;
+        dropDown.disabled = true;
     }
 
     dropDown.addEventListener("change", handleLocalFiles, false);
@@ -507,7 +484,7 @@
             inputCSV = dropDown.value;
             papaParse(inputCSV);
             //console.log(d3.csv(dropDown.value));
-            //inputElement.disabled = true;
+            inputElement.disabled = true;
         }
     }
 
@@ -519,26 +496,44 @@
     radar_input.addEventListener("change", handleRadar, false);
     function handleRadar() {
         if(radar_input.checked) {
-            stats_message.innerHTML = "*Maximum of 7 stats";
-            players_message.innerHTML = "*Maximum of 3 players";
+            var stats = document.getElementById('drop-stats').children.length;
+            var players = document.getElementById('drop-players').children.length;
+            stats_message.innerHTML = "*Drop 3-7 stats";
+            players_message.innerHTML = "*Drop 1-3 players";
             max_players=3;
             max_stats=7;
             min_stats = 3;
             min_players = 1;
             image_display.src = 'static/Radar-Chart.png';
+            if(stats >= min_stats && stats <= max_stats && players >= min_players && players <= max_players) {
+                court_science_magic(inputCSV)
+            } else if((stats > 0 && stats < min_stats) || (stats > max_stats) || (players > 0 && players < min_players) || (players > max_players)) {
+                document.getElementById('chart-div').remove();
+                document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 100%; margin-top: 30px;'><img src=\"{{ url_for('static', filename='Radar-Chart.png') }}\" id=\"starter-img\" height='550' style=\"float: right; width: 95%\"></div>");
+                alert("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!");
+            }
         }
     }
 
     bar_input.addEventListener("change", handleBar, false);
     function handleBar() {
         if(bar_input.checked) {
-            stats_message.innerHTML = "*Maximum of 5 stats";
-            players_message.innerHTML = "*Maximum of 5 players;"
+            var stats = document.getElementById('drop-stats').children.length;
+            var players = document.getElementById('drop-players').children.length;
+            stats_message.innerHTML = "*Drop 1-5 stats";
+            players_message.innerHTML = "*Drop 2-5 players;";
             max_players=5;
             max_stats=5;
             min_stats = 1;
             min_players = 2;
             image_display.src = 'static/Bar-Chart (3).png';
+            if(stats >= min_stats && stats <= max_stats && players >= min_players && players <= max_players) {
+                court_science_magic(inputCSV)
+            } else if((stats > 0 && stats < min_stats) || (stats > max_stats) || (players > 0 && players < min_players) || (players > max_players) || (stats > 0 && players < min_players)) {
+                document.getElementById('chart-div').remove();
+                document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 100%; margin-top: 30px;'><img src=\"{{ url_for('static', filename='Bar-Chart (3).png') }}\" id=\"starter-img\" height='550' style=\"float: right; width: 95%\"></div>")
+                alert("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!");
+            }
         }
     }
 
