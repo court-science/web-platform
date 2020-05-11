@@ -96,6 +96,6 @@ urllib3==1.25.9
 wcwidth==0.1.9
 webdriver-manager==2.4.0
 webencodings==0.5.1
-Werkzeug==0.15.2
+Werkzeug==0.15.3
 xlrd==1.2.0
 zipp==3.1.0
