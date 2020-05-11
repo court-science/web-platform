@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, url_for
 import os
-import spider
+#import spider
 
 app = Flask(__name__)
 
@@ -9,6 +9,7 @@ def home():
     return render_template('index.html')
 
 
+'''
 @app.route('/main', methods = ['POST'])
 def main():
     if request.method == 'POST':
@@ -34,7 +35,8 @@ def main():
         pdf_path = spider.send_pdf_path()
 
         return render_template('response.html', pdf_path = pdf_path)
-
+'''
 
 if __name__ == '__main__':
     app.run()
+
