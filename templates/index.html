@@ -118,7 +118,7 @@
             <p><i id='players-message'>*Drop 1-3 players</i></p>
             </div>
             <div id="chart-div" style="float: right; width: 100%; margin-top: 30px;">
-            <img src="{{ url_for('static', filename='Radar-Chart.png') }}" id="starter-img" height='550' style="float: right; width: 95%">
+            <img src="{{ url_for('static', filename='Radar-Chart.png') }}" id="starter-img" alt="Radar-Chart.png" height='550' style="float: right; width: 95%">
             </div>
         </div>
         </div>
@@ -138,6 +138,7 @@
     const dropDown = document.getElementById("drop-down");
     const radar_input = document.getElementById('radar-input');
     const bar_input = document.getElementById('bar-input');
+    var img_src = "Radar-Chart.png";
     //var dataFrame = [];
     var target_id = "";
     var max_players = 3;
@@ -465,6 +466,10 @@
         dropDown.disabled = false;
         inputElement.disabled = false;
         papaParse(inputCSV);
+        document.getElementById('chart-div').remove();
+        img_src = 'static/' + img_src;
+        document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 100%; margin-top: 30px;'><img id=\"starter-img\" height='550' style=\"float: right; width: 95%\"></div>");
+        document.getElementById('starter-img').src = img_src;
     }
 
 
@@ -505,6 +510,7 @@
             min_stats = 3;
             min_players = 1;
             image_display.src = 'static/Radar-Chart.png';
+            img_src = "Radar-Chart.png";
             if(stats >= min_stats && stats <= max_stats && players >= min_players && players <= max_players) {
                 court_science_magic(inputCSV)
             } else if((stats > 0 && stats < min_stats) || (stats > max_stats) || (players > 0 && players < min_players) || (players > max_players)) {
@@ -527,6 +533,7 @@
             min_stats = 1;
             min_players = 2;
             image_display.src = 'static/Bar-Chart (3).png';
+            img_src = "Bar-Chart (3).png";
             if(stats >= min_stats && stats <= max_stats && players >= min_players && players <= max_players) {
                 court_science_magic(inputCSV)
             } else if((stats > 0 && stats < min_stats) || (stats > max_stats) || (players > 0 && players < min_players) || (players > max_players) || (stats > 0 && players < min_players)) {
