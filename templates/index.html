@@ -9,6 +9,7 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="{{ url_for('static', filename='Script/groupedBarChart.js') }}"></script>
     <script src="{{ url_for('static', filename='Script/RadarChart.js') }}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <div class="navigation-bar">
@@ -118,8 +119,8 @@
             <div class='drop-zone' id='drop-players' ondrop='drop(event)' ondragover='allowDropPlayers(event)'></div>
             <p><i id='players-message'>*Drop 1-3 players</i></p>
             </div>
-            <div id="chart-div" style="float: right; width: 100%; margin-top: 30px;">
-            <img src="{{ url_for('static', filename='Radar-Chart.png') }}" id="starter-img" alt="Radar-Chart.png" height='550' style="float: right; width: 95%">
+            <div id="chart-div" style="float: right; width: 100%; margin-top: 3%;">
+            <img src="{{ url_for('static', filename='Radar-Chart.png') }}" id="starter-img" alt="Radar-Chart.png" class="display-chart">
             </div>
         </div>
         </div>
