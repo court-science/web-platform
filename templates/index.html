@@ -43,20 +43,20 @@
             <li>Watch your visualizations being created in real-time and have fun!</li>
         </ol><br><br>
         <div style="margin-bottom: 50px; height: 70px">
-        <div style="float: left; width: 37%;">
-        <div style="float: left; margin-right: 7%; margin-top: 18px;">
+        <div style="float: left; width: 100%">
+        <div style="float: left; margin-right: 2%; margin-top: 18px;">
         <select id="drop-down" name="Data selection">
             <option value="">Select NBA Data Source</option>
             <option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/2018-2019%20NBA%20Player%20Stats%20-%20Sheet1.csv">2018-2019 NBA Season</option>
             <option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/nba_draft_combine_all_years.csv">NBA Draft Combine</option>
         </select>
         </div>
-        <div style="float: left; margin-right: 7%; margin-top: 18px;"><p>OR</p></div>
+        <div style="float: left; margin-right: 2%; margin-top: 18px;"><p>OR</p></div>
         <div style="float: left;"><input type="file" id="test" name="myCSV" accept=".csv"></div>
         </div>
         </div>
         <div>
-        <div id='left-div' style="float: left; margin-right: 4%; width: 30%;">
+        <div id='left-div' style="float: left; margin-right: 4%; width: 30%; height: 100%;">
             <!--
             <div class="spacing">
             <p>Chart Type</p>
@@ -78,7 +78,7 @@
 
             </div>
             -->
-            <div class="spacing">
+            <div class="spacing" style="height: 100%;">
             <input type="text" class="searchInput" id="searchInputStats" onkeyup="searchBarStats()" placeholder="Search for stats">
             <p>Stats</p>
             <div class='div-container' id='drag-stats' ondrop='drop(event)' ondragover='allowDropStatsBack(event)'></div>
@@ -92,7 +92,7 @@
                 <button type='button'  class='btn btn-outline-dark btn-lg' value='Reset' onclick='resetButton()' style='width: 100%'>Reset</button>
             </div>
         </div>
-        <div id='right-div' style='float: left; width: 65%;'>
+        <div id='right-div' style='float: left; width: 65%; height: 100%;'>
             <div id='chart-selection' style="float: left; width: 20%; margin-right: 5%; margin-top: 3%;">
             <p style="text-align: center; font-size: 24px;"><b>Chart Type</b></p>
             <div style="float:left; width: 42%; height: 80px;">
