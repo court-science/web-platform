@@ -212,8 +212,15 @@ input[type=checkbox] {
   font-size: 16px;
   padding: 2% 20px 2% 50px;
   border-radius: 25px;
-  border: 2px solid black;
+  border: 1px solid grey;
   margin-bottom: 12px;
+  background-color: #F2F2F2;
+}
+
+
+.searchInput:hover, .searchInput:focus {
+  border: 1px solid dodgerblue;
+  background-color: white;
 }
 
 .display-chart {
