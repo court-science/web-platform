@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request, url_for, Response, redirect
-from flask_talisman import Talisman
 import os
 import spider
-from flask_sslify import SSLify
+
 
 app = Flask(__name__)
 
