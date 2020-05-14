@@ -8,9 +8,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
+    '''
     response = Response(render_template('index.html'))
     response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
     return response
+    '''
+    return render_template('index.html')
 
 
 '''
