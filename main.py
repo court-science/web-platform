@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, Response
+from flask import Flask, render_template, request, url_for, Response, redirect
 from flask_talisman import Talisman
 import os
 import spider
@@ -6,8 +6,14 @@ from flask_sslify import SSLify
 
 app = Flask(__name__)
 
-if 'DYNO' in os.environ:
-    sslify = SSLify(app)
+
+@app.before_request
+def enforceHttpsInHeroku():
+  if request.headers.get('X-Forwarded-Proto') == 'http':
+    url = request.url.replace('http://', 'https://', 1)
+    code = 301
+    return redirect(url, code=code)
+
 
 @app.route('/')
 def home():
