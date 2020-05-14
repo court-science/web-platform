@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, url_for
-from flask_talisman import Talisman
+#from flask_talisman import Talisman
 import os
 import spider
 
 app = Flask(__name__)
-Talisman(app)
+#Talisman(app)
 
 @app.route('/')
 def home():
