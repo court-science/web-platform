@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 
 @app.before_request
-def enforceHttpsInHeroku():
+def enforce_https_in_heroku():
   if request.headers.get('X-Forwarded-Proto') == 'http':
     url = request.url.replace('http://', 'https://', 1)
     code = 301
