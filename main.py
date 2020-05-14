@@ -1,10 +1,13 @@
 from flask import Flask, render_template, request, url_for, Response
-#from flask_talisman import Talisman
+from flask_talisman import Talisman
 import os
 import spider
+from flask_sslify import SSLify
 
 app = Flask(__name__)
-#Talisman(app)
+
+if 'DYNO' in os.environ:
+    sslify = SSLify(app)
 
 @app.route('/')
 def home():
@@ -46,5 +49,5 @@ def main():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=False)
 
