@@ -1,15 +1,5 @@
 <!DOCTYPE html>
 <html>
-<svg width="640" height="350"></svg>
-<style>
-	.bar {
-		fill: steelblue;
-	}
-
-	.bar:hover {
-		fill: brown;
-	}
-</style>
 	<head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
   <title>Charts!</title>
@@ -43,15 +33,43 @@
 		.x.axis path {
 		display: none;
 		}
+	</style>
+	<style type="text/css">
+		#left-div {float:left; width:35%; height:100%;}
+		#right-div {float:left; width:65%; height:100%;}
+		/* #chart-div {float:right; background:yellow; width:100%; height:100%} */
+		.mainsection {width:100%; color:green; background:red; float:left}
+		.svg {margin-left:20px; width:100%; height:100%;}
 
+		div.tooltip {	
+			position: absolute;			
+			text-align: center;			
+			width: 60px;					
+			height: 42px;					
+			padding: 2px;				
+			font: 12px sans-serif;		
+			background: lightsteelblue;	
+			border: 0px;		
+			border-radius: 8px;			
+			pointer-events: none;			
+		}
 	</style>
   </head>
   <body>
-    <div id="body">
-	  <div id="chart"></div>
-    </div>
-	<button onclick="groupedBar()">Bar Chart</button>
-	<button onclick="radar()">Radar Chart</button>
+	<div id='left-div'>
+		<div class="mainsection">
+			This text is contained in a div element and styled.<br>
+			The class attribute is used to identify which style to apply.<br>
+			The style is defined in the head section.
+		</div>
+	</div>
+	<div id="right-div">
+		<div id="chart-div"></div>
+			<svg height="500" width="500"></svg>
+			<button onclick="groupedBar()">Bar Chart</button>
+			<button onclick="radar()">Radar Chart</button>
+		</div>
+	</div>
     <script type="text/javascript" src="script.js"></script>
 
   </body>

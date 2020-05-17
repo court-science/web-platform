@@ -13,3 +13,5 @@ venv/
 .idea/workspace.xml
 .idea/inspectionProfiles/profiles_settings.xml
 __pycache__/spider.cpython-37.pyc
+courtscience.ca.key
+courtscience.ca.pem

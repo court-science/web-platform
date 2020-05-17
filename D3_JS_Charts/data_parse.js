@@ -64,27 +64,32 @@ var url = "https://query.data.world/s/d6jhscskd5ep4hfw36eda3lgh6htzg"
 
 
 // //Example CSV data after parsing
-sampleData = [
-    {"Player":"Kawhi Leonard","PTS":0.44, "AST":0.23, "REB":0.65,"STL":0.70,"Blocks":0.88},
-    {"Player":"Steph Curry","PTS":0.59, "AST":0.28, "REB":0.84,"STL":0.59,"Blocks":0.48},
-    {"Player":"Kevin Durant","PTS":0.78, "AST":0.55, "REB":0.64,"STL":0.47,"Blocks":0.28},
-    {"Player":"Lebron James","PTS":0.66, "AST":0.73, "REB":0.46,"STL":0.22,"Blocks":0.68},
-    ]
-sampleRawData = [
-    {"Player":"Kawhi Leonard","PTS":50.4, "AST":4.2, "REB":10.6,"STL":1.70,"Blocks":1.8},
-    {"Player":"Steph Curry","PTS":30.5, "AST":7.2, "REB":5.8,"STL":1.59,"Blocks":1.4},
-    {"Player":"Kevin Durant","PTS":24.8, "AST":5.5, "REB":8.6,"STL":1.47,"Blocks":2.2},
-    {"Player":"Lebron James","PTS":22.6, "AST":8.7, "REB":7.4,"STL":2.22,"Blocks":1.6},
-    ]
+// sampleData = [
+//     {"Player":"Kawhi Leonard","PTS":0.44, "AST":0.23, "REB":0.65,"STL":0.70,"Blocks":0.88},
+//     {"Player":"Steph Curry","PTS":0.59, "AST":0.28, "REB":0.84,"STL":0.59,"Blocks":0.48},
+//     {"Player":"Kevin Durant","PTS":0.78, "AST":0.55, "REB":0.64,"STL":0.47,"Blocks":0.28},
+//     {"Player":"Lebron James","PTS":0.66, "AST":0.73, "REB":0.46,"STL":0.22,"Blocks":0.68},
+//     ]
+// sampleRawData = [
+//     {"Player":"Kawhi Leonard","PTS":50.4, "AST":4.2, "REB":10.6,"STL":1.70,"Blocks":1.8},
+//     {"Player":"Steph Curry","PTS":30.5, "AST":7.2, "REB":5.8,"STL":1.59,"Blocks":1.4},
+//     {"Player":"Kevin Durant","PTS":40, "AST":10, "REB":12,"STL":2.5,"Blocks":2.5},
+//     {"Player":"Lebron James","PTS":22.6, "AST":8.7, "REB":7.4,"STL":2.22,"Blocks":1.6},
+//     ]
 
 samplePlotData = [
-    {"Player":"Kawhi Leonard","PTS":20.4, "AST":4.2, "REB":10.6,"STL":1.70,"Blocks":1.8,"Plot":true},
-    {"Player":"Steph Curry","PTS":30.5, "AST":7.2, "REB":5.8,"STL":1.59,"Blocks":1.4,"Plot":true},
-    {"Player":"Kevin Durant","PTS":24.8, "AST":5.5, "REB":8.6,"STL":1.47,"Blocks":2.2,"Plot":false},
-    {"Player":"Lebron James","PTS":22.6, "AST":8.7, "REB":7.4,"STL":2.22,"Blocks":1.6,"Plot":true},
+    {"Player":"Kawhi Leonard","PTS":12.4, "AST":4.2, "REB":10.6,"STL":1.70,"Blocks":1.8,"Plot":true},
+    {"Player":"Steph Curry","PTS":13.5, "AST":7.2, "REB":5.8,"STL":1.59,"Blocks":1.4,"Plot":true},
+    // {"Player":"Giannis Antetokoumpo","PTS":12.4, "AST":4.2, "REB":10.6,"STL":1.70,"Blocks":1.8,"Plot":true},
+    // {"Player":"Pascal Siakam","PTS":13.5, "AST":7.2, "REB":5.8,"STL":1.59,"Blocks":1.4,"Plot":true},
+    {"Player":"Kevin Durant","PTS":11, "AST":10, "REB":12,"STL":2.5,"Blocks":2.5,"Plot":false},
+    {"Player":"Lebron James","PTS": 12.6, "AST":8.7, "REB":7.4,"STL":2.22,"Blocks":1.6,"Plot":true},
     ]
 
-function radar(){radarChart(samplePlotData)}
+async function radar(){
+    console.log("Data to pass into radar function:",await samplePlotData)
+    radarChart(samplePlotData)
+}
 function groupedBar(){groupedBarChart(samplePlotData)}
 
 function normalizeObjects(data) {
@@ -108,7 +113,13 @@ function normalizeObjects(data) {
         for (let i = 0; i < length; i++) {
             statValues[i] = +((statValues[i] / ratio).toFixed(2));
         }
-  
+
+        /***This loop adds the normalized stats to each player object rather than replace original values. This will be used for tooltips***/
+        // for (let i=0;i<normData.length;i++){
+        //     normStatName="norm_"+statNames[j]
+        //     normData[i][normStatName]=statValues[i]
+        // }
+
         for (let i=0;i<normData.length;i++){
             normData[i][statNames[j]]=statValues[i]
         }
@@ -118,16 +129,13 @@ function normalizeObjects(data) {
   
   const shapeRadarData = function(data){
     /*************** Shaping data with "Plot" variable requires filtering objects where "Plot"==true and then removing that variable ***************/
-    /*** THIS SECTION WILL BE UNCOMMENTED WHEN PLOT VARIABLE ADDED
+
     //filter to only include players we want to plot
     var plotData =  data.filter(function(data) {
         return data.Plot == true;
     });
     //remove "Plot" attribute to prepare objects for plotting
     for (i=0;i<plotData.length;i++){delete plotData[i].Plot}
-  */
-    //This line will be removed when plot variable added
-    let plotData = data
     playerNames = getPlayerNames(plotData)
     var shapedData = []
     //Iterate through array and set each column header as an axis with its corresponding value for each player
@@ -163,7 +171,7 @@ function normalizeObjects(data) {
   
   async function radarChart(rawData) {
     d = await setupRadarData(rawData)
-    RadarChart.draw("#chart-div", d)
+    RadarChart.draw("svg", d)
   }
 
 
