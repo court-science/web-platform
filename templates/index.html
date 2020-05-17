@@ -7,8 +7,10 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <script src="{{ url_for('static', filename='papaparse.min.js') }}"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="{{ url_for('static', filename='Script/groupedBarChart.js') }}"></script>
     <script src="{{ url_for('static', filename='Script/RadarChart.js') }}"></script>
+    <script src="{{ url_for('static', filename='Script/tableFunctions.js') }}"></script>
 </head>
 <body>
     <div class="navigation-bar">
@@ -33,27 +35,6 @@
     </div>
     <div class="body-section-2" id="demo">
         <div style="margin-bottom: 50px;"><h2 class="title">VISUALIZATION LAB</h2></div>
-        <!--
-        <ol class="list-text">
-            <li>Upload a csv file of your stats with the following format:</li>
-                <ul>
-                    <img class="spreadsheet" src="{{ url_for('static', filename='Screenshot (1).png') }}">
-                    <li>The first 4 columns must contain general player info with mandatory labels at the top row: <b>"FULL NAME"</b>,
-                    <b>"TEAM"</b>, <b>"POS"</b>, and <b>"AGE"</b>.</li>
-                    <li>The rest of the columns can contain stats of your choice from the following label options: <b>"FTA"</b>,
-                    <b>"FT%"</b>, <b>"2PA"</b>, <b>"2P%"</b>, <b>"3PA"</b>, <b>"3P%"</b>, <b>"PPG"</b>,
-                    <b>"APG"</b>, <b>"RPG"</b>, <b>"SPG"</b>, <b>"BPG"</b></li>
-                    <li>Ensure all labels are spelled exactly the same as above (case sensitive).</li>
-                    <li>Leave boxes with missing info empty.</li>
-                    <li>Once ready, download your spreadsheet as a CSV and upload it.</li>
-                    <li>Don't have a spreadsheet? No problem, <a
-                            href="https://storage.cloud.google.com/statsheet-storage-bucket/Sample.xlsx%20-%20Sheet1.csv" download>
-                        <b>download our sample sheet</b></a>!</li>
-                </ul>
-            <li>Select the features you would like to visualize</li>
-            <li>Click the "Submit" button to view your data visualized!</li>
-        </ol><br><br>
-        -->
         <div style="margin-bottom: 50px; height: 250px">
         <div style="float: left; width:30%; margin-right: 33%;">
         <div class='instructions-container'>
@@ -64,6 +45,9 @@
             4. Drag and drop the players you'd like to compare into the 'Players to Compare' box. <br>
             5. Have fun!</p>
         </div>
+        
+        <div id="table_div"><script>drawSampleTable()</script></div>
+
         </div>
         <div style="float: left; width: 37%;">
         <div style="float: left; margin-right: 7%; margin-top:211px;">
@@ -278,7 +262,13 @@
         }
         */
         chart.remove();
-        div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 70%; margin-top: 30px;'><svg height='500' style='float: right; width: 95%'></svg></div>");
+        div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 70%; margin-top: 30px;'><div id='container' class='svg-container'></div></div>");
+        
+        var g = d3.select("#chart-div").select("svg-container")
+            .append("svg")
+            .attr("preserveAspectRatio", "xMinYMin meet")
+            .attr("viewBox", "0 0 600 400")
+            .classed("svg-content", true);
 
         if(radar_input.checked) {
             console.log("Plotting Radar Chart!");
