@@ -4,7 +4,7 @@
     padding: 0;
     overflow: hidden;
     background-color: #333;
-    position: fixed;
+    /*position: fixed;*/
     top: 0;
     width: 100%;
     box-sizing: border-box;
@@ -91,8 +91,16 @@ p > a {
     padding: 7%;
     width: 100%;
     box-sizing: border-box;
-    height: 1680px;
+    /*height: 1680px;*/
 }
+
+.body-section-2::after {
+   content: " ";
+   display: block;
+   height: 0;
+   clear: both;
+}
+
 
 .spreadsheet {
     display: block;
@@ -136,6 +144,7 @@ input[type=checkbox] {
     height: 15vh;
     border: 2px solid black;
     background: lightgrey;
+    overflow-y: scroll;
 }
 
 .div-container {
