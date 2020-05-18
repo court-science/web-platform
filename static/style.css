@@ -12,7 +12,7 @@
 }
 
 .navigation-bar-item {
-    float: left;
+    float: right;
     cursor: pointer;
 }
 
@@ -45,7 +45,7 @@ p > a {
 }
 
 .logo {
-    text-align: right;
+    float: left;
     padding: 0%;
 }
 
