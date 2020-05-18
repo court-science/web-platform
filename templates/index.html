@@ -288,7 +288,13 @@
         }
         */
         chart.remove();
-        div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 100%; margin-top: 30px;'><svg height='550' style='float: right; width: 95%'></svg></div>");
+        div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 70%; margin-top: 30px;'><div id='container' class='svg-container'></div></div>");
+        
+        var g = d3.select("#chart-div").select("#container")
+                    .append("svg")
+                    .attr("preserveAspectRatio", "xMinYMin meet")
+                    .attr("viewBox", "0 -20 600 450")
+                    .classed("svg-content", true);
 
         if(radar_input.checked) {
             console.log("Plotting Radar Chart!");

@@ -19,6 +19,7 @@
 	<script src="Bar_Chart.js"></script>
 	<script src="simpleBarChart.js"></script>
 	<script src="groupedBarChart.js"></script>
+	<script src="https://www.gstatic.com/charts/loader.js"></script>
 	<style>
 		body {
 		  overflow: hidden;
@@ -43,15 +44,44 @@
 		.x.axis path {
 		display: none;
 		}
+<<<<<<< HEAD
+=======
+	</style>
+	<style type="text/css">
+		#left-div {float:left; width:50%; height:100%;}
+		#right-div {float:left; width:50%; height:100%;}
+		/* #chart-div {float:right; background:yellow; width:100%; height:100%} */
+		.mainsection {width:100%; color:green; background:red; float:left}
+		.svg {margin-left:20px; width:100%; height:100%;}
+>>>>>>> a79737d... Integration of charts fitting in SVG containers and added tooltips + bar chart by stat instead of by player (toggle coming soon)
 
 	</style>
   </head>
+
   <body>
+<<<<<<< HEAD
     <div id="body">
 	  <div id="chart"></div>
     </div>
 	<button onclick="groupedBar()">Bar Chart</button>
 	<button onclick="radar()">Radar Chart</button>
+=======
+	<div id='left-div'>
+		<div class="mainsection">
+			This text is contained in a div element and styled.<br>
+			The class attribute is used to identify which style to apply.<br>
+			The style is defined in the head section.
+		</div>
+		<div id="table_div"></div>
+	</div>
+	<div id="right-div">
+		<div id="chart-div"></div>
+			<svg height="500" width="500"></svg>
+			<button onclick="groupedBar()">Bar Chart</button>
+			<button onclick="radar()">Radar Chart</button>
+		</div>
+	</div>
+>>>>>>> a79737d... Integration of charts fitting in SVG containers and added tooltips + bar chart by stat instead of by player (toggle coming soon)
     <script type="text/javascript" src="script.js"></script>
 
   </body>

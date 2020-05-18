@@ -8,16 +8,6 @@ var RadarChart = {
           }
         }
       }
-
-      // d3.select(id).select("svg").remove();
-      
-      // var g = d3.select(id)
-      //         .append("svg")
-      //         .attr("width", cfg.w+cfg.ExtraWidthX)
-      //         .attr("height", cfg.h+cfg.ExtraWidthY)
-      //         .append("g")
-      //         .attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
-      //         ;
       
       var g = d3.select("svg");
 
