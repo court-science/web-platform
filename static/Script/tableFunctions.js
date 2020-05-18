@@ -1,5 +1,5 @@
 google.charts.load('current', {'packages':['table']});
-google.charts.setOnLoadCallback(drawTable);
+google.charts.setOnLoadCallback(drawSampleTable);
 
 function drawSampleTable() {
     var table_data = new google.visualization.DataTable();

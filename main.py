@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, url_for, Response, redirect
 import os
-import spider
 
 
 app = Flask(__name__)

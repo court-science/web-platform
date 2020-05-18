@@ -36,15 +36,26 @@
         </p>
     </div>
     <div class="body-section-2" id="demo">
-        <div style="margin-bottom: 50px;"><h2 class="title">VISUALIZATION LAB</h2></div>
-        <b class="list-text" style="font-size: 36px;">5 Steps to Court Science Magic:</b>
-        <ol class="list-text">
+        <div style="margin-bottom: 25px;"><h2 class="title">VISUALIZATION LAB</h2></div>
+        <div id="instructions" style="width: 40%; float: left;">
+        <b class="big-label">5 Steps to Court Science Magic:</b>
+        <br>
+        <ol class="list-text" style="float: left; margin-bottom: 25px">
             <li>Select a sample NBA Dataset from the dropdown menu or upload your own spreadsheet (in CSV format).</li>
             <li>Select your chart type.</li>
             <li>Drag and drop the stats you'd like to plot into the 'Stats to Plot' box.</li>
             <li>Drag and drop the players you'd like to compare into the 'Players to Compare' box.</li>
             <li>Watch your visualizations being created in real-time and have fun!</li>
-        </ol><br><br>
+        </ol>
+        </div>
+        <div id="table-section" style="float: right; width: 60%;">
+            <b class="big-label">Sample Data - Select datasource to or upload your own data</b>
+            <br>
+            <div id="table_div">
+                <script>drawSampleTable()</script>
+            </div>
+        </div>
+        <br><br>
         <div style="margin-bottom: 50px; height: 70px">
         <div style="float: left; width: 100%">
         <div style="float: left; margin-right: 2%; margin-top: 18px;">
@@ -130,7 +141,7 @@
     </div>
     <div id="contact" class="body-section-1">
         <h2 class="title">GET IN TOUCH</h2>
-        <p class="body-text">
+        <p class="body-text" style="text-align: center;">
             We would love to hear from you, send us a shout below!
         </p>
         <a href="mailto:contact@courtscience.ca">
@@ -292,11 +303,11 @@
         chart.remove();
         div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 70%; margin-top: 30px;'><div id='container' class='svg-container'></div></div>");
         
-        var g = d3.select("#chart-div").select("svg-container")
-            .append("svg")
-            .attr("preserveAspectRatio", "xMinYMin meet")
-            .attr("viewBox", "0 0 600 400")
-            .classed("svg-content", true);
+        var g = d3.select("#chart-div").select("#container")
+                    .append("svg")
+                    .attr("preserveAspectRatio", "xMinYMin meet")
+                    .attr("viewBox", "0 -20 600 450")
+                    .classed("svg-content", true);
 
         if(radar_input.checked) {
             console.log("Plotting Radar Chart!");
