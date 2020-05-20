@@ -166,8 +166,9 @@ input[type=checkbox] {
 ::-webkit-file-upload-button {
   background: #2FADF6;
   color: white;
-  padding: 1em;
+  padding: 5px;
   cursor: pointer;
+  vertical-align: middle;
 }
 
 .drop-zone {
