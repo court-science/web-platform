@@ -74,7 +74,7 @@ const simpleBarChart = function(sampleData) {
     height = +svg.attr("height") - margin.top - margin.bottom,
 
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    console.log(height);
+    //console.log(height);
     //var parseTime = d3.timeParse("%d-%b-%y");
 
     var x = d3.scaleBand()
@@ -97,7 +97,7 @@ const simpleBarChart = function(sampleData) {
             });
             
             data = data.filter(data => Number(data["Vertical (Max)"]) > 42)
-            console.log(data)
+            //console.log(data)
         
             x.domain(data.map(function (d) {
                     return d.Player;
@@ -136,19 +136,19 @@ const simpleBarChart = function(sampleData) {
             });
             
             var t1 = performance.now()
-            console.log("Parsing and plotting took " + (t1 - t0) + " milliseconds.")
+            //console.log("Parsing and plotting took " + (t1 - t0) + " milliseconds.")
         });
     }
 
     function dataFromSample(sampleData,statToPlot) {
         let data = sampleData
-        console.log(data)
+        //console.log(data)
         data.sort(function(a, b) {
             return b[statToPlot] - a[statToPlot];
         });
         
         //data = data.filter(data => Number(data[1]) > 25)
-        console.log(data)
+        //console.log(data)
 
         x.domain(data.map(function (d) {
                 return d.Player;
@@ -187,6 +187,6 @@ const simpleBarChart = function(sampleData) {
         });
         
         var t1 = performance.now()
-        console.log("Parsing and plotting took " + (t1 - t0) + " milliseconds.")
+        //console.log("Parsing and plotting took " + (t1 - t0) + " milliseconds.")
     };
 }

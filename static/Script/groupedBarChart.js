@@ -1,7 +1,7 @@
 const groupedBarChart = function(rawData) {
     var t0 = performance.now()
-    console.log("Starting to plot:", t0)
-    console.log("Passing this data into groupedBarChart:",rawData)
+    //console.log("Starting to plot:", t0)
+    //console.log("Passing this data into groupedBarChart:",rawData)
     var svg = d3.select('#chart-div').select('svg')
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
     height = 450 - margin.top - margin.bottom,
@@ -31,7 +31,7 @@ const groupedBarChart = function(rawData) {
 
     function playerXAxis(rawData) {
 
-        console.log("Running parsing function!")
+        //console.log("Running parsing function!")
         var plotData =  rawData.filter(function(rawData) {
             return rawData.Plot == true;
         });
@@ -56,7 +56,7 @@ const groupedBarChart = function(rawData) {
             data[i].values = statsList
         }
 
-       console.log(data);
+       //console.log(data);
 
        var playerNames = data.map(function(d) { return d.Player; });
        var statNames = data[0].values.map(function(d) { return d.stat; });
@@ -151,7 +151,7 @@ const groupedBarChart = function(rawData) {
 
     function statXAxis(rawData) {
 
-        console.log("Running parsing function!")
+        //console.log("Running parsing function!")
         var plotData =  rawData.filter(function(rawData) {
             return rawData.Plot == true;
         });
@@ -174,7 +174,7 @@ const groupedBarChart = function(rawData) {
             }
         }
 
-       console.log(data);
+       //console.log(data);
 
        var statNames = data.map(function(d) { return d.Stat; });
        var playerNames = data[0].values.map(function(d) { return d.player; });
@@ -235,7 +235,7 @@ const groupedBarChart = function(rawData) {
                     d3.select(this).style("fill", color(d.player));
             })
             .on("click", function(d) {
-                console.log(d);
+                //console.log(d);
             });
 
         slice.selectAll("rect")
@@ -271,5 +271,5 @@ const groupedBarChart = function(rawData) {
             };
 
     var t1 = performance.now()
-    console.log("Parsing and plotting took " + (t1 - t0) + " milliseconds.")
-}
+    //console.log("Parsing and plotting took " + (t1 - t0) + " milliseconds.")
+};

@@ -194,7 +194,7 @@
             }
             obj['Plot'] = rows.includes(i);
             obj_df.push(obj);
-            console.log(obj_df);
+            //console.log(obj_df);
         }
         return obj_df;
     }
@@ -229,7 +229,7 @@
 
 
     function main(data) {
-        console.log(data);
+        //console.log(data);
         //var parsed_df = [[]];
         var lst_stats = [window.name_index];
         var lst_players = [];
@@ -265,7 +265,7 @@
         //console.log(lst_players);
 
         var obj_df = CSV_to_parsed_df(data, lst_players, lst_stats);
-        console.log(obj_df);
+        //console.log(obj_df);
 
         /*
         for (const index of lst_stats) {
@@ -298,10 +298,10 @@
                     .classed("svg-content", true);
 
         if(radar_input.checked) {
-            console.log("Plotting Radar Chart!");
+            //console.log("Plotting Radar Chart!");
             radarChart(obj_df);
         } else {
-            console.log("Plotting Bar Chart!");
+            //console.log("Plotting Bar Chart!");
             groupedBarChart(obj_df);
 
         }

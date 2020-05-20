@@ -149,7 +149,7 @@ var RadarChart = {
                           g.selectAll(z)
                             .transition(200)
                             .style("fill-opacity", .7);
-                          console.log(d)
+                          //console.log(d)
                         })
         .on('mouseout', function(){
                           g.selectAll("polygon")
@@ -198,7 +198,7 @@ var RadarChart = {
                         .text(Format(d.value))
                         .transition(200)
                         .style('opacity', 1);
-                    console.log(d)
+                    //console.log(d)
                   })
         .on('mouseout', function(){
                     tooltip
@@ -272,7 +272,7 @@ var RadarChart = {
 
 function normalizeObjects(data) {
   normData = data
-  console.log("Normalizing this data:",normData)
+  //console.log("Normalizing this data:",normData)
   statNames = Object.keys(normData[0])
   
   for (let j=1;j<statNames.length-1;j++) {
@@ -326,10 +326,10 @@ const shapeRadarData = function(data){
 };
 
 async function setupRadarData(rawData){
-  console.log("Original data structure:",rawData)
+  //console.log("Original data structure:",rawData)
   let data = await normalizeObjects(rawData)
   let shapedData = await shapeRadarData(data)
-  console.log("Shaped for Radar Chart structure:",shapedData)
+  //console.log("Shaped for Radar Chart structure:",shapedData)
   return shapedData
 }
 
