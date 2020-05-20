@@ -57,8 +57,8 @@
         </div>
         <br><br>
         <div style="margin-bottom: 50px; height: 70px">
-        <div style="float: left; width: 100%">
-        <div style="float: left; margin-right: 2%; margin-top: 18px;">
+        <div id="datasource" style="float: left; width: 100%; margin-top: 10px; margin-bottom: 5px;">
+        <div style="float: left; margin-right: 2%; margin-top: inherit; margin-bottom: inherit;">
         <select id="drop-down" name="Data selection">
             <option value="">Select NBA Data Source</option>
             <option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/2019-2020%20NBA%20Player%20Stats.xlsx%20-%20Sheet1.csv">2019-2020 NBA Season</option>
@@ -66,7 +66,7 @@
             <option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/nba_draft_combine_all_years.csv">NBA Draft Combine</option>
         </select>
         </div>
-        <div style="float: left; margin-right: 2%; margin-top: 18px;"><p>OR</p></div>
+        <div style="float: left; margin-right: 2%; margin-bottom: inherit; margin-top: inherit;"><p style="margin-bottom: 0px;">OR</p></div>
         <div style="float: left;"><input type="file" id="test" name="myCSV" accept=".csv"></div>
         </div>
         </div>
@@ -230,18 +230,18 @@
     // Parse JSON string into object
         var JSON_parsed = JSON.parse(response);
         var stat_to_search = stat.toUpperCase();
-        console.log(JSON_parsed.hasOwnProperty(stat_to_search));
+        //console.log(JSON_parsed.hasOwnProperty(stat_to_search));
         if (JSON_parsed.hasOwnProperty(stat_to_search)) {
             document.getElementById(id).title = JSON_parsed[stat_to_search];
-            console.log(document.getElementById(id).title);
+            //console.log(document.getElementById(id).title);
         }
-        console.log(JSON_parsed);
+        //console.log(JSON_parsed);
     });
     }
 
 
     function main(data) {
-        console.log(data);
+        //console.log(data);
         //var parsed_df = [[]];
         var lst_stats = [window.name_index];
         var lst_players = [];
@@ -343,7 +343,7 @@
                 let df = results['data'];
                 window.num_players = df.length - 1;
                 let headers = df[0];
-                console.log(headers);
+                //console.log(headers);
                 let sample_data = df[1];
                 let num_str = "0123456789";
                 let headers_filtered = [];
@@ -366,7 +366,7 @@
                     alert("Please include a 'player name' column in your spreadsheet to identify players!")
                 } else {
                     window.num_stats = headers_filtered.length;
-                    console.log(headers_filtered);
+                    //console.log(headers_filtered);
 
                     //let inner_div = document.getElementById("inner-div");
                     //inner_div.remove();
@@ -405,6 +405,8 @@
                     console.log(div_to_add);
 
                      */
+                    
+                    drawTableFromCSV(df);
 
                     for (let i=0; i < headers_filtered.length; i++) {
                         /*
@@ -455,7 +457,7 @@
                         let name = "'name" + String(count) + "'";
                         let name_attr = "'" + player_name + "'";
                         let string_to_add = "<button type='button' style='margin-right: 2%; margin-bottom: 2%' class='btn btn-primary' ondragover='disableDrop(event)' ondrop='disableDrop(event)' name=" + name_attr + " draggable='true' ondragstart='drag(event)' id=" + name + " value=" + "'"+ i + "'>" + player_name + "</button>";
-                        console.log(string_to_add);
+                        //console.log(string_to_add);
                         players_drag.insertAdjacentHTML('beforeend', string_to_add);
                         count++;
                     }
