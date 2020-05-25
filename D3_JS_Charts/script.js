@@ -1,6 +1,17 @@
-var w = 500,
-	h = 500;
+// sampleRawData = [
+// 	{"Player":"Kawhi Leonard","PTS":50.4, "AST":4.2, "REB":10.6,"STL":1.70,"Blocks":1.8},
+// 	{"Player":"Steph Curry","PTS":30.5, "AST":7.2, "REB":5.8,"STL":1.59,"Blocks":1.4},
+// 	{"Player":"Kevin Durant","PTS":24.8, "AST":5.5, "REB":8.6,"STL":1.47,"Blocks":2.2},
+// 	{"Player":"Lebron James","PTS":22.6, "AST":8.7, "REB":7.4,"STL":2.22,"Blocks":1.6},
+// 	]
 
+// samplePlotData = [
+// 	{"Player":"Kawhi Leonard","PTS":20.4, "AST":4.2, "REB":10.6,"STL":1.70,"Blocks":1.8,"Plot":true},
+// 	{"Player":"Steph Curry","PTS":30.5, "AST":7.2, "REB":5.8,"STL":1.59,"Blocks":1.4,"Plot":true},
+// 	{"Player":"Kevin Durant","PTS":24.8, "AST":5.5, "REB":8.6,"STL":1.47,"Blocks":2.2,"Plot":false},
+// 	{"Player":"Lebron James","PTS":22.6, "AST":8.7, "REB":7.4,"STL":2.22,"Blocks":1.6,"Plot":true},
+// 	]
+	
 //var colorscale = d3.scaleSequential().domain([1,10])
 
 //Legend titles
@@ -40,9 +51,9 @@ var d = [
 
 //Options for the Radar chart, other than default
 var mycfg = {
-  w: w,
-  h: h,
-  maxValue: 0.6,
+  w: 500,
+  h: 500,
+  maxValue: 1,
   levels: 6,
   ExtraWidthX: 300
 }
