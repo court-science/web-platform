@@ -1,25 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import RadarChart from './RadarChart';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          WELCOME TO COURT SCIENCE IN REACT.JS!!!
-          {/* Edit <code>src/App.js</code> and save to reload. */}
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <svg width="550" height="550"> 
+        <RadarChart width={450} height={450}/>
+      </svg>
     </div>
   );
 }
