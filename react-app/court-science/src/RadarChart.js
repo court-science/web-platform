@@ -10,7 +10,7 @@ class RadarChart extends Component {
     componentWillMount() {
         const samplePlotData = [
             [
-                {axis:"Points",value:0.75},
+                {axis:"Points",value:0.75,raw_value:26},
                 {axis:"Rebounds",value:0.56},
                 {axis:"Assists",value:0.28},
                 {axis:"Steals",value:0.60},
@@ -18,7 +18,7 @@ class RadarChart extends Component {
                 {axis:"FG%",value:0.55},
                 {axis:"3PT%",value:0.35},
             ],[
-                {axis:"Points",value:0.59},
+                {axis:"Points",value:0.59,raw_value:18},
                 {axis:"Rebounds",value:0.26},
                 {axis:"Assists",value:0.82},
                 {axis:"Steals",value:0.79},
@@ -26,34 +26,35 @@ class RadarChart extends Component {
                 {axis:"FG%",value:0.64},
                 {axis:"3PT%",value:0.51},
             ],[
-                {axis:"Points",value:0.59*Math.random()+0.4},
+                {axis:"Points",value:0.59*Math.random()+0.4,raw_value:19},
                 {axis:"Rebounds",value:0.26*Math.random()+0.4},
                 {axis:"Assists",value:0.82*Math.random()+0.4},
                 {axis:"Steals",value:0.79*Math.random()+0.4},
                 {axis:"Blocks",value:0.18*Math.random()+0.4},
                 {axis:"FG%",value:0.64*Math.random()+0.4},
-                {axis:"3PT%",value:0.51*Math.random()+0.4},
-                ],[
-                {axis:"Points",value:0.59*Math.random()+0.4},
-                {axis:"Rebounds",value:0.26*Math.random()+0.4},
-                {axis:"Assists",value:0.82*Math.random()+0.4},
-                {axis:"Steals",value:0.79*Math.random()+0.4},
-                {axis:"Blocks",value:0.18*Math.random()+0.4},
-                {axis:"FG%",value:0.64*Math.random()+0.4},
-                {axis:"3PT%",value:0.51*Math.random()+0.4},
-                ],[
-                {axis:"Points",value:0.59*Math.random()+0.4},
-                {axis:"Rebounds",value:0.26*Math.random()+0.4},
-                {axis:"Assists",value:0.82*Math.random()+0.4},
-                {axis:"Steals",value:0.79*Math.random()+0.4},
-                {axis:"Blocks",value:0.18*Math.random()+0.4},
-                {axis:"FG%",value:0.64*Math.random()+0.4},
-                {axis:"3PT%",value:0.51*Math.random()+0.4},
-                ]
+                {axis:"3PT%",value:0.51*Math.random()+0.4},]
+                // ],[
+                // {axis:"Points",value:0.59*Math.random()+0.4},
+                // {axis:"Rebounds",value:0.26*Math.random()+0.4},
+                // {axis:"Assists",value:0.82*Math.random()+0.4},
+                // {axis:"Steals",value:0.79*Math.random()+0.4},
+                // {axis:"Blocks",value:0.18*Math.random()+0.4},
+                // {axis:"FG%",value:0.64*Math.random()+0.4},
+                // {axis:"3PT%",value:0.51*Math.random()+0.4},
+                // ],[
+                // {axis:"Points",value:0.59*Math.random()+0.4},
+                // {axis:"Rebounds",value:0.26*Math.random()+0.4},
+                // {axis:"Assists",value:0.82*Math.random()+0.4},
+                // {axis:"Steals",value:0.79*Math.random()+0.4},
+                // {axis:"Blocks",value:0.18*Math.random()+0.4},
+                // {axis:"FG%",value:0.64*Math.random()+0.4},
+                // {axis:"3PT%",value:0.51*Math.random()+0.4},
+                // ]
           ];
         
         this.setState({
-            rawStatsData : samplePlotData
+            rawStatsData : samplePlotData,
+            selected: null
         });
     }
 
@@ -88,7 +89,7 @@ class RadarChart extends Component {
         const allAxis = (d[0].map(function(i, j){return i.axis}));
         const total = allAxis.length;
         const radius = cfg.factor*Math.min(cfg.w/2, cfg.h/2);
-        const Format = d3.format('.1%');
+        const Format = d3.format('0.1f');
              
         g
         .attr("width", cfg.w+cfg.ExtraWidthX)
@@ -227,7 +228,7 @@ class RadarChart extends Component {
                         tooltip
                             .attr('x', newX)
                             .attr('y', newY)
-                            .text(Format(d.value))
+                            .text(Format(d.raw_value))
                             .transition(200)
                             .style('opacity', 1);
                         })

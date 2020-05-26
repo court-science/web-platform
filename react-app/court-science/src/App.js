@@ -1,22 +1,14 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-<<<<<<< HEAD
 import './App.css';
 import RadarChart from './RadarChart';
-=======
 import './static/style.css';
 import NavBar from './Components/NavBar/nav_bar'
 import About from './Components/About/about'
->>>>>>> bb351790acc55ee2c882388298ad228aad12e32c
 
 function App() {
   return (
     <div className="App">
-<<<<<<< HEAD
-      <svg width="550" height="550"> 
-        <RadarChart width={450} height={450}/>
-      </svg>
-=======
         <body>
         <NavBar />
         <About />
@@ -108,8 +100,11 @@ function App() {
                             <p><i id='players-message'>*Drop 1-3 players</i></p>
                         </div>
                         <div id="chart-div" style={{float: 'right', width: '100%', marginTop: '3%'}}>
-                            <img src={require("./static/Radar-Chart.png")} id="starter-img"
-                                 alt="Radar-Chart.png" className="display-chart"/>
+                            {/* <img src={require("./static/Radar-Chart.png")} id="starter-img"
+                                 alt="Radar-Chart.png" className="display-chart"/> */}
+                            <svg width="550" height="550"> 
+                                <RadarChart width={450} height={450}/>
+                            </svg>
                         </div>
                     </div>
                 </div>
@@ -134,7 +129,6 @@ function App() {
                 integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
                 crossOrigin="anonymous"></script>
         </body>
->>>>>>> bb351790acc55ee2c882388298ad228aad12e32c
     </div>
   );
 }
