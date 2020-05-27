@@ -1,0 +1,19 @@
+.body-section-1 {
+    background-color: #f2f2f2;
+    padding: 7%;
+    box-sizing: border-box;
+}
+
+.title {
+    font-family: "Arial Black", Gadget, sans-serif;
+    text-align: center;
+    font-size: 40px;
+}
+
+.body-text {
+    font-family: Arial, Gadget, sans-serif;
+    text-align: center;
+    line-height: 2;
+    color: #333333;
+    font-size: 24px;
+}

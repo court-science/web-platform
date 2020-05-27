@@ -215,7 +215,7 @@ input[type=checkbox] {
 }
 
 .searchInput {
-  /*background-image: url('../Components/VizLab/search-icon.png');*/
+  background-image: url('search-icon.png');
   background-size: 8% 25px;
   background-position: 5px 12px;
   background-repeat: no-repeat;
@@ -255,15 +255,15 @@ input[type=checkbox] {
     left: 10px;
   }
 
-div.tooltip {	
-    position: absolute;			
-    text-align: center;			
-    width: xx;					
-    height: xx;					
-    padding: 2px;				
-    font: 18px sans-serif;		
-    background: lightsteelblue;	
-    border: 0px;		
-    border-radius: 8px;			
-    pointer-events: none;			
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: xx;
+    height: xx;
+    padding: 2px;
+    font: 18px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
 }
