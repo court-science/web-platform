@@ -29,7 +29,7 @@ var RadarChart = {
       ExtraWidthX: 100,
       ExtraWidthY: 100,
       color:  d3.scaleOrdinal()
-      .range(["#ca0020","#f4a582","#d5d5d5","#92c5de","#0571b0"])
+      .range(["#ca0020","#f4a582","#92c5de","#0571b0","ffc033"])
      };
 
      cfg.maxValue = Math.max(cfg.maxValue, d3.max(d, function(i){return d3.max(i.map(function(o){return o.value;}))}));

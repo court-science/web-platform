@@ -53,44 +53,73 @@ p > a {
 
 .body-section-1 {
     background-color: #f2f2f2;
-    padding: 7%;
+    padding: 25px;
     box-sizing: border-box;
 }
 
 .body-section-top {
     background-color: #f2f2f2;
-    padding-top: 10%;
-    padding-bottom: 7%;
+    padding-top: 7%;
+    padding-bottom: 25px;
     padding-left: 7%;
     padding-right: 7%;
     box-sizing: border-box;
     width: 100%;
 }
 
+.legend-title {
+    /* font-family: "Arial Black", Gadget, sans-serif; */
+    text-align: center;
+    font-size: 12px;
+    fill:#404040;
+}
+
 .title {
     font-family: "Arial Black", Gadget, sans-serif;
     text-align: center;
-    font-size: 40px;
+    font-size: 32px;
+}
+
+.big-label {
+    font-family: Arial, Gadget, sans-serif;
+    text-align: left;
+    font-size: 16px;
+    margin-bottom: 5px;
 }
 
 .body-text {
     font-family: Arial, Gadget, sans-serif;
-    text-align: center;
+    text-align: left;
     line-height: 2;
     color: #333333;
     font-size: 24px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.ol {
+    list-style-type: none;
+    padding: 0;
+    border: 1px solid #ddd;
+  }
+
+.ol li {
+    padding: 8px 16px;
+    border-bottom: 1px solid #ddd;
 }
 
 .list-text {
     font-family: Arial, Gadget, sans-serif;
     line-height: 2;
     color: #333333;
-    font-size: 24px;
+    font-size: 14px;
+    text-align: justify;
+    padding-right: 5%;
 }
 
 .body-section-2 {
     background-color: white;
-    padding: 7%;
+    padding: 25px;
     width: 100%;
     box-sizing: border-box;
     /*height: 1680px;*/
@@ -116,7 +145,7 @@ p > a {
     margin-right: auto;
     width: 25%;
     height: 25%;
-    padding: 5%;
+    padding: 20px;
 }
 
 .form-text {
@@ -137,8 +166,9 @@ input[type=checkbox] {
 ::-webkit-file-upload-button {
   background: #2FADF6;
   color: white;
-  padding: 1em;
+  padding: 5px;
   cursor: pointer;
+  vertical-align: middle;
 }
 
 .drop-zone {
@@ -244,7 +274,7 @@ input[type=checkbox] {
     display: inline-block;
     position: relative;
     width: 100%;
-    padding-bottom: 100%; /* aspect ratio */
+    padding-bottom: 100%; 
     vertical-align: top;
     overflow: hidden;
   }

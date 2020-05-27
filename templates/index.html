@@ -7,8 +7,10 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <script src="{{ url_for('static', filename='papaparse.min.js') }}"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="{{ url_for('static', filename='Script/groupedBarChart.js') }}"></script>
     <script src="{{ url_for('static', filename='Script/RadarChart.js') }}"></script>
+    <script src="{{ url_for('static', filename='Script/tableFunctions.js') }}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -34,18 +36,29 @@
         </p>
     </div>
     <div class="body-section-2" id="demo">
-        <div style="margin-bottom: 50px;"><h2 class="title">VISUALIZATION LAB</h2></div>
-        <b class="list-text" style="font-size: 36px;">5 Steps to Court Science Magic:</b>
-        <ol class="list-text">
+        <div style="margin-bottom: 25px;"><h2 class="title">VISUALIZATION LAB</h2></div>
+        <div id="instructions" style="width: 40%; float: left;">
+        <b class="big-label">5 Steps to Court Science Magic:</b>
+        <br>
+        <ol class="list-text" style="float: left; margin-bottom: 25px">
             <li>Select a sample NBA Dataset from the dropdown menu or upload your own spreadsheet (in CSV format).</li>
             <li>Select your chart type.</li>
             <li>Drag and drop the stats you'd like to plot into the 'Stats to Plot' box.</li>
             <li>Drag and drop the players you'd like to compare into the 'Players to Compare' box.</li>
             <li>Watch your visualizations being created in real-time and have fun!</li>
-        </ol><br><br>
+        </ol>
+        </div>
+        <div id="table-section" style="float: right; width: 60%;">
+            <b class="big-label">Sample Data - Select datasource to or upload your own data</b>
+            <br>
+            <div id="table_div">
+                <script>drawSampleTable()</script>
+            </div>
+        </div>
+        <br><br>
         <div style="margin-bottom: 50px; height: 70px">
-        <div style="float: left; width: 100%">
-        <div style="float: left; margin-right: 2%; margin-top: 18px;">
+        <div id="datasource" style="float: left; width: 100%; margin-top: 10px; margin-bottom: 5px;">
+        <div style="float: left; margin-right: 2%; margin-top: inherit; margin-bottom: inherit;">
         <select id="drop-down" name="Data selection">
             <option value="">Select NBA Data Source</option>
             <option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/2019-2020%20NBA%20Player%20Stats.xlsx%20-%20Sheet1.csv">2019-2020 NBA Season</option>
@@ -53,7 +66,7 @@
             <option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/nba_draft_combine_all_years.csv">NBA Draft Combine</option>
         </select>
         </div>
-        <div style="float: left; margin-right: 2%; margin-top: 18px;"><p>OR</p></div>
+        <div style="float: left; margin-right: 2%; margin-bottom: inherit; margin-top: inherit;"><p style="margin-bottom: 0px;">OR</p></div>
         <div style="float: left;"><input type="file" id="test" name="myCSV" accept=".csv"></div>
         </div>
         </div>
@@ -395,6 +408,8 @@
                     console.log(div_to_add);
 
                      */
+                    
+                    drawTableFromCSV(df);
 
                     for (let i=0; i < headers_filtered.length; i++) {
                         /*
