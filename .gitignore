@@ -5,6 +5,7 @@ __pycache__/main.cpython-37.pyc
 
 flask/
 venv/
+react-app/court-science/node_modules/
 .idea/CS_mvp.iml
 .idea/misc.xml
 .idea/modules.xml
