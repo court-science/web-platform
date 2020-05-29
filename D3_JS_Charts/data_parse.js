@@ -84,6 +84,7 @@ samplePlotData = [
     {"Player":"Lebron James","PTS":22.6, "AST":8.7, "REB":7.4,"STL":2.22,"Blocks":1.6,"Plot":true},
     ]
 
+   
 function radar(){radarChart(samplePlotData)}
 function groupedBar(){groupedBarChart(samplePlotData)}
 
@@ -185,4 +186,13 @@ function normalizeObjects(data) {
 //     catch(err) {console.error(err)}
 // }
 
-
+//Function to reset dummy data to be used in testing
+function resetData() {
+    samplePlotData = [
+        {"Player":"Kawhi Leonard","PTS":20.4,"AST":4.2,"REB":10.6,"STL":1.70,"Blocks":1.8,"Plot":true},
+        {"Player":"Steph Curry","PTS":30.5, "AST":7.2, "REB":5.8,"STL":1.59,"Blocks":1.4,"Plot":true},
+        {"Player":"Kevin Durant","PTS":24.8, "AST":5.5, "REB":8.6,"STL":1.47,"Blocks":2.2,"Plot":false},
+        {"Player":"Lebron James","PTS":22.6, "AST":8.7, "REB":7.4,"STL":2.22,"Blocks":1.6,"Plot":true},
+        ];
+    normalizeObjects(samplePlotData)
+}
