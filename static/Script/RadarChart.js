@@ -29,14 +29,14 @@ var RadarChart = {
       ExtraWidthX: 100,
       ExtraWidthY: 100,
       color:  d3.scaleOrdinal()
-      .range(["#ca0020","#f4a582","#d5d5d5","#92c5de","#0571b0"])
+      .range(["#ca0020","#f4a582","#92c5de","#0571b0","#ffbf4f"])
      };
 
      cfg.maxValue = Math.max(cfg.maxValue, d3.max(d, function(i){return d3.max(i.map(function(o){return o.value;}))}));
      var allAxis = (d[0].map(function(i, j){return i.axis}));
      var total = allAxis.length;
      var radius = cfg.factor*Math.min(cfg.w/2, cfg.h/2);
-     var Format = d3.format('.1%');
+     //var Format = d3.format('.1%');
      
      g
       .attr("width", cfg.w+cfg.ExtraWidthX)
@@ -45,7 +45,9 @@ var RadarChart = {
       .attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
       ;
 
-    var tooltip;
+    var tip = d3.select("#chart-div").append("div")	
+      .attr("class", "tooltip")				
+      .style("opacity", 0);
     
     //Circular segments
     for(var j=0; j<cfg.levels-1; j++){
@@ -192,32 +194,30 @@ var RadarChart = {
                     g.selectAll(z)
                         .transition(200)
                         .style("fill-opacity", .7);
-                    tooltip
-                        .attr('x', newX)
-                        .attr('y', newY)
-                        .text(Format(d.value))
-                        .transition(200)
-                        .style('opacity', 1);
-                    //console.log(d)
+                    
+                    tip.transition()		
+                        .duration(200)		
+                        .style("opacity", .9);		
+                    tip.html(d.player_name+"<br>"+d.raw_value+" "+d.axis)	
+                        .style("left", (d3.event.pageX + 5) + "px")		
+                        .style("top", (d3.event.pageY - 20) + "px");
                   })
         .on('mouseout', function(){
-                    tooltip
-                        .transition(200)
-                        .style('opacity', 0);
+                    tip.transition()		
+                    .duration(500)		
+                    .style("opacity", 0)
+
                     g.selectAll("polygon")
                         .transition(200)
                         .style("fill-opacity", cfg.opacityArea);
                   })
-        .append("svg:title")
-        .text(function(j){return Math.max(j.value, 0)});
-
       series++;
     });
-    //Tooltip
-    tooltip = g.append('text')
-               .style('opacity', 0)
-               .style('font-family', 'sans-serif')
-               .style('font-size', '13px');
+    // //Tooltip
+    // tooltip = g.append('text')
+    //            .style('opacity', 0)
+    //            .style('font-family', 'sans-serif')
+    //            .style('font-size', '13px');
 
     ////////////////////////////////////////////
     /////////// Initiate legend ////////////////
@@ -268,61 +268,6 @@ var RadarChart = {
       ;	
   }
   
-};
-
-function normalizeObjects(data) {
-  normData = data
-  //console.log("Normalizing this data:",normData)
-  statNames = Object.keys(normData[0])
-  
-  for (let j=1;j<statNames.length-1;j++) {
-      statValues = []
-      for (let i=0;i<normData.length;i++){
-          statValues.push(normData[i][statNames[j]])
-      }
-
-      ratio = Math.max.apply(Math, statValues),
-      length = statValues.length;
-
-      for (let i = 0; i < length; i++) {
-          statValues[i] = +((statValues[i] / ratio).toFixed(2));
-      }
-
-      /***This loop adds the normalized stats to each player object rather than replace original values. This will be used for tooltips***/
-      // for (let i=0;i<normData.length;i++){
-      //     normStatName="norm_"+statNames[j]
-      //     normData[i][normStatName]=statValues[i]
-      // }
-
-      for (let i=0;i<normData.length;i++){
-          normData[i][statNames[j]]=statValues[i]
-      }
-  }
-  return normData
-}
-
-const shapeRadarData = function(data){
-
-  //filter to only include players we want to plot
-  var plotData =  data.filter(function(data) {
-      return data.Plot == true;
-  });
-  //remove "Plot" attribute to prepare objects for plotting
-  for (i=0;i<plotData.length;i++){delete plotData[i].Plot}
-
-  playerNames = getPlayerNames(plotData)
-  var shapedData = []
-  //Iterate through array and set each column header as an axis with its corresponding value for each player
-  for (var i=0;i<plotData.length;i++) { 
-      each_stat = []
-          for (let [key, value] of Object.entries(plotData[i])) { 
-              if (typeof value == "number"){
-                  each_stat.push([{axis: key, value: value}])
-              } 
-          }
-      shapedData[i]=each_stat.flat(Infinity)
-  }
-  return shapedData
 };
 
 async function setupRadarData(rawData){

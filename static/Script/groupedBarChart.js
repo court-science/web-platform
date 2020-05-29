@@ -21,7 +21,7 @@ const groupedBarChart = function(rawData) {
         .rangeRound([height, 0]);
 
     var color = d3.scaleOrdinal()
-        .range(["#ca0020","#f4a582","#d5d5d5","#92c5de","#0571b0"]);
+        .range(["#ca0020","#f4a582","#92c5de","#0571b0","#ffbf4f"]);
 
     svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -149,35 +149,12 @@ const groupedBarChart = function(rawData) {
 
             };
 
-    function statXAxis(rawData) {
+    async function statXAxis(rawData) {
+        rawData = await normalizeObjects(rawData);
+        let data = shapeGroupedBarData(rawData);
 
-        //console.log("Running parsing function!")
-        var plotData =  rawData.filter(function(rawData) {
-            return rawData.Plot == true;
-        });
-        for (i=0;i<plotData.length;i++){delete plotData[i].Plot}
-
-        //convert data into JSON object in the shape of: [{bar_cluster: bar_cluster_label , values: [{bar1:value1},{bar2:value2},...]}]
-        var data = [];
-        var stat_keys = Object.keys(plotData[0]).slice(1,)
-        for (let j=0;j<stat_keys.length;j++) {
-            data[j]={}
-            data[j].Stat=stat_keys[j]
-            data[j].values=[]
-            for (let i=0;i<plotData.length;i++){
-                data[j].values[i]={}
-                player_name=Object.values(plotData[i])[0]
-                stat_key = stat_keys[j]
-                stat_value=plotData[i][stat_key]
-                data[j].values[i].player=player_name
-                data[j].values[i].value=stat_value
-            }
-        }
-
-       //console.log(data);
-
-       var statNames = data.map(function(d) { return d.Stat; });
-       var playerNames = data[0].values.map(function(d) { return d.player; });
+        var statNames = data.map(function(d) { return d.Stat; });
+        var playerNames = data[0].values.map(function(d) { return d.player; });
 
         x0.domain(statNames);
         x1.domain(playerNames).rangeRound([0, x0.bandwidth()]);
@@ -224,10 +201,10 @@ const groupedBarChart = function(rawData) {
                 tip.transition()		
                     .duration(200)		
                     .style("opacity", .9);		
-                tip.html(d.value + "<br/>" + d.player)// + "<br/>"+ Player)	
+                tip.html(d.player + "<br>" + d.raw_value + " " + d.stat_name)
                     .style("left", (d3.event.pageX + 5) + "px")		
                     .style("top", (d3.event.pageY - 20) + "px");	
-                })					
+                })				
             .on("mouseout", function(d) {		
                 tip.transition()		
                     .duration(500)		
@@ -235,7 +212,7 @@ const groupedBarChart = function(rawData) {
                     d3.select(this).style("fill", color(d.player));
             })
             .on("click", function(d) {
-                //console.log(d);
+                console.log(d);
             });
 
         slice.selectAll("rect")
