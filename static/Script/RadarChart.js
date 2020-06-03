@@ -10,17 +10,17 @@ var RadarChart = {
     }  
 
     var width = 600;
-    var height = 500;
+    var height = 550;
 
     var g = d3.select("#chart-div")
                 .append('svg')
-                .attr("viewBox", [0, 0, width, height]);
+                .attr("viewBox", [10, 0, width, height]);
 
     var margin = {top: 30, right: 20, bottom: 30, left: 50};
     cfg = {
       radius: 5,
-      h: height - 20,
-      w: height - 20,
+      h: height - 90,
+      w: height - 60,
       factor: 1,
       factorLegend: .85,
       levels: 3,
