@@ -89,60 +89,62 @@ function radar(){radarChart(samplePlotData)}
 function groupedBar(){groupedBarChart(samplePlotData)}
 
 function normalizeObjects(data) {
-    normData = data
-    console.log("Normalizing this data:",normData)
-    statNames = Object.keys(normData[0])
+    let normData = data
+
+    let statNames = Object.keys(normData[0])
     
-    /*************** For-Loop with "Plot" variable will iterate through each key but the last one so length is n-1 ***************/
-    //Plot value not yet implemented
-    for (let j=1;j<statNames.length;j++) {
-    //Below loop definition will run when plot is implemented
-    //for (let j=1;j<statNames.length-1;j++) {
-        statValues = []
+    for (let j=1;j<statNames.length-1;j++) {
+        let statValues = [];
         for (let i=0;i<normData.length;i++){
             statValues.push(normData[i][statNames[j]])
-        }
+            normData[i]["raw_"+statNames[j]]=normData[i][statNames[j]]
+        };
   
-        ratio = Math.max.apply(Math, statValues),
-        length = statValues.length;
-  
-        for (let i = 0; i < length; i++) {
+        let ratio = Math.max.apply(Math, statValues);
+          
+        for (let i = 0; i < statValues.length; i++) {
             statValues[i] = +((statValues[i] / ratio).toFixed(2));
-        }
+        };
   
         for (let i=0;i<normData.length;i++){
             normData[i][statNames[j]]=statValues[i]
-        }
+        };
     }
-    return normData
-  }
-  
-  const shapeRadarData = function(data){
-    /*************** Shaping data with "Plot" variable requires filtering objects where "Plot"==true and then removing that variable ***************/
-    /*** THIS SECTION WILL BE UNCOMMENTED WHEN PLOT VARIABLE ADDED
     //filter to only include players we want to plot
-    var plotData =  data.filter(function(data) {
-        return data.Plot == true;
+    var plotData =  normData.filter(function(d) {
+        return d.Plot == true;
     });
     //remove "Plot" attribute to prepare objects for plotting
-    for (i=0;i<plotData.length;i++){delete plotData[i].Plot}
-  */
-    //This line will be removed when plot variable added
-    let plotData = data
-    playerNames = getPlayerNames(plotData)
-    var shapedData = []
+    for (i=0;i<plotData.length;i++){delete plotData[i].Plot};
+    
+    return plotData;
+}
+  
+function shapeRadarData(data) {
+    playerNames = getPlayerNames(data)
     //Iterate through array and set each column header as an axis with its corresponding value for each player
-    for (var i=0;i<plotData.length;i++) { 
-        each_stat = []
-            for (let [key, value] of Object.entries(plotData[i])) { 
-                if (typeof value == "number"){
-                    each_stat.push([{axis: key, value: value}])
-                } 
+    var shapedData = []
+    for (var i=0;i<data.length;i++) {
+        let player = Object.values(data[i])[0] 
+        all_stats = []
+            for (let [key, value] of Object.entries(data[i])) {
+                each_stat={} 
+                if (typeof value == "number" & key.indexOf("raw_") != 0){
+                    
+                    each_stat["player_name"]=player
+                    each_stat["axis"]=key;
+                    each_stat["value"]=value;
+                    all_stats.push(each_stat)
+                    console.log(each_stat)
+                }        
             }
-        shapedData[i]=each_stat.flat(Infinity)
+        for (let j=0;j<all_stats.length;j++) {
+            all_stats[j]["raw_value"]=data[i]["raw_"+all_stats[j].axis]
+        }
+        shapedData.push(all_stats)
     }
     return shapedData
-  };
+};
   
   async function setupRadarData(rawData){
     console.log("Original data structure:",rawData)
@@ -195,4 +197,53 @@ function resetData() {
         {"Player":"Lebron James","PTS":22.6, "AST":8.7, "REB":7.4,"STL":2.22,"Blocks":1.6,"Plot":true},
         ];
     normalizeObjects(samplePlotData)
+}
+
+sampleScatterData = [
+    {"Player":"Kawhi Leonard","PTS":20.4,"AST":4.2,"Plot":true},
+    {"Player":"Steph Curry","PTS":30.5, "AST":7.2,"Plot":true},
+    {"Player":"Kevin Durant","PTS":24.8, "AST":5.5,"Plot":false},
+    {"Player":"Lebron James","PTS":22.6, "AST":8.7,"Plot":true},
+    ];
+
+function shapeScatterData(data) {
+    var data_points = [];
+    var stat_keys = Object.keys(data[0])
+    var player_key = stat_keys[0]
+    var xLabel_key = stat_keys[1]
+    var yLabel_key = stat_keys[2]
+    var plot_key = stat_keys[3]
+
+    for (let i=0;i<data.length;i++) {
+        data_points[i] = {};
+        data_points[i].player = data[i][player_key]
+        data_points[i].xLabel = xLabel_key
+        data_points[i].xValue = data[i][xLabel_key]
+        data_points[i].yLabel = yLabel_key
+        data_points[i].yValue = data[i][yLabel_key]
+        data_points[i].plot = data[i][plot_key]
+    }
+    return data_points;
+}
+
+function shapeGroupedBarData(data) {
+    var clusters = [];
+    var stat_keys = Object.keys(data[0]).slice(1,)
+    console.log(stat_keys)
+    for (let j=0;j<stat_keys.length;j++) {
+        if(stat_keys[j].indexOf("raw_") != 0) {
+            clusters[j]={}
+            clusters[j].Stat=stat_keys[j]
+            clusters[j].values=[]
+            for (let i=0;i<data.length;i++) {
+                clusters[j].values[i] = {}
+                clusters[j].values[i].player = Object.values(data[i])[0]
+                clusters[j].values[i].value = data[i][stat_keys[j]]
+                clusters[j].values[i].raw_value = data[i]["raw_"+stat_keys[j]]
+                clusters[j].values[i].stat_name = stat_keys[j]
+            }
+        }
+    }
+    console.log(clusters)
+    return clusters;
 }

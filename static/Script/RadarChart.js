@@ -9,14 +9,18 @@ var RadarChart = {
       }
     }  
 
-    var g = d3.select("#chart-div").select("svg");//.attr("width",400).attr("height",350);
-    // console.log("NEW SVG HEIGHT IS:",g.attr("height"))
-    // console.log("NEW SVG WIDTH IS:",g.attr("width"))
+    var width = 600;
+    var height = 500;
+
+    var g = d3.select("#chart-div")
+                .append('svg')
+                .attr("viewBox", [0, 0, width, height]);
+
     var margin = {top: 30, right: 20, bottom: 30, left: 50};
     cfg = {
       radius: 5,
-      h: 450,//+g.attr("height"),
-      w: 500,//+g.attr("width"),
+      h: height - 20,
+      w: height - 20,
       factor: 1,
       factorLegend: .85,
       levels: 3,
@@ -184,32 +188,29 @@ var RadarChart = {
         .attr("data-id", function(j){return j.axis})
         .style("fill", cfg.color(series)).style("fill-opacity", .9)
         .on('mouseover', function (d){
-                    newX =  parseFloat(d3.select(this).attr('cx')) - 10;
-                    newY =  parseFloat(d3.select(this).attr('cy')) - 5;
-                    
-                    z = "polygon."+d3.select(this).attr("class");
-                    g.selectAll("polygon")
-                        .transition(200)
-                        .style("fill-opacity", 0.1); 
-                    g.selectAll(z)
-                        .transition(200)
-                        .style("fill-opacity", .7);
-                    
-                    tip.transition()		
-                        .duration(200)		
-                        .style("opacity", .9);		
-                    tip.html(d.player_name+"<br>"+d.raw_value+" "+d.axis)	
-                        .style("left", (d3.event.pageX + 5) + "px")		
-                        .style("top", (d3.event.pageY - 20) + "px");
+                      z = "polygon."+d3.select(this).attr("class");
+                      g.selectAll("polygon")
+                          .transition(200)
+                          .style("fill-opacity", 0.1); 
+                      g.selectAll(z)
+                          .transition(200)
+                          .style("fill-opacity", .7);
+                      
+                      tip.transition()		
+                          .duration(200)		
+                          .style("opacity", .9);		
+                      tip.html(d.player_name+"<br>"+d.raw_value+" "+d.axis) //add headshot to tooltip with: "<img src={{img_url}} width=100px>" + "<br>" + 	
+                          .style("left", (d3.event.pageX + 5) + "px")		
+                          .style("top", (d3.event.pageY - 20) + "px");
                   })
         .on('mouseout', function(){
-                    tip.transition()		
-                    .duration(500)		
-                    .style("opacity", 0)
+                      tip.transition()		
+                        .duration(500)		
+                        .style("opacity", 0)
 
-                    g.selectAll("polygon")
-                        .transition(200)
-                        .style("fill-opacity", cfg.opacityArea);
+                      g.selectAll("polygon")
+                          .transition(200)
+                          .style("fill-opacity", cfg.opacityArea);
                   })
       series++;
     });
@@ -233,7 +234,7 @@ var RadarChart = {
     var text = g.append("text")
     .attr("class", "legend-title")
     .attr('transform', 'translate(70,0)') 
-    .attr("x", cfg.w - 110)
+    .attr("x", cfg.w - 148)
     .attr("y", 10)
     .text("Players:");
       
@@ -249,7 +250,7 @@ var RadarChart = {
       .data(LegendOptions)
       .enter()
       .append("rect")
-      .attr("x", cfg.w - 105)
+      .attr("x", cfg.w - 143)
       .attr("y", function(d, i){ return i * 20;})
       .attr("width", 10)
       .attr("height", 10)
@@ -260,10 +261,9 @@ var RadarChart = {
       .data(LegendOptions)
       .enter()
       .append("text")
-      .attr("x", cfg.w - 92)
+      .attr("x", cfg.w - 130)
       .attr("y", function(d, i){ return i * 20 + 9;})
-      .attr("font-size", "11px")
-      .attr("fill", "#737373")
+      .attr("class","legend-labels")
       .text(function(d) { return d; })
       ;	
   }

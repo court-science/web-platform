@@ -1,11 +1,14 @@
 const groupedBarChart = function(rawData) {
-    var t0 = performance.now()
-    //console.log("Starting to plot:", t0)
-    //console.log("Passing this data into groupedBarChart:",rawData)
-    var svg = d3.select('#chart-div').select('svg')
-    var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    height = 450 - margin.top - margin.bottom,
-    width = 600 - margin.left - margin.right;
+    var width = 700
+    var height = 450
+
+    var svg = d3.select('#chart-div')
+                .append('svg')
+                .attr("viewBox", [0, 0, width, height]);
+    var margin = {top: 10, right: 20, bottom: 30, left: 40},
+
+    height = height - margin.top - margin.bottom,
+    width = width - margin.left - margin.right - 130;
 
     var tip = d3.select("#chart-div").append("div")	
                     .attr("class", "tooltip")				
@@ -29,7 +32,7 @@ const groupedBarChart = function(rawData) {
     // playerXAxis(rawData)
     statXAxis(rawData)
 
-    function playerXAxis(rawData) {
+    async function playerXAxis(rawData) {
 
         //console.log("Running parsing function!")
         var plotData =  rawData.filter(function(rawData) {
@@ -56,10 +59,10 @@ const groupedBarChart = function(rawData) {
             data[i].values = statsList
         }
 
-       //console.log(data);
+        //console.log(data);
 
-       var playerNames = data.map(function(d) { return d.Player; });
-       var statNames = data[0].values.map(function(d) { return d.stat; });
+        var playerNames = data.map(function(d) { return d.Player; });
+        var statNames = data[0].values.map(function(d) { return d.stat; });
 
         x0.domain(playerNames);
         x1.domain(statNames).rangeRound([0, x0.bandwidth()]);
@@ -125,25 +128,44 @@ const groupedBarChart = function(rawData) {
             .attr("height", function(d) { return height - y(d.value); });
 
         //Legend
-        var legend = svg.selectAll(".legend")
+        svg
+        .select('svg')
+        .attr("width", width+300)
+        .attr("height", height)
+    
+        //Create the title for the legend
+        svg.append("text")
+            .attr("class", "legend-title")
+            .attr('transform', 'translate(70,0)') 
+            .attr("x", width - 110)
+            .attr("y", 10)
+            .text("Players:");
+          
+        //Initiate Legend	
+        var legend = svg.append("g")
+        .attr("class", "legend")
+        .attr("height", 100)
+        .attr("width", 200)
+        .attr('transform', 'translate(70,20)') 
+        ;
+        //Create colour squares
+        legend.selectAll('rect')
+          .data(LegendOptions)
+          .enter()
+          .append("rect")
+          .attr("x", width - 105)
+          .attr("y", function(d, i){ return i * 20;})
+          .attr("width", 10)
+          .attr("height", 10)
+          .style("fill", function(d, i){ return color(d);})
+          ;
+        //Create text next to squares
+        legend.selectAll(".legend")
             .data(data[0].values.map(function(d) { return d.stat; }).reverse())
         .enter().append("g")
             .attr("class", "legend")
             .attr("transform", function(d,i) { return "translate(0," + i * 20 + ")"; })
             .style("opacity","0");
-
-        legend.append("rect")
-            .attr("x", width - 18)
-            .attr("width", 18)
-            .attr("height", 18)
-            .style("fill", function(d) { return color(d); });
-
-        legend.append("text")
-            .attr("x", width - 24)
-            .attr("y", 9)
-            .attr("dy", ".35em")
-            .style("text-anchor", "end")
-            .text(function(d) {return d; });
 
         legend.transition().duration(500).delay(function(d,i){ return 1300 + 100 * i; }).style("opacity","1");
 
@@ -223,25 +245,46 @@ const groupedBarChart = function(rawData) {
             .attr("height", function(d) { return height - y(d.value); });
 
         //Legend
-        var legend = svg.selectAll(".legend")
-            .data(data[0].values.map(function(d) { return d.player; }).reverse())
-        .enter().append("g")
-            .attr("class", "legend")
-            .attr("transform", function(d,i) { return "translate(0," + i * 20 + ")"; })
-            .style("opacity","0");
-
-        legend.append("rect")
-            .attr("x", width - 18)
-            .attr("width", 18)
-            .attr("height", 18)
-            .style("fill", function(d) { return color(d); });
-
-        legend.append("text")
-            .attr("x", width - 24)
-            .attr("y", 9)
-            .attr("dy", ".35em")
-            .style("text-anchor", "end")
-            .text(function(d) {return d; });
+        svg
+        .select('svg')
+        .attr("width", width+300)
+        .attr("height", height)
+    
+        //Create the title for the legend
+        svg.append("text")
+            .attr("class", "legend-title")
+            .attr('transform', 'translate(70,0)') 
+            .attr("x", width - 70)
+            .attr("y", 30)
+            .text("Players:");
+          
+        //Initiate Legend	
+        var legend = svg.append("g")
+        .attr("class", "legend")
+        .attr("height", 100)
+        .attr("width", 200)
+        .attr('transform', 'translate(70,36)') 
+        ;
+        //Create colour squares
+        legend.selectAll('rect')
+          .data(data[0].values.map(function(d) { return d.player; }))
+          .enter()
+          .append("rect")
+          .attr("x", width - 70)
+          .attr("y", function(d, i){ return i * 20 + 5;})
+          .attr("width", 10)
+          .attr("height", 10)
+          .style("fill", function(d, i){ return color(d);})
+          ;
+        //Create text next to squares
+        legend.selectAll('text')
+            .data(data[0].values.map(function(d) { return d.player; }))
+            .enter()
+            .append("text")
+            .attr("x", width - 55)
+            .attr("y", function(d, i){ return i * 20 + 14;})
+            .attr("class","legend-labels")
+            .text(function(d) { return d; });
 
         legend.transition().duration(500).delay(function(d,i){ return 1300 + 100 * i; }).style("opacity","1");
 

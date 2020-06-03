@@ -235,7 +235,6 @@ input[type=checkbox] {
 }
 
 .display-chart {
-    float: right;
     width: 95%;
     height: 60vh;
 }
@@ -247,13 +246,14 @@ input[type=checkbox] {
     padding-bottom: 100%; /* aspect ratio */
     vertical-align: top;
     overflow: hidden;
-  }
-  .svg-content-responsive {
+}
+
+.svg-content-responsive {
     display: inline-block;
     position: absolute;
     top: 20px;
     left: 10px;
-  }
+}
 
 div.tooltip {	
     position: absolute;			
@@ -267,3 +267,23 @@ div.tooltip {
     border-radius: 8px;			
     pointer-events: none;			
 }
+
+.axis-label {
+    font-family: Arial, Gadget, sans-serif;
+    color: #333333;
+    font-size: 14px;
+}
+
+.legend-labels {
+    font-size: medium;
+    fill: black;
+}
+
+img {
+    display: block;
+    max-width:600px;
+    max-height:350px;
+    width: auto;
+    height: auto;
+    margin: auto;
+  }

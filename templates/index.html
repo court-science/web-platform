@@ -9,7 +9,8 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="{{ url_for('static', filename='Script/dataParser.js') }}"></script>
     <script src="{{ url_for('static', filename='Script/groupedBarChart.js') }}"></script>
-    <script src="{{ url_for('static', filename='Script/RadarChart.js') }}"></script>
+    <script src="{{ url_for('static', filename='Script/radarChart.js') }}"></script>
+    <script src="{{ url_for('static', filename='Script/scatterChart.js') }}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -290,21 +291,16 @@
         }
         */
         chart.remove();
-        div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 70%; margin-top: 30px;'><div id='container' class='svg-container'></div></div>");
+        div_to_add.insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: left; width: 70%; margin-top: 20px; margin-left: 30px;'>");
         
-        var g = d3.select("#chart-div").select("#container")
-                    .append("svg")
-                    .attr("preserveAspectRatio", "xMinYMin meet")
-                    .attr("viewBox", "0 -20 600 450")
-                    .classed("svg-content", true);
-
         if(radar_input.checked) {
             //console.log("Plotting Radar Chart!");
             radarChart(obj_df);
         } else {
             //console.log("Plotting Bar Chart!");
+            //////TESTING SCATTER
             groupedBarChart(obj_df);
-
+            //scatterChart(obj_df);
         }
     }
 
@@ -480,7 +476,7 @@
         inputElement.disabled = false;
         papaParse(inputCSV);
         document.getElementById('chart-div').remove();
-        document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 100%; margin-top: 30px;'><img id=\"starter-img\" height='550' style=\"float: right; width: 95%\"></div>");
+        document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: left; width: 100%; margin-top: 50px; margin-left: 30px;'><img id=\"starter-img\"></div>");
         document.getElementById('starter-img').src = img_src;
     }
 
@@ -527,7 +523,7 @@
                 court_science_magic(inputCSV)
             } else if((stats > 0 && stats < min_stats) || (stats > max_stats) || (players > 0 && players < min_players) || (players > max_players)) {
                 document.getElementById('chart-div').remove();
-                document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 100%; margin-top: 30px;'><img src=\"{{ url_for('static', filename='Radar-Chart.png') }}\" id=\"starter-img\" height='550' style=\"float: right; width: 95%\"></div>");
+                document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: left; width: 100%; margin-top: 30px;'><img src=\"{{ url_for('static', filename='Radar-Chart.png') }}\" id=\"starter-img\"></div>");
                 alert("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!");
             }
         }
@@ -550,7 +546,7 @@
                 court_science_magic(inputCSV)
             } else if((stats > 0 && stats < min_stats) || (stats > max_stats) || (players > 0 && players < min_players) || (players > max_players) || (stats > 0 && players < min_players)) {
                 document.getElementById('chart-div').remove();
-                document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: right; width: 100%; margin-top: 30px;'><img src=\"{{ url_for('static', filename='Bar-Chart (3).png') }}\" id=\"starter-img\" height='550' style=\"float: right; width: 95%\"></div>")
+                document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: left; width: 100%; margin-top: 30px;'><img src=\"{{ url_for('static', filename='Bar-Chart (3).png') }}\" id=\"starter-img\"></div>")
                 alert("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!");
             }
         }

@@ -54,7 +54,6 @@ function shapeRadarData(data) {
         for (let j=0;j<all_stats.length;j++) {
             all_stats[j]["raw_value"]=data[i]["raw_"+all_stats[j].axis]
         }
-        
         shapedData.push(all_stats)
     }
     return shapedData
@@ -73,14 +72,34 @@ function shapeGroupedBarData(data) {
                 clusters[j].Stat=stat_keys[j]
                 clusters[j].values=[]
                 for (let i=0;i<data.length;i++) {
-                    clusters[j].values[i]={}
-                    clusters[j].values[i].player=Object.values(data[i])[0]
-                    clusters[j].values[i].value=data[i][stat_keys[j]]
-                    clusters[j].values[i].raw_value=data[i]["raw_"+stat_keys[j]]
-                    clusters[j].values[i].stat_name=stat_keys[j]
+                    clusters[j].values[i] = {}
+                    clusters[j].values[i].player = Object.values(data[i])[0]
+                    clusters[j].values[i].value = data[i][stat_keys[j]]
+                    clusters[j].values[i].raw_value = data[i]["raw_"+stat_keys[j]]
+                    clusters[j].values[i].stat_name = stat_keys[j]
                 }
             }
         }
         console.log(clusters)
         return clusters;
     }
+
+function shapeScatterData(data) {
+        var data_points = [];
+        var stat_keys = Object.keys(data[0])
+        var player_key = stat_keys[0]
+        var xLabel_key = stat_keys[1]
+        var yLabel_key = stat_keys[2]
+        var plot_key = stat_keys[3]
+
+        for (let i=0;i<data.length;i++) {
+            data_points[i] = {};
+            data_points[i].player = data[i][player_key]
+            data_points[i].xLabel = xLabel_key
+            data_points[i].xValue = data[i][xLabel_key]
+            data_points[i].yLabel = yLabel_key
+            data_points[i].yValue = data[i][yLabel_key]
+            data_points[i].plot = data[i][plot_key]
+        }
+        return data_points;
+}

@@ -16,3 +16,4 @@ react-app/court-science/node_modules/
 __pycache__/spider.cpython-37.pyc
 courtscience.ca.key
 courtscience.ca.pem
+.vscode/launch.json
