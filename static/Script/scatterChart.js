@@ -3,7 +3,7 @@ const scatterChart = function(data) {
     const width = 500
     const height = 350
 
-    const svg = d3.select('#chart-div').select('svg')
+    const svg = d3.select('#chart-div').append('svg')
                     .attr("viewBox", [0, 0, width, height]);
     var tip = d3.select("#chart-div").append("div")	
                     .attr("class", "tooltip")				

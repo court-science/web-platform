@@ -97,25 +97,37 @@
             </div>
         </div>
         <div id='right-div' style='float: left; width: 65%; height: 100%;'>
-            <div id='chart-selection' style="float: left; width: 20%; margin-right: 5%; margin-top: 3vh;">
+            <div id='chart-selection' style="float: left; width: 20%; margin-right: 5%; text-align: center;">
             <p style="text-align: center; font-size: 24px;"><b>Chart Type</b></p>
-            <div style="float:left; width: 42%; height: 80px;">
+            <div style="margin-bottom: 1vh;">
+            <div style="display: inline-block; width: 42%; margin-right:5%; margin-left: auto;">
             <label>
             <input id='radar-input' type="radio" name="radio-button" value="Radar" checked>
             <img style="width: 100%; height: 100%" title="Radar Chart" src="{{ url_for('static', filename='Radar_Chart_Button.png') }}">
             </label>
             </div>
-            <div style="float: right; width: 42%; height: 80px;">
+            <div style="display: inline-block; width: 42%; margin-left:5%; margin-right: auto">
             <label>
             <input id='bar-input' type="radio" name="radio-button" value="Bar">
             <img style="width: 100%; height: 100%" title="Bar Chart" src="{{ url_for('static', filename='Bar_Chart_Button.png') }}">
             </label>
             </div>
             </div>
-            <div style="float: left; margin-right: 5%; width: 35%">
+            <div>
+            <div style="display: block; width: 42%; height: 80px; margin-left: auto; margin-right: auto;">
+            <label>
+            <input id='scatter-input' type="radio" name="radio-button" value="Bar">
+            <img style="width: 100%; height: 100%" title="Scatter Chart" src="{{ url_for('static', filename='Scatter_Chart_Button.png') }}">
+            </label>
+            </div>
+            </div>
+            </div>
+            <div id="stats-div" style="float: left; margin-right: 5%; width: 35%">
+            <div>
             <p>Stats to Plot</p>
             <div class='drop-zone' id='drop-stats' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>
             <p><i id='stats-message'>*Drop 3-7 stats</i></p>
+            </div>
             </div>
             <div style="float: left; width: 35%">
             <p>Players to Compare</p>
@@ -143,6 +155,8 @@
     const dropDown = document.getElementById("drop-down");
     const radar_input = document.getElementById('radar-input');
     const bar_input = document.getElementById('bar-input');
+    const scatter_input = document.getElementById('scatter-input');
+    const stats_div = document.getElementById('stats-div');
     var img_src = "static/Radar-Chart.png";
     //var dataFrame = [];
     var target_id = "";
@@ -150,11 +164,17 @@
     var min_players = 1;
     var max_stats = 7;
     var min_stats = 3;
+    var checked_charts = ["Radar"];
 
 
     function allowDropStats(ev) {
         //console.log(target_id);
-        if (document.getElementById('drop-stats').children.length<max_stats && target_id.includes('stat')) ev.preventDefault();
+        var stats = document.getElementById('drop-stats').children.length;
+        if (stats<max_stats && target_id.includes('stat')) ev.preventDefault();
+    }
+
+    function allowDropScatter(ev) {
+        if(target_id.includes('stat')) ev.preventDefault();
     }
 
     function allowDropPlayers(ev) {
@@ -179,6 +199,19 @@
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
         //console.log(data);
+        ev.target.appendChild(document.getElementById(data));
+        court_science_magic(inputCSV);
+    }
+
+    function dropScatter(ev) {
+        ev.preventDefault();
+        //console.log(data);
+        if(ev.target.children.length == 1) {
+            let stat = ev.target.children[0];
+            ev.target.removeChild(stat);
+            document.getElementById('drag-stats').appendChild(stat);
+        }
+        var data = ev.dataTransfer.getData("text");
         ev.target.appendChild(document.getElementById(data));
         court_science_magic(inputCSV);
     }
@@ -235,8 +268,11 @@
         //var parsed_df = [[]];
         var lst_stats = [window.name_index];
         var lst_players = [];
-        var stats_children = document.getElementById('drop-stats').children;
         var players_children = document.getElementById('drop-players').children;
+        var stats_children = [];
+        if(!scatter_input.checked) stats_children = document.getElementById('drop-stats').children;
+        else {stats_children.push(document.getElementById('drop-stats-x').children[0]);
+            stats_children.push(document.getElementById('drop-stats-y').children[0]);}
         var div_to_add = document.getElementById('right-div');
         var chart = document.getElementById('chart-div');
 
@@ -267,7 +303,7 @@
         //console.log(lst_players);
 
         var obj_df = CSV_to_parsed_df(data, lst_players, lst_stats);
-        //console.log(obj_df);
+        console.log(obj_df);
 
         /*
         for (const index of lst_stats) {
@@ -296,11 +332,14 @@
         if(radar_input.checked) {
             //console.log("Plotting Radar Chart!");
             radarChart(obj_df);
-        } else {
+        } else if(bar_input.checked) {
             //console.log("Plotting Bar Chart!");
             //////TESTING SCATTER
             groupedBarChart(obj_df);
             //scatterChart(obj_df);
+        }
+        else {
+            scatterChart(obj_df);
         }
     }
 
@@ -309,7 +348,8 @@
             download: true,
             dynamicTyping: true,
             complete: function(results) {
-                var stats = document.getElementById('drop-stats').children.length;
+                if(scatter_input.checked) var stats = document.getElementById('drop-stats-x').children.length + document.getElementById('drop-stats-y').children.length;
+                else var stats = document.getElementById('drop-stats').children.length;
                 var players = document.getElementById('drop-players').children.length;
                 if(stats >= min_stats && stats <= max_stats && players >= min_players && players <= max_players) {
                     main(results['data']);
@@ -365,11 +405,11 @@
                     //newDiv.insertAdjacentHTML('beforeend', "<div id='stats' class='block spacing'><div id='stats-drag' class='inner'></div><div id='stats-drop' class='inner'></div></div>");
                     var stats_drag = document.getElementById('drag-stats');
                     var players_drag = document.getElementById('drag-players');
-                    var stats_drop = document.getElementById('drop-stats');
                     var players_drop = document.getElementById('drop-players');
                     stats_drag.innerHTML = '';
                     players_drag.innerHTML = '';
-                    stats_drop.innerHTML = '';
+                    if(!scatter_input.checked) document.getElementById('drop-stats').innerHTML = '';
+                    else {document.getElementById('drop-stats-x').innerHTML = ''; document.getElementById('drop-stats-y').innerHTML = '';}
                     players_drop.innerHTML = '';
                     //var stats_drop = document.getElementById('stats-drop');
                     //console.log(stats_drag);
@@ -476,7 +516,7 @@
         inputElement.disabled = false;
         papaParse(inputCSV);
         document.getElementById('chart-div').remove();
-        document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: left; width: 100%; margin-top: 50px; margin-left: 30px;'><img id=\"starter-img\"></div>");
+        document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style=\"float: right; width: 100%; margin-top: 3%;\"><img id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>");
         document.getElementById('starter-img').src = img_src;
     }
 
@@ -509,6 +549,17 @@
     radar_input.addEventListener("change", handleRadar, false);
     function handleRadar() {
         if(radar_input.checked) {
+            console.log(checked_charts[checked_charts.length-1]);
+            if(checked_charts[checked_charts.length-1] == "Scatter") {
+                stats_div.innerHTML = "<div>\n" +
+                    "            <p>Stats to Plot</p>\n" +
+                    "            <div class='drop-zone' id='drop-stats' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>\n" +
+                    "            <p><i id='stats-message'>*Drop 3-7 stats</i></p>\n" +
+                    "            </div>";
+                document.getElementById('drop-players').innerHTML = '';
+                document.getElementById('chart-div').remove();
+                document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style=\"float: right; width: 100%; margin-top: 3%;\"><img src=\"{{ url_for('static', filename='Radar-Chart.png') }}\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>");
+            }
             var stats = document.getElementById('drop-stats').children.length;
             var players = document.getElementById('drop-players').children.length;
             stats_message.innerHTML = "*Drop 3-7 stats";
@@ -517,13 +568,14 @@
             max_stats=7;
             min_stats = 3;
             min_players = 1;
-            image_display.src = 'static/Radar-Chart.png';
+            if(stats==0 && players==0) document.getElementById('starter-img').src = 'static/Radar-Chart.png';
             img_src = "static/Radar-Chart.png";
+            checked_charts.push("Radar");
             if(stats >= min_stats && stats <= max_stats && players >= min_players && players <= max_players) {
                 court_science_magic(inputCSV)
             } else if((stats > 0 && stats < min_stats) || (stats > max_stats) || (players > 0 && players < min_players) || (players > max_players)) {
                 document.getElementById('chart-div').remove();
-                document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: left; width: 100%; margin-top: 30px;'><img src=\"{{ url_for('static', filename='Radar-Chart.png') }}\" id=\"starter-img\"></div>");
+                document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style=\"float: right; width: 100%; margin-top: 3%;\"><img src=\"{{ url_for('static', filename='Radar-Chart.png') }}\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>");
                 alert("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!");
             }
         }
@@ -532,23 +584,76 @@
     bar_input.addEventListener("change", handleBar, false);
     function handleBar() {
         if(bar_input.checked) {
+            console.log(checked_charts[checked_charts.length-1]);
+            if(checked_charts[checked_charts.length-1] == "Scatter") {
+                stats_div.innerHTML = "<div>\n" +
+                    "            <p>Stats to Plot</p>\n" +
+                    "            <div class='drop-zone' id='drop-stats' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>\n" +
+                    "            <p><i id='stats-message'>*Drop 1-5 stats</i></p>\n" +
+                    "            </div>";
+                document.getElementById('drop-players').innerHTML = '';
+                document.getElementById('chart-div').remove();
+                document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style=\"float: right; width: 100%; margin-top: 3%;\"><img src=\"{{ url_for('static', filename='Bar-Chart (3).png') }}\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>")
+            }
             var stats = document.getElementById('drop-stats').children.length;
             var players = document.getElementById('drop-players').children.length;
             stats_message.innerHTML = "*Drop 1-5 stats";
-            players_message.innerHTML = "*Drop 2-5 players;";
+            players_message.innerHTML = "*Drop 2-5 players";
             max_players=5;
             max_stats=5;
             min_stats = 1;
             min_players = 2;
-            image_display.src = 'static/Bar-Chart (3).png';
+            if(stats==0 && players==0) document.getElementById('starter-img').src = 'static/Bar-Chart (3).png';
             img_src = "static/Bar-Chart (3).png";
+            checked_charts.push("Bar");
             if(stats >= min_stats && stats <= max_stats && players >= min_players && players <= max_players) {
                 court_science_magic(inputCSV)
             } else if((stats > 0 && stats < min_stats) || (stats > max_stats) || (players > 0 && players < min_players) || (players > max_players) || (stats > 0 && players < min_players)) {
                 document.getElementById('chart-div').remove();
-                document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: left; width: 100%; margin-top: 30px;'><img src=\"{{ url_for('static', filename='Bar-Chart (3).png') }}\" id=\"starter-img\"></div>")
+                document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style=\"float: right; width: 100%; margin-top: 3%;\"><img src=\"{{ url_for('static', filename='Bar-Chart (3).png') }}\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>")
                 alert("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!");
             }
+        }
+    }
+
+    scatter_input.addEventListener("change", handleScatter, false);
+    function handleScatter() {
+        if(scatter_input.checked) {
+            console.log(checked_charts[checked_charts.length-1]);
+            var stats = document.getElementById('drop-stats').children.length;
+            var players = document.getElementById('drop-players').children.length;
+            stats_message.innerHTML = "*Drop 2 stats";
+            players_message.innerHTML = "*Drop players to highlight;";
+            max_players=100;
+            max_stats=2;
+            min_stats = 2;
+            min_players = 0;
+            document.getElementById('chart-div').remove();
+            document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style=\"float: right; width: 100%; margin-top: 3%;\"><img src=\"{{ url_for('static', filename='Scatter-Chart.png') }}\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>")
+            document.getElementById('starter-img').src = 'static/Scatter-Chart.png';
+            //console.log(document.getElementById('starter-img').src);
+            img_src = "static/Scatter-Chart.png";
+            stats_div.innerHTML = "<div style='float: left; margin-right: 10%; width: 45%'>\n" +
+                "            <p>X-Axis</p>\n" +
+                "            <div class='drop-zone-scatter' id='drop-stats-x' ondrop='dropScatter(event)' ondragover='allowDropScatter(event)'></div>\n" +
+                "            <p><i id='stats-message'>*Drop 1 stat</i></p>\n" +
+                "            </div>" +
+                "<div style='float: left; width: 45%'>\n" +
+                "            <p>Y-Axis</p>\n" +
+                "            <div class='drop-zone-scatter' id='drop-stats-y' ondrop='dropScatter(event)' ondragover='allowDropScatter(event)'></div>\n" +
+                "            <p><i id='stats-message'>*Drop 1 stat</i></p>\n" +
+                "            </div>";
+            document.getElementById('drop-players').innerHTML = '';
+            checked_charts.push("Scatter");
+            if(stats >= min_stats && stats <= max_stats && players >= min_players && players <= max_players) {
+                court_science_magic(inputCSV)
+            }
+            /*
+            else {
+                document.getElementById('chart-div').remove();
+                document.getElementById('right-div').insertAdjacentHTML('beforeend', "<div id='chart-div' style='float: left; width: 100%; margin-top: 30px;'><img src=\"{{ url_for('static', filename='Scatter-Chart.png') }}\" id=\"starter-img\"></div>")
+            }
+            */
         }
     }
 
