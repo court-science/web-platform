@@ -1,6 +1,6 @@
 const groupedBarChart = function(rawData) {
-    var width = 700
-    var height = 450
+    var width = 900
+    var height = 700
 
     var svg = d3.select('#chart-div')
                 .append('svg')
