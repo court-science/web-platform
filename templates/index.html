@@ -350,6 +350,8 @@
                 if(scatter_input.checked) var stats = document.getElementById('drop-stats-x').children.length + document.getElementById('drop-stats-y').children.length;
                 else var stats = document.getElementById('drop-stats').children.length;
                 var players = document.getElementById('drop-players').children.length;
+                console.log(stats);
+                console.log(min_stats);
                 if(stats >= min_stats && stats <= max_stats && players >= min_players && players <= max_players) {
                     main(results['data']);
                 }
@@ -388,9 +390,12 @@
                         name_found = true;
                     }
                 }
-                if(!name_found) {
+                if(!name_found && inputCSV != "") {
                     alert("Please include a 'player name' column in your spreadsheet to identify players!")
-                } else {
+                } else if(inputCSV == "") {
+                    alert("Please select a file!")
+                }
+                else {
                     window.num_stats = headers_filtered.length;
                     //console.log(headers_filtered);
 
