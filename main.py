@@ -22,6 +22,11 @@ def home():
     return render_template('index.html')
 
 
+@app.route('/camp')
+def camp():
+    return render_template('camp.html')
+
+
 '''
 @app.route('/main', methods = ['POST'])
 def main():

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Court Science</title>
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -16,10 +17,11 @@
 <body>
     <div class="navigation-bar">
         <ul class="navigation-bar">
-            <li><div class="logo"><img src="{{ url_for('static', filename='Nuclear_Court Science Logo.png') }}" style='width: 200px'></div></li>
-            <li class="navigation-bar-item" style="margin-right: 2%;"><a href="#contact">CONTACT</a></li>
-            <li class="navigation-bar-item"><a href="#demo">VIZ LAB</a></li>
-            <li class="navigation-bar-item"><a href="#home">HOME</a></li>
+            <li><div class="logo"><img src="{{ url_for('static', filename='Nuclear_Court Science Logo.png') }}" style='width: 200px' href="{{ url_for('home') }}#home"></div></li>
+            <li class="navigation-bar-item" style="margin-right: 2%;"><a href="{{ url_for('camp') }}">CAMP</a></li>
+            <li class="navigation-bar-item"><a href="{{ url_for('home') }}#contact">CONTACT</a></li>
+            <li class="navigation-bar-item"><a href="{{ url_for('home') }}#demo">VIZ LAB</a></li>
+            <li class="navigation-bar-item"><a href="{{ url_for('home') }}">HOME</a></li>
         </ul>
     </div>
     <div class="body-section-top" id="home">

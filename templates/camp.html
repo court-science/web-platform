@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Court Science - Virtual Camp</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <script src="{{ url_for('static', filename='papaparse.min.js') }}"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="{{ url_for('static', filename='Script/dataParser.js') }}"></script>
+    <script src="{{ url_for('static', filename='Script/RadarChart.js') }}"></script>
+    <script src="{{ url_for('static', filename='Script/groupedBarChart.js') }}"></script>
+    <script src="{{ url_for('static', filename='Script/scatterChart.js') }}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="navigation-bar">
+        <ul class="navigation-bar">
+            <li><div class="logo"><img src="{{ url_for('static', filename='Nuclear_Court Science Logo.png') }}" style='width: 200px' href="{{ url_for('home') }}#home"></div></li>
+            <li class="navigation-bar-item" style="margin-right: 2%;"><a href="{{ url_for('camp') }}">CAMP</a></li>
+            <li class="navigation-bar-item"><a href="{{ url_for('home') }}#contact">CONTACT</a></li>
+            <li class="navigation-bar-item"><a href="{{ url_for('home') }}#demo">VIZ LAB</a></li>
+            <li class="navigation-bar-item"><a href="{{ url_for('home') }}">HOME</a></li>
+        </ul>
+    </div>
+HELLO WORLD!
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
