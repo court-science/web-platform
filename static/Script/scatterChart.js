@@ -26,12 +26,13 @@ const scatterChart = function(data) {
         const selectedPlayerCircleRadius = 7;
         const hoverOverCircleRadius = 15;
 
-        const margin = { top: 40, right: 40, bottom: 40, left: 40 };
+        const margin = { top: 60, right: 40, bottom: 40, left: 40 };
         const innerWidth = width - margin.left - margin.right-120;
         const innerHeight = height - margin.top - margin.bottom;
         
         const color = d3.scaleOrdinal()
-        .range(["#92c5de","#0571b0","#ffbf4f"]);
+        .range(["#0049B7","#00DDFF","#FFF685","#8458B3","#59ce8f"]);
+
         const unselectedColor = 'red';
 
         const xScale = d3.scaleLinear()
@@ -133,7 +134,8 @@ const scatterChart = function(data) {
             .attr('class', 'title')
             .attr('y', -10)
             .attr('text-anchor','right')
-            .text(title);
+            .text(title)
+            .call(wrapText,300);
 
             g
             .select('svg')
