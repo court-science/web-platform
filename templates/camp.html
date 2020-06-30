@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>Court Science - Virtual Camp</title>
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+    <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
     <script src="{{ url_for('static', filename='papaparse.min.js') }}"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -12,6 +14,8 @@
     <script src="{{ url_for('static', filename='Script/RadarChart.js') }}"></script>
     <script src="{{ url_for('static', filename='Script/groupedBarChart.js') }}"></script>
     <script src="{{ url_for('static', filename='Script/scatterChart.js') }}"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -24,7 +28,22 @@
             <li class="navigation-bar-item"><a href="{{ url_for('home') }}">HOME</a></li>
         </ul>
     </div>
-HELLO WORLD!
+    <h2 class="title">COURT SCIENCE CAMPS</h2>
+    <object data="{{ url_for('static', filename='Court Science Camp Flyer.pdf') }}#view=FitH" type="application/pdf" style="width: 800px; height: 1000px; display: block; margin: auto;">
+        <embed src="{{ url_for('static', filename='Court Science Camp Flyer.pdf') }}#view=FitH" type="application/pdf" />
+    </object>
+    <div class="contact-form">
+		<h4>Register Now</h4>
+		<form action="https://formspree.io/xaypdvnj" method="POST">
+            <input class="input" type="text" name="name" placeholder="Full Name">
+            <input class="input" type="text" name="name" placeholder="School">
+            <input class="input" type="text" name="name" placeholder="Grade">
+            <input class="input" type="text" name="name" placeholder="Country">
+            <input class="input" type="email" name="email" placeholder="E-mail">
+            <textarea class="input" name="message" placeholder="Enter any Questions or Comments"></textarea>
+            <button type="submit" class="main-button icon-button pull-right">Submit</button>
+        </form>
+    </div>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
