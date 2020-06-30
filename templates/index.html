@@ -6,14 +6,21 @@
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    
+    <!-- 3rd Party Libraries -->
     <script src="{{ url_for('static', filename='papaparse.min.js') }}"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
+	<script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
+
+    <!-- Local Scripts -->
+    <script src="{{ url_for('static', filename='Script/tableFunctions.js') }}"></script>
+    <script src="{{ url_for('static', filename='Script/exportSVG.js') }}"></script>
     <script src="{{ url_for('static', filename='Script/dataParser.js') }}"></script>
     <script src="{{ url_for('static', filename='Script/RadarChart.js') }}"></script>
     <script src="{{ url_for('static', filename='Script/groupedBarChart.js') }}"></script>
     <script src="{{ url_for('static', filename='Script/scatterChart.js') }}"></script>
-    <script src="{{ url_for('static', filename='Script/tableFunctions.js') }}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
