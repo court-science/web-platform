@@ -131,7 +131,7 @@ const scatterChart = function(data) {
               })
         
         g.append('text')
-            .attr('class', 'title')
+            .attr('class', 'chart-title')
             .attr('y', -10)
             .attr('text-anchor','right')
             .text(title)
