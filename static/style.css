@@ -119,6 +119,12 @@ p > a {
     padding: 5%;
 }
 
+.registration-form {
+    width: 800px;
+    display: block;
+    margin: auto;
+}
+
 .form-text {
     font-family: Arial, Gadget, sans-serif;
     color: #333333;
