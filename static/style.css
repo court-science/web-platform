@@ -73,6 +73,12 @@ p > a {
     font-size: 40px;
 }
 
+.chart-title {
+    font-family: "Arial Black", Gadget, sans-serif;
+    text-align: center;
+    font-size: 20px;
+}
+
 .body-text {
     font-family: Arial, Gadget, sans-serif;
     text-align: center;
@@ -160,6 +166,7 @@ input[type=checkbox] {
     height: 15vh;
     border: 2px solid black;
     background: lightgrey;
+    overflow-x: auto;
 }
 
 .div-container {
@@ -229,8 +236,8 @@ input[type=checkbox] {
 
 .searchInput {
   background-image: url('search-icon.png');
-  background-size: 8% 25px;
-  background-position: 5px 12px;
+  background-size: 8% auto;
+  background-position: 5px 6px;
   background-repeat: no-repeat;
   width: 100%;
   font-size: 16px;
@@ -241,6 +248,10 @@ input[type=checkbox] {
   background-color: #F2F2F2;
 }
 
+.searchInput .background-image {
+    width: 25px;
+    height: auto;
+}
 
 .searchInput:hover, .searchInput:focus {
   border: 1px solid dodgerblue;
