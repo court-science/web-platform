@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Court Science</title>
     {% load static %}
+    {% include 'head-items.html' %}
     <img src="{% static "Nuclear_Court Science Logo.png" %}" alt="Hi!" />
-    <link href="{% static 'style.css'%}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="{% static 'favicon.png'%}">
     
     <!-- 3rd Party Libraries -->
     <script src="{% static 'papaparse.min.js'%}"></script>
@@ -23,16 +19,15 @@
     <script src="{% static 'Script/RadarChart.js'%}"></script>
     <script src="{% static 'Script/groupedBarChart.js'%}"></script>
     <script src="{% static 'Script/scatterChart.js'%}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <div class="navigation-bar">
         <ul class="navigation-bar">
-            <li><div class="logo"><img src="{% static 'Nuclear_Court Science Logo.png'%}" style='width: 200px' href="{{ url_for('home'%}#home"></div></li>
-            <li class="navigation-bar-item" style="margin-right: 2%;"><a href="{{ url_for('camp'%}">CAMP</a></li>
-            <li class="navigation-bar-item"><a href="{{ url_for('home'%}#contact">CONTACT</a></li>
-            <li class="navigation-bar-item"><a href="{{ url_for('home'%}#demo">VIZ LAB</a></li>
-            <li class="navigation-bar-item"><a href="{{ url_for('home'%}">HOME</a></li>
+            <li><div class="logo"><img src="{% static 'Nuclear_Court Science Logo.png'%}" style='width: 200px' href="\home#home"></div></li>
+            <li class="navigation-bar-item" style="margin-right: 2%;"><a href="/camp">CAMP</a></li>
+            <li class="navigation-bar-item"><a href="\home#contact">CONTACT</a></li>
+            <li class="navigation-bar-item"><a href="\home#demo">VIZ LAB</a></li>
+            <li class="navigation-bar-item"><a href="\home">HOME</a></li>
         </ul>
     </div>
     <div class="body-section-top" id="home">

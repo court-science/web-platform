@@ -6,6 +6,8 @@ from django.views.generic import TemplateView
 class HomePageView(TemplateView):
     template_name = 'index.html'
 
+class CampPageView(TemplateView):
+    template_name = 'camp.html'
 
-def homePageView(request):
-    return HttpResponse('Hello, World!')
+class LoginPageView(TemplateView):
+    template_name = 'login.html'

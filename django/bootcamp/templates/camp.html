@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <title>Court Science - Virtual Camp</title>
+    {% load static %}
     <link
-      href="{{ url_for('static', filename='style.css') }}"
+      href="{% static 'style.css'%}"
       rel="stylesheet"
       type="text/css"
     />
@@ -21,7 +22,7 @@
     <link
       rel="icon"
       type="image/png"
-      href="{{ url_for('static', filename='favicon.png') }}"
+      href="{% static 'favicon.png'%}"
     />
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -33,34 +34,34 @@
         <li>
           <div class="logo">
             <img
-              src="{{ url_for('static', filename='Nuclear_Court Science Logo.png') }}"
+              src="{% static 'Nuclear_Court Science Logo.png'%}"
               style="width: 200px"
-              href="{{ url_for('home') }}#home"
+              href="\home#home"
             />
           </div>
         </li>
         <li class="navigation-bar-item" style="margin-right: 2%;">
-          <a href="{{ url_for('camp') }}">CAMP</a>
+          <a href="\camp">CAMP</a>
         </li>
         <li class="navigation-bar-item">
-          <a href="{{ url_for('home') }}#contact">CONTACT</a>
+          <a href="\home#contact">CONTACT</a>
         </li>
         <li class="navigation-bar-item">
-          <a href="{{ url_for('home') }}#demo">VIZ LAB</a>
+          <a href="\home#demo">VIZ LAB</a>
         </li>
         <li class="navigation-bar-item">
-          <a href="{{ url_for('home') }}">HOME</a>
+          <a href="\home">HOME</a>
         </li>
       </ul>
     </div>
     <h2 class="title" style="margin-top: 50px;">COURT SCIENCE CAMPS</h2>
     <object
-      data="{{ url_for('static', filename='Court Science Camp Flyer.pdf') }}#view=Fit"
+      data="{% static 'Court Science Camp Flyer.pdf'%}#view=Fit"
       type="application/pdf"
       style="width: 700px; height: 850px; display: block; margin: auto; margin-top: 20px;"
     >
       <embed
-        src="{{ url_for('static', filename='Court Science Camp Flyer.pdf') }}#view=Fit"
+        src="{% static 'Court Science Camp Flyer.pdf'%}#view=Fit"
         type="application/pdf"
       />
     </object>
