@@ -8,16 +8,6 @@ const scatterChart = function(data) {
     var tip = d3.select("#chart-div").append("div")	
                     .attr("class", "tooltip")				
                     .style("opacity", 0);
-    
-    const save = d3.select('#chart-div').append('div')
-                      .attr('id','saveButton')
-                      .attr('class','btn btn-outline-dark btn-lg')
-                      .style('height','xx')
-                      .style('width','xx')
-                      .style('margin-left','190px')
-                      .style('margin-top','15px')
-                      .attr('value','Save')
-                      .html('Save Chart');
 
     const render = data => {
 
@@ -36,13 +26,12 @@ const scatterChart = function(data) {
         const selectedPlayerCircleRadius = 7;
         const hoverOverCircleRadius = 15;
 
-        const margin = { top: 60, right: 40, bottom: 40, left: 40 };
+        const margin = { top: 40, right: 40, bottom: 40, left: 40 };
         const innerWidth = width - margin.left - margin.right-120;
         const innerHeight = height - margin.top - margin.bottom;
         
         const color = d3.scaleOrdinal()
-        .range(["#0049B7","#00DDFF","#FFF685","#8458B3","#59ce8f"]);
-
+        .range(["#92c5de","#0571b0","#ffbf4f"]);
         const unselectedColor = 'red';
 
         const xScale = d3.scaleLinear()
@@ -141,11 +130,10 @@ const scatterChart = function(data) {
               })
         
         g.append('text')
-            .attr('class', 'chart-title')
+            .attr('class', 'title')
             .attr('y', -10)
             .attr('text-anchor','right')
-            .text(title)
-            .call(wrapText,300);
+            .text(title);
 
             g
             .select('svg')
@@ -190,16 +178,6 @@ const scatterChart = function(data) {
                     .attr("font-size", "11px")
                     .attr("fill", "#737373")
                     .text(function(d) { return d.player; });
-
-            // Set-up the export button
-            d3.select('#saveButton').on('click', function(){
-              var svgString = getSVGString(svg.node());
-              svgString2Image( svgString, 2*width, 2*height, 'png', save ); // passes Blob and filesize String to the callback
-            
-              function save( dataBlob, filesize ){
-                saveAs( dataBlob, 'Court Science Scatter Chart.png' ); // FileSaver.js function
-              }
-            });
       };
     
     data = shapeScatterData(data) 

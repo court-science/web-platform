@@ -18,4 +18,17 @@ class ZonePageView(TemplateView):
 class CampPageView(TemplateView):
     template_name = 'camp.html'
 
+
+
+
+class VizlabPageView(TemplateView):
+    template_name = 'visualization_lab.html'
     
+
+class LearningCenterPageView(TemplateView):
+    template_name = 'learning_center.html'
+
+
+
+class ContactPageView(TemplateView):
+    template_name = 'contact.html'

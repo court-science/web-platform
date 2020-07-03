@@ -6,7 +6,7 @@
   "BPG": "Blocks Per Game",
   "GP": "Games Played",
   "MPG": "Minutes Per Game",
-  "MIN%": "Minutes Percentage: The percentage of available minutes a player is on the court",
+  "MIN%": "Minutes Percentage: The percentage of available minutes a player plays",
   "USG%": "Usage Percentage: The percentage of team plays used by a player when he is on the floor",
   "TOR%": "Turnover Percentage: Percentage of plays that end in a player turnover",
   "FTA": "Free Throw Attempts: # of free throws attempted per game",

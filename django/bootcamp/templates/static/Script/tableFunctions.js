@@ -55,10 +55,10 @@ async function drawTableFromCSV(csv) {
     var table = new google.visualization.Table(document.getElementById('table_div'));
     
     var options = {
-        // allowHtml: true,
-        // cssClassNames: {
-        //   tableCell: 'small-font'
-        // },
+        allowHtml: true,
+        cssClassNames: {
+          tableCell: 'small-font'
+        },
         showRowNumber: true, 
         width: '100%', 
         height: '250px', 
