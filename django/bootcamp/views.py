@@ -11,3 +11,7 @@ class CampPageView(TemplateView):
 
 class LoginPageView(TemplateView):
     template_name = 'login.html'
+
+
+class ZonePageView(TemplateView):
+    template_name = 'zone.html'

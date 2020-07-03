@@ -22,20 +22,10 @@
 </head>
 <body>
 {% include 'navbar.html' %}
-    <div class="body-section-top" id="home">
-        <h2 class="title">WHO WE ARE</h2>
-        <p class="body-text">
-            Court Science is a non-profit organization that aims to bridge the gap between STEM and sports by making the
-            power of Data Science accessible to basketball enthusiasts worldwide, through our online interactive data
-            visualization platform called the <a class="body-link" href="#demo">Visualization Lab</a> and community initiatives.
-            In light of COVID-19, we have shifted all of our outreach efforts online (Youth Basketball Data Camp coming soon!),
-            and hope that our simple yet powerful tools can empower you to explore new dimensions of your favourite sport
-            through a STEM lens, while learning something new about Data Science. It's as easy as a few clicks and you're on
-            your way!
-        </p>
-    </div>
-    <div class="body-section-2" id="demo">
-        <div style="margin-bottom: 50px;"><h2 class="title">VISUALIZATION LAB</h2></div>
+
+
+ <div class="body-section-2" id="demo">
+        <div style="margin-bottom: 50px;"><h2 class="title">VISUALIZATION ZONE</h2></div>
         <div id="instructions-section" style="float: left; width: 40%;">
             <b class="list-text" style="font-size: 32px;">5 Steps to Court Science Magic:</b>
             <ol class="list-text" style="font-size: 18px; margin-right: 25px;">
@@ -80,6 +70,9 @@
                 </div>
                 <div id='submit-reset' class='div-spacing'>
                     <button type='button'  class='btn btn-outline-dark btn-lg' value='Reset' onclick='resetButton()' style='width: 100%'>Reset</button>
+                </div>
+                 <div id='publish-button' class='div-spacing'>
+                    <button type='button'  class='btn btn-outline-dark btn-lg' value='Reset' onclick='alert("Published")' style='width: 100%'>Publish</button>
                 </div>
             </div>
             <div id='right-div' style='float: left; width: 65%; height: 100%;'>
@@ -126,17 +119,8 @@
             </div>
         </div>
     </div>
-    <div id="contact" class="body-section-1">
-        <h2 class="title">GET IN TOUCH</h2>
-        <p class="body-text" style="text-align: center;">
-            We would love to hear from you, send us a shout below!
-        </p>
-        <a href="mailto:contact@courtscience.ca">
-            <img alt="email" class="email-button"
-                 src="https://farm4.staticflickr.com/3726/13855354235_887ae071c0_b.jpg">
-        </a>
-    </div>
-<script>
+
+    <script>
     const inputElement = document.getElementById("test");
     const dropDown = document.getElementById("drop-down");
     const radar_input = document.getElementById('radar-input');
