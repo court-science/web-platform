@@ -411,7 +411,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 
 .home-wrapper {
 	position:absolute;
-	top:30%;
+	top:45%;
 	-webkit-transform:translateY(-50%);
 	    -ms-transform:translateY(-50%);
 	        transform:translateY(-50%);
@@ -1455,7 +1455,8 @@ div .bootstrap-filestyle .input-group {
 
 .div-container {
     height: 15vh;
-    max-height: 250px;
+	max-height: 250px;
+	width: 100%px;
 	border: 2px solid darkgray;
     overflow-y: auto;
 }
@@ -1465,12 +1466,18 @@ div .bootstrap-filestyle .input-group {
 	max-height: 250px;
     background: lightgrey;
 	border: 2px solid darkgray;
-    overflow-y: auto;
+	overflow-y: auto;
+	display: table-cell; 
+	vertical-align: middle;
+	word-wrap: normal;
+	width: 100%px;
+	text-align: center;
 }
 
 .drop-zone-scatter {
 	height: 15vh;
 	max-height: 40px;
+	width: 100%px;
 	margin-bottom: 10px;
     background: lightgrey;
 	border: 2px solid lightgrey;
@@ -1479,7 +1486,7 @@ div .bootstrap-filestyle .input-group {
 
 .drop-zone:empty::before {
 	color: lightsalmon;
-	font-size: 1.5vw;
+	font-size: 1.5vh;
 	font-weight: bolder;
 	align-items: center;
 	justify-content: center;
@@ -1513,7 +1520,7 @@ div .bootstrap-filestyle .input-group {
     left: 10px;
 }
 
-g.tooltip {	
+.tooltip {	
 	position: relative;		
     text-align: center;			
     width: 40px;					
@@ -1592,4 +1599,6 @@ outline: 4px solid lightsalmon;
 .small-font {
 	font-size: 14px;
 	height: 15px;
+	padding: 0;
+	margin: 0;
   }

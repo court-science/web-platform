@@ -11,6 +11,7 @@ psycopg2-binary = "*"
 pip = "*"
 install = "*"
 whitenoise = "*"
+wagtail = "*"
 
 [requires]
 python_version = "3.7"
