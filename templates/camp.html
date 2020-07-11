@@ -28,6 +28,13 @@
     <div class="registration-form" style="margin-top: 50px; margin-bottom: 10px;">
 		<h4 class="title" style="font-size: 32px">Register Now</h4>
 		<form action="https://formspree.io/xaypdvnj" method="POST">
+              <div class="form-group">
+                <label for="date">Date</label>
+                <select class="form-control" id="date" name="date">
+                    <option value="" name="" disabled selected>Select an available date</option>
+                    <option value="July17" name="July17">Friday, July 17, 10 AM - 12 PM EST</option>
+                </select>
+            </div>
             <div class="form-group">
                 <label for="name">Full Name</label>
                 <input class="form-control" type="text" id="name" name="name" placeholder="Enter Name">
@@ -50,7 +57,11 @@
             </div>
             <div class="form-group">
                 <label for="questions">Additional Comments</label>
-                <textarea class="form-control" id="questions" name="questions-comments" rows="3" placeholder="Enter any Questions or Comments"></textarea>
+                <textarea class="form-control" id="questions" name="questions-comments" rows="3" placeholder="Enter any questions or comments"></textarea>
+            </div>
+            <div class="form-check" style="margin-bottom: 5px;">
+                <input type="checkbox" class="form-check-input" id="consent" name="consent">
+                <label class="form-check-label" for="consent">I have read and agree to the terms and conditions outlined by the <a href="https://drive.google.com/file/d/1e7j1r38R5HWA55pnvbKxf85bvKEOHN7E/view?usp=sharing" target="_blank">Media Consent Form</a>.</label>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
