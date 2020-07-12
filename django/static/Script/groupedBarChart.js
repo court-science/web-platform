@@ -226,7 +226,7 @@ const groupedBarChart = function(rawData) {
                     .duration(200)		
                     .style("opacity", .9);		
                 tip.html(d.player + "<br>" + d.raw_value + " " + d.stat_name)
-                    .style("left", (document.getElementById("chart-div").offsetLeft + 570) + "px")
+                    .style("left", (document.getElementById("chart-div").offsetLeft + 615) + "px")
                     .style("top", (document.getElementById("chart-div").offsetTop + 60) + "px");
                 })				
             .on("mouseout", function(d) {		

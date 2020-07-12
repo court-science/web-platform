@@ -65,7 +65,7 @@
         var xobj = new XMLHttpRequest();
         
         xobj.overrideMimeType("application/json");
-        xobj.open('GET', 'static/Definitions.json', true);
+        xobj.open('GET', 'bootcamp/templates/static/Definitions.json', true); // Replace 'my_data' with the path to your file
         xobj.onreadystatechange = function () {
               if (xobj.readyState == 4 && xobj.status == "200") {
                 // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
@@ -82,7 +82,7 @@
             var stat_to_search = stat.toUpperCase();
 
             if (JSON_parsed.hasOwnProperty(stat_to_search)) {
-                document.getElementById(id).setAttribute("title", JSON_parsed[stat_to_search]);
+                document.getElementById(id).title = JSON_parsed[stat_to_search];
             }
         });
     }
@@ -234,11 +234,13 @@
             if(checked_charts[checked_charts.length-1] == "Scatter") {
                 resetButton();
                 stats_div.innerHTML = "<div id='drop-stats'>\n" +
+                    "            <p>Stats to Plot</p>\n" +
                     "            <div class='drop-zone' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>\n" +
+                    "            <p><i id='stats-message'>*Drop 3-7 stats</i></p>\n" +
                     "            </div>";
                 document.getElementById('drop-players').innerHTML = '';
                 document.getElementById('chart-div').remove();
-                document.getElementById('chart-row').insertAdjacentHTML('beforeend', "<div id='chart-div' class=\"col-md-10 col-md-offset-1 text-center\"><img src=\"static/Radar-Chart.png\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>");
+                document.getElementById('chart-row').insertAdjacentHTML('beforeend', "<div id='chart-div' class=\"col-md-10 col-md-offset-1 text-center\"><img src=\"bootcamp/templates/static/Radar-Chart.png\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>");
             }
             var stats = document.getElementById('drop-stats').children.length;
             var players = document.getElementById('drop-players').children.length;
@@ -248,14 +250,14 @@
             max_stats=7;
             min_stats = 3;
             min_players = 1;
-            if(stats==0 && players==0) document.getElementById('starter-img').src = 'static/Radar-Chart.png';
-            img_src = "static/Radar-Chart.png";
+            if(stats==0 && players==0) document.getElementById('starter-img').src = 'bootcamp/templates/static/Radar-Chart.png';
+            img_src = "bootcamp/templates/static/Radar-Chart.png";
             checked_charts.push("Radar");
             if(stats >= min_stats && stats <= max_stats && players >= min_players && players <= max_players) {
                 court_science_magic(inputCSV)
             } else if((stats > 0 && stats < min_stats) || (stats > max_stats) || (players > 0 && players < min_players) || (players > max_players)) {
                 document.getElementById('chart-div').remove();
-                document.getElementById('chart-row').insertAdjacentHTML('beforeend', "<div id='chart-div' class=\"col-md-10 col-md-offset-1 text-center\"><img src=\"static/Radar-Chart.png\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>");
+                document.getElementById('chart-row').insertAdjacentHTML('beforeend', "<div id='chart-div' class=\"col-md-10 col-md-offset-1 text-center\"><img src=\"bootcamp/templates/static/Radar-Chart.png\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>");
                 // alert("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!");
             }
         }
@@ -267,11 +269,13 @@
             if(checked_charts[checked_charts.length-1] == "Scatter") {
                 resetButton();
                 stats_div.innerHTML = "<div id='drop-stats'>\n" +
+                    "            <p>Stats to Plot</p>\n" +
                     "            <div class='drop-zone' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>\n" +
+                    "            <p><i id='stats-message'>*Drop 1-5 stats</i></p>\n" +
                     "            </div>";
                 document.getElementById('drop-players').innerHTML = '';
                 document.getElementById('chart-div').remove();
-                document.getElementById('chart-row').insertAdjacentHTML('beforeend', "<div id='chart-div' class=\"col-md-10 col-md-offset-1 text-center\"><img src=\"static/Bar-Chart (3).png\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>")
+                document.getElementById('chart-row').insertAdjacentHTML('beforeend', "<div id='chart-div' class=\"col-md-10 col-md-offset-1 text-center\"><img src=\"bootcamp/templates/static/Bar-Chart (3).png\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>")
             }
             var stats = document.getElementById('drop-stats').children.length;
             var players = document.getElementById('drop-players').children.length;
@@ -281,14 +285,14 @@
             max_stats=5;
             min_stats = 1;
             min_players = 1;
-            if(stats==0 && players==0) document.getElementById('starter-img').src = 'static/Bar-Chart (3).png';
-            img_src = "static/Bar-Chart (3).png";
+            if(stats==0 && players==0) document.getElementById('starter-img').src = 'bootcamp/templates/static/Bar-Chart (3).png';
+            img_src = "bootcamp/templates/static/Bar-Chart (3).png";
             checked_charts.push("Bar");
             if(stats >= min_stats && stats <= max_stats && players >= min_players && players <= max_players) {
                 court_science_magic(inputCSV)
             } else if((stats > 0 && stats < min_stats) || (stats > max_stats) || (players > 0 && players < min_players) || (players > max_players) || (stats > 0 && players < min_players)) {
                 document.getElementById('chart-div').remove();
-                document.getElementById('chart-row').insertAdjacentHTML('beforeend', "<div id='chart-div' class=\"col-md-10 col-md-offset-1 text-center\"><img src=\"static/Bar-Chart (3).png\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>")
+                document.getElementById('chart-row').insertAdjacentHTML('beforeend', "<div id='chart-div' class=\"col-md-10 col-md-offset-1 text-center\"><img src=\"bootcamp/templates/static/Bar-Chart (3).png\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>")
                 // alert("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!");
             }
         }
@@ -306,9 +310,9 @@
             min_stats = 2;
             min_players = 0;
             document.getElementById('chart-div').remove();
-            document.getElementById('chart-row').insertAdjacentHTML('beforeend', "<div id='chart-div' class=\"col-md-10 col-md-offset-1 text-center\"><img src=\"static/Scatter-Chart.png\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>")
-            document.getElementById('starter-img').src = 'static/Scatter-Chart.png';
-            img_src = "static/Scatter-Chart.png";
+            document.getElementById('chart-row').insertAdjacentHTML('beforeend', "<div id='chart-div' class=\"col-md-10 col-md-offset-1 text-center\"><img src=\"bootcamp/templates/static/Scatter-Chart.png\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>")
+            document.getElementById('starter-img').src = 'bootcamp/templates/static/Scatter-Chart.png';
+            img_src = "bootcamp/templates/static/Scatter-Chart.png";
             resetButton();
             stats_div.innerHTML =   "   <div class='row'>" +
             "   <div class='drop-zone-scatter col-md-12' id='drop-stats-x' ondrop='dropScatter(event)' ondragover='allowDropScatter(event)'></div>" +

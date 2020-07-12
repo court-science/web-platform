@@ -111,12 +111,6 @@ blockquote:before{
 
 
 /* --- Section --- */
-/* .row {
-	display: flex;
-} */
-
-
-/* --- Section --- */
 .section {
 	position:relative;
 	padding-top:80px;
@@ -943,7 +937,6 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 .widget.search-widget .searchInput {
 	padding-left:40px;
 	padding-right: 10px;
-	width: 300px;
 }
 
 .widget.search-widget .search-icon {
@@ -1461,59 +1454,39 @@ div .bootstrap-filestyle .input-group {
 \*------------------------------------*/ 
 
 .div-container {
-	height: 160px;
+    height: 15vh;
 	max-height: 250px;
-	width: 300px;
+	width: 100%px;
 	border: 2px solid darkgray;
-	overflow-y: auto;
+    overflow-y: auto;
 }
 
 .drop-zone {
-	height: 160px;
+	height: 15vh;
 	max-height: 250px;
-	width: 300px;
     background: lightgrey;
 	border: 2px solid darkgray;
 	overflow-y: auto;
-	overflow-x: hidden;
 	display: table-cell; 
 	vertical-align: middle;
-	justify-content: center;
+	word-wrap: normal;
+	width: 100%px;
 	text-align: center;
 }
 
 .drop-zone-scatter {
-	width: 300px;
+	height: 15vh;
+	max-height: 40px;
+	width: 100%px;
+	margin-bottom: 10px;
     background: lightgrey;
-	border: 2px solid darkgray;
-	overflow-x: hidden;
-}
-
-#drop-stats-x {
-	height: 80px;
-	width: 100%;
-	border-bottom: darkgray;
-	border-bottom: dashed;
-	border-bottom-width: 2px;
-	overflow: hidden;
-	display: block;
-	justify-content: center;
-}
-
-#drop-stats-y {
-	height: 80px;
-	width: 100%;
-	border-top: darkgray;
-	border-top: dashed;
-	border-top-width: 2px;
-	overflow: hidden;
-	display: block; 
-	justify-content: center;
+	border: 2px solid lightgrey;
+	overflow-y: hidden;
 }
 
 .drop-zone:empty::before {
 	color: lightsalmon;
-	font-size: 1.5vw;
+	font-size: 1.5vh;
 	font-weight: bolder;
 	align-items: center;
 	justify-content: center;
@@ -1526,29 +1499,6 @@ div .bootstrap-filestyle .input-group {
 	content: 'Drop Stats Here';
   }
 
-#drop-stats-x:empty::before {
-	color: lightsalmon;
-	font-size: 1.5vw;
-	font-weight: bolder;
-	align-items: center;
-	justify-content: center;
-}
-
-#drop-stats-x:empty::before {
-	content: 'X-Axis Stat';
-}
-
-#drop-stats-y:empty::before {
-	color: lightsalmon;
-	font-size: 1.5vw;
-	font-weight: bolder;
-	align-items: center;
-	justify-content: center;
-}
-
-#drop-stats-y:empty::before {
-	content: 'Y-Axis Stat';
-}
 
 /*------------------------------------*\
 	Chart Elements and Containers
@@ -1654,29 +1604,10 @@ outline: 4px solid lightsalmon;
 	color: white;
 }
 
-/* .btn.btn-primary:hover {
-	position: relative;
-	transition-delay: 2s; 
-}
-  
-.btn.btn-primary[aria-label]:hover:after {
-	transition-delay: 2s;
-	content: attr(aria-label);
-    padding: 2px 2px;
-    position: absolute;
-    left: 0;
-    top: 100%;
-	z-index: 999;
-	white-space: normal;
-	color: white;
-    background:black;
-} */
-
 /* Table Options */
 .small-font {
 	font-size: 14px;
 	height: 15px;
 	padding: 0;
 	margin: 0;
-}
-
+  }

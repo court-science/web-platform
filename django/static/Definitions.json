@@ -22,6 +22,5 @@
   "TOPG": "Turnovers Per Game",
   "VI": "Versatility Index: Measures a player’s ability to produce in points, assists, and rebounds",
   "ORTG": "Offensive Rating: Team points scored per 100 possessions while player is on court",
-  "DRTG": "Defensive Rating: Team points allowed per 100 possessions while player is on court",
-  "BENCH": "Maximum bench press reps at 225 lbs"
+  "DRTG": "Defensive Rating: Team points allowed per 100 possessions while player is on court"
 }
