@@ -231,7 +231,7 @@
     function handleRadar() {
         if(radar_input.checked) {
             console.log(checked_charts[checked_charts.length-1]);
-            if(checked_charts[checked_charts.length-1] == "Scatter") {
+            if(checked_charts[checked_charts.length-1] != "Radar") {
                 resetButton();
                 stats_div.innerHTML = "<div id='drop-stats'>\n" +
                     "            <div class='drop-zone' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>\n" +
@@ -264,7 +264,7 @@
     function handleBar() {
         if(bar_input.checked) {
             console.log(checked_charts[checked_charts.length-1]);
-            if(checked_charts[checked_charts.length-1] == "Scatter") {
+            if(checked_charts[checked_charts.length-1] != "Bar") {
                 resetButton();
                 stats_div.innerHTML = "<div id='drop-stats'>\n" +
                     "            <div class='drop-zone' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>\n" +
@@ -311,10 +311,10 @@
             img_src = "static/Scatter-Chart.png";
             resetButton();
             stats_div.innerHTML =   "   <div class='row'>" +
-            "   <div class='drop-zone-scatter col-md-12' id='drop-stats-x' ondrop='dropScatter(event)' ondragover='allowDropScatter(event)'></div>" +
+            "   <div class='drop-stats-x col-md-12' id='drop-stats-x' ondrop='dropScatter(event)' ondragover='allowDropScatter(event)'></div>" +
             " </div>" +
             " <div class='row'>" +
-            "   <div class='drop-zone-scatter col-md-12' id='drop-stats-y' ondrop='dropScatter(event)' ondragover='allowDropScatter(event)'></div>" +
+            "   <div class='drop-stats-y col-md-12' id='drop-stats-y' ondrop='dropScatter(event)' ondragover='allowDropScatter(event)'></div>" +
             " </div>";
             document.getElementById('drop-players').innerHTML = '';
             checked_charts.push("Scatter");
@@ -356,4 +356,13 @@
           buttons[i].style.display = "none";
         }
       }
+    }
+
+    function sendMail() {
+        var link = "mailto:contact@courtscience.ca"
+                 + "&subject=" + escape("Feedback about Court Science")
+                //  + "&body=" + escape(document.getElementById('myText').value)
+        ;
+    
+        window.location.href = link;
     }

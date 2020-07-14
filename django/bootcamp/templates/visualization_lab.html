@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		    {% load static %}
+		{% load static %}
 
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,6 +30,7 @@
 		<link href="{% static 'css/style.css'%}" rel="stylesheet" type="text/css">
 
 		<!-- 3rd Party JS Libraries -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 		<script src="{% static 'js/papaparse.min.js'%}"></script>
 		<script src="https://d3js.org/d3.v5.min.js"></script>
 		<script src="https://www.gstatic.com/charts/loader.js"></script>
@@ -176,7 +177,7 @@
 							<!-- Stats Container -->
 
 							<!-- Stats Drop Container -->
-							<div class="col-md-6">
+							<div class="col-md-5 col-sm-offset-1">
 								<div class='drop-zone' id="drop-stats" text-placeholder='Drop Stats Here' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>
 								<p><i id='stats-message'>*Drop 3-7 stats</i></p>			
 							</div>
@@ -212,7 +213,7 @@
 							<!-- Players Container -->
 						
 							<!-- Players Drop Container -->
-							<div class="col-md-6">
+							<div class="col-md-5 col-sm-offset-1">
 								<div class='drop-zone' id='drop-players' text-placeholder='Drop Players Here' ondrop='drop(event)' ondragover='allowDropPlayers(event)'></div>
 								<p><i id='players-message'>*Drop 1-3 players</i></p>			
 							</div>
@@ -257,6 +258,8 @@
 										<img class='chart-radio' title="Scatter Chart" src="{% static 'Scatter_Chart_Button.png'%}">
 									</label>
 									<!-- /Scatter Selector -->
+
+									<i id="reset-icon" class="col-md-1"></i>
 								</div>
 							</div>
 							<!-- /row level 2 -->
@@ -297,7 +300,7 @@
 					<div class="col-md-8 col-md-offset-2 text-center">
 						<h2 class="white-text">Contact Us</h2>
 						<p class="lead white-text">Give us a shout! We'd love to hear your feedback or work together.</p>
-						<a class="main-button icon-button" href="{{ url_for('contact'%}">Contact Us</a>
+						<button id="contact-button" class="main-button icon-button" onclick="sendMail(); return false">Contact Us</button>
 					</div>
 
 				</div>
@@ -331,11 +334,11 @@
 					<!-- footer nav -->
 					<div class="col-md-6">
 						<ul class="footer-nav">
-							<li><a href="{{ url_for('home'%}">Home</a></li>
-							<li><a href="#">About</a></li>
-							<li><a href="{{ url_for('viz_lab'%}">Viz Lab</a></li>
-							<li><a href="{{ url_for('learning_center'%}">Learning Center</a></li>
-							<li><a href="{{ url_for('contact'%}">Contact</a></li>
+							<li><a href="/home">Home</a></li>
+							<!-- <li><a href="#">About</a></li> -->
+							<li><a href="/viz-lab">Viz Lab</a></li>
+							<!-- <li><a href="/learning-center">Learning Center</a></li> -->
+							<!-- <li><a href="/contact">Contact</a></li> -->
 						</ul>
 					</div>
 					<!-- /footer nav -->
@@ -350,10 +353,10 @@
 					<div class="col-md-4 col-md-push-8">
 						<ul class="footer-social">
 							<!-- <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li> -->
-							<li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+							<!-- <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li> -->
 							<!-- <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li> -->
 							<!-- <li><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></li> -->
-							<li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+							<!-- <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li> -->
 						</ul>
 					</div>
 					<!-- /social -->
@@ -410,7 +413,7 @@
 		<div id='preloader'><div class='preloader'></div></div>
 		<!-- /preloader -->
 
-		<!-- jQuery Plugins -->
+		<!-- Plugins -->
 		<script src="{% static 'js/jquery.min.js'%}"></script>
 		<script src="{% static 'js/bootstrap.min.js'%}"></script>
 		<script src="{% static 'js/bootstrap-filestyle.min.js'%}"></script>

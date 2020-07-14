@@ -49,7 +49,7 @@ var RadarChart = {
 
     var tip = d3.select("#chart-div").append("div")	
       .attr("class", "tooltip")				
-      .style("opacity", 1);
+      .style("opacity", 0);
 
     //Circular segments
     for(var j=0; j<cfg.levels-1; j++){

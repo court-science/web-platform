@@ -199,6 +199,44 @@ blockquote:before{
 	opacity:1;
 }
 
+#contact-button.main-button {
+	position:relative;
+	display:inline-block;
+	padding:10px 30px;
+	background-color: #FF6700;
+	border: 2px solid transparent;
+	border-radius: 40px;
+	color: #FFF;
+	-webkit-transition:0.2s all;
+	transition:0.2s all;
+}
+
+#contact-button.main-button:hover , .main-button:focus {
+	background-color:#fff;
+	border: 2px solid #FF6700;
+	color:#FF6700;
+}
+
+#contact-button.main-button.icon-button:hover , .main-button.icon-button:focus {
+	padding-right: 45px;
+}
+
+#contact-button.main-button.icon-button:after {
+	content:"\f0e0";
+	font-family:FontAwesome;
+	position:absolute;
+	width: 30px;
+	right: 15px;
+	text-align:center;
+	opacity:0;
+	-webkit-transition:0.2s all;
+	transition:0.2s all;
+}
+
+#contact-button.main-button.icon-button:hover:after , .main-button.icon-button:focus:after {
+	opacity:1;
+}
+
 /* --  Input  -- */
 input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"], input[type="url"], input[type="tel"], textarea {
     height: 40px;
@@ -1466,12 +1504,14 @@ div .bootstrap-filestyle .input-group {
 	width: 300px;
 	border: 2px solid darkgray;
 	overflow-y: auto;
+	overflow-x: auto;
+	margin-right: 10px;
 }
 
 .drop-zone {
 	height: 160px;
 	max-height: 250px;
-	width: 300px;
+	width: 250px;
     background: lightgrey;
 	border: 2px solid darkgray;
 	overflow-y: auto;
@@ -1480,6 +1520,7 @@ div .bootstrap-filestyle .input-group {
 	vertical-align: middle;
 	justify-content: center;
 	text-align: center;
+	margin-left: 10px;
 }
 
 .drop-zone-scatter {
@@ -1487,6 +1528,7 @@ div .bootstrap-filestyle .input-group {
     background: lightgrey;
 	border: 2px solid darkgray;
 	overflow-x: hidden;
+	
 }
 
 #drop-stats-x {
@@ -1582,8 +1624,7 @@ div .bootstrap-filestyle .input-group {
     border: 0px;		
     border-radius: 8px;			
 	pointer-events: none;
-	top: '10&#37';
-    left: 10%;			
+	left: 10%;
 }
 
 g#x-axis.x.axis {
@@ -1680,3 +1721,23 @@ outline: 4px solid lightsalmon;
 	margin: 0;
 }
 
+
+/* Icon transition styling */
+#reset-icon {
+	content: "\f021";
+	font-family:FontAwesome;
+	font-size: 40px;
+	margin-top: 20px;
+    display: block;
+}
+
+#reset-icon {
+	-webkit-transition-duration: 1s;
+    -moz-transition-duration: 1s;
+    -o-transition-duration: 1s;
+    transition-duration: 1s;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+}

@@ -104,7 +104,7 @@ const scatterChart = function(data) {
 
             tip.transition()		
                     .duration(200)		
-                    .style("opacity", .9);		
+                    .style("opacity", .7);		
             tip.html(d.player+"<br>"+d.yValue+" "+d.yLabel+"<br>"+d.xValue+" "+d.xLabel) 	
               .style("left", (parseInt(d3.select(this).attr("cx")) + document.getElementById("chart-div").offsetLeft) + "px")     
               .style("top", (parseInt(d3.select(this).attr("cy")) + document.getElementById("chart-div").offsetTop) + "px");
