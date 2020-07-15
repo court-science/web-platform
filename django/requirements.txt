@@ -1,0 +1,8 @@
+django = "~=3.0.0"
+psycopg2-binary = "*"
+pip = "*"
+install = "*"
+whitenoise = "*"
+wagtail = "*"
+gunicorn ="*"
+django-heroku="*"

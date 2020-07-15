@@ -105,10 +105,10 @@ WSGI_APPLICATION = 'courtscience.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd98pv2g7cfp7dd',
-        'USER': 'wlamrzgohtftka',
-        'PASSWORD': '9ca8955552a2dbe835344822351c5821cb41828ee918e516f1b74969ac790b5c',
-        'HOST': 'ec2-34-230-231-71.compute-1.amazonaws.com',
+        'NAME': 'dbhrbrht580khr',
+        'USER': 'ydibqwvgxgyzym',
+        'PASSWORD': '754c456a7ce1d572dc5b7dabf69f5ceabf0f5a9326c912ae2440a6db7f8133ce',
+        'HOST': 'ec2-34-197-141-7.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
