@@ -276,11 +276,11 @@
             var stats = document.getElementById('drop-stats').children.length;
             var players = document.getElementById('drop-players').children.length;
             stats_message.innerHTML = "*Drop 1-5 stats";
-            players_message.innerHTML = "*Drop 1-5 players";
+            players_message.innerHTML = "*Drop 2-5 players";
             max_players=5;
             max_stats=5;
             min_stats = 1;
-            min_players = 1;
+            min_players = 2;
             if(stats==0 && players==0) document.getElementById('starter-img').src = 'static/Bar-Chart (3).png';
             img_src = "static/Bar-Chart (3).png";
             checked_charts.push("Bar");

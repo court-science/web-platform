@@ -13,7 +13,8 @@ react-app/court-science/node_modules/
 .idea/vcs.xml
 .idea/workspace.xml
 .idea/inspectionProfiles/profiles_settings.xml
-__pycache__/spider.cpython-37.pyc
 courtscience.ca.key
 courtscience.ca.pem
 .vscode/launch.json
+django/bootcamp/__pycache__/
+__pycache__/
