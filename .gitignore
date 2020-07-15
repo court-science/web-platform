@@ -16,5 +16,4 @@ react-app/court-science/node_modules/
 courtscience.ca.key
 courtscience.ca.pem
 .vscode/launch.json
-django/bootcamp/__pycache__/
 __pycache__/

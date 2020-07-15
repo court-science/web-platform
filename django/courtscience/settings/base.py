@@ -159,3 +159,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 WAGTAIL_SITE_NAME = 'Court Science CMS'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
