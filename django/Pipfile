@@ -12,6 +12,8 @@ pip = "*"
 install = "*"
 whitenoise = "*"
 wagtail = "*"
+gunicorn ="*"
+django-heroku="*"
 
 [requires]
 python_version = "3.7"
