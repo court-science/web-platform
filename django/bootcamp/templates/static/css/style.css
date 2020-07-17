@@ -133,6 +133,10 @@ blockquote:before{
 	margin-bottom:40px;
 }
 
+.alternate {
+	background-color: #f2f2f2;
+}
+
 /* --- Background Image --- */
 .bg-image {
 	position:absolute;
@@ -448,7 +452,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 
 #home.hero-area {
-	height:calc(100vh - 80px);
+	height:calc(100vh - 130px);
 	padding-top: 0px;
 	padding-bottom: 0px;
 }

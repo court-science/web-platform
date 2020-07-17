@@ -359,10 +359,6 @@
     }
 
     function sendMail() {
-        var link = "mailto:contact@courtscience.ca"
-                 + "&subject=" + escape("Feedback about Court Science")
-                //  + "&body=" + escape(document.getElementById('myText').value)
-        ;
-    
+        var link = "mailto:contact@courtscience.ca";
         window.location.href = link;
     }
