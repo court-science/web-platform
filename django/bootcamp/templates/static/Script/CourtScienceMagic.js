@@ -231,7 +231,7 @@
     function handleRadar() {
         if(radar_input.checked) {
             console.log(checked_charts[checked_charts.length-1]);
-            if(checked_charts[checked_charts.length-1] != "Radar") {
+            if(checked_charts[checked_charts.length-1] == "Scatter") {
                 resetButton();
                 stats_div.innerHTML = "<div id='drop-stats'>\n" +
                     "            <div class='drop-zone' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>\n" +
@@ -256,7 +256,7 @@
             } else if((stats > 0 && stats < min_stats) || (stats > max_stats) || (players > 0 && players < min_players) || (players > max_players)) {
                 document.getElementById('chart-div').remove();
                 document.getElementById('chart-row').insertAdjacentHTML('beforeend', "<div id='chart-div' class=\"col-md-10 col-md-offset-1 text-center\"><img src=\"static/Radar-Chart.png\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>");
-                // alert("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!");
+                alert("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!");
             }
         }
     }
@@ -264,7 +264,7 @@
     function handleBar() {
         if(bar_input.checked) {
             console.log(checked_charts[checked_charts.length-1]);
-            if(checked_charts[checked_charts.length-1] != "Bar") {
+            if(checked_charts[checked_charts.length-1] == "Scatter") {
                 resetButton();
                 stats_div.innerHTML = "<div id='drop-stats'>\n" +
                     "            <div class='drop-zone' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>\n" +
@@ -289,7 +289,7 @@
             } else if((stats > 0 && stats < min_stats) || (stats > max_stats) || (players > 0 && players < min_players) || (players > max_players) || (stats > 0 && players < min_players)) {
                 document.getElementById('chart-div').remove();
                 document.getElementById('chart-row').insertAdjacentHTML('beforeend', "<div id='chart-div' class=\"col-md-10 col-md-offset-1 text-center\"><img src=\"static/Bar-Chart (3).png\" id=\"starter-img\" alt=\"Radar-Chart.png\" class=\"display-chart\"></div>")
-                // alert("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!");
+                alert("Please select " + min_stats + "-" + max_stats + " stats and " + min_players + "-" + max_players + " players to plot!");
             }
         }
     }

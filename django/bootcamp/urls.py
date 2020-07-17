@@ -17,6 +17,6 @@ urlpatterns = [
     #good
     path('viz-lab', VizlabPageView.as_view(), name='viz-lab'),
     path('learning-center', LearningCenterPageView.as_view(), name='learning-center'),
-    path('contact', ContactPageView.as_view(), name='contact'),
+    path('camp', CampPageView.as_view(), name='camp'),
     # path('login', auth_views.login,  {'template_name': 'templates/login.html'}, name='login')
 ]
