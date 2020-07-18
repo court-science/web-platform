@@ -509,7 +509,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 	text-align:center;
 	border-radius: 50%;
 	font-size:30px;
-	border:1px solid #EBEBEB;
+	border:1px solid #FF6700;
 	color:#FF6700;
 }
 
@@ -1559,7 +1559,7 @@ div .bootstrap-filestyle .input-group {
 
 .drop-zone:empty::before {
 	color: lightsalmon;
-	font-size: 1.5vw;
+	font-size: 24px;
 	font-weight: bolder;
 	align-items: center;
 	justify-content: center;
@@ -1574,7 +1574,7 @@ div .bootstrap-filestyle .input-group {
 
 #drop-stats-x:empty::before {
 	color: lightsalmon;
-	font-size: 1.5vw;
+	font-size: 24px;
 	font-weight: bolder;
 	align-items: center;
 	justify-content: center;
@@ -1586,7 +1586,7 @@ div .bootstrap-filestyle .input-group {
 
 #drop-stats-y:empty::before {
 	color: lightsalmon;
-	font-size: 1.5vw;
+	font-size: 24px;
 	font-weight: bolder;
 	align-items: center;
 	justify-content: center;
