@@ -300,6 +300,27 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 	opacity:0.7;
 }
 
+
+.navbar-header {
+	min-height: 65px;
+}
+
+.navbar-brand {
+    padding: 0;
+	height: 65px;
+	line-height: 65px;
+}
+
+.navbar-brand .logo {
+	margin: auto;
+	display: inline-block;
+}
+
+
+.navbar-brand .logo > img {
+	max-height:70px;
+}
+
 #header.transparent-nav {
 	position:absolute;
 	background-color: #212529;
@@ -307,6 +328,10 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 
 #header.transparent-nav .main-menu li a {
 	color: white;
+}
+
+#header.transparent-nav .main-menu li{
+	padding-top: 6px;
 }
 
 .main-menu li a {
@@ -1695,7 +1720,7 @@ outline: 4px solid lightsalmon;
 }
 
 .display-chart {
-	width: 95%;
+	width: 100%;
 	height: auto;
 	margin-top: 15px;
 }
