@@ -451,6 +451,25 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 	padding-bottom: 80px;
 }
 
+.home-title {
+	font-size: 65px;
+	font-weight: 700;
+}
+
+.home-phrase {
+	font-size: 26px;
+}
+
+@media only screen and (max-width: 767px) {
+	.home-title {
+		font-size: 45px;
+		font-weight: 700;
+	}
+	.home-phrase {
+		font-size: 16px;
+	}
+}
+
 #home.hero-area {
 	height:calc(100vh - 130px);
 	padding-top: 0px;
@@ -459,7 +478,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 
 .home-wrapper {
 	position:absolute;
-	top:45%;
+	top:50%;
 	-webkit-transform:translateY(-50%);
 	    -ms-transform:translateY(-50%);
 	        transform:translateY(-50%);
