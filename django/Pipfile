@@ -15,5 +15,6 @@ wagtail = "*"
 gunicorn ="*"
 django-heroku="*"
 django-dotenv="*"
+dj_database_url="*"
 [requires]
 python_version = "3.7"

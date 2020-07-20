@@ -8,4 +8,4 @@ venv/
 .idea/inspectionProfiles/profiles_settings.xml
 __pycache__/
 .env
-staticfiles
+staticfiles/
