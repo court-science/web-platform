@@ -123,10 +123,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'bootcamp/templates/static/'),
+    os.path.join(BASE_DIR, 'static/')
 ]
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, '/static')
-STATICFILES_STORAGE = 'django.contrib.static.storage.StaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 
 WAGTAIL_SITE_NAME = 'Court Science CMS'
