@@ -125,8 +125,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'bootcamp/templates/static/'),
 ]
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATIC_ROOT = os.path.join(BASE_DIR, '/static')
+STATICFILES_STORAGE = 'django.contrib.static.storage.StaticFilesStorage'
 
 
 WAGTAIL_SITE_NAME = 'Court Science CMS'
