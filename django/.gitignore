@@ -7,3 +7,5 @@ venv/
 .idea/workspace.xml
 .idea/inspectionProfiles/profiles_settings.xml
 __pycache__/
+.env
+staticfiles
