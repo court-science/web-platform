@@ -300,6 +300,27 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 	opacity:0.7;
 }
 
+
+.navbar-header {
+	min-height: 65px;
+}
+
+.navbar-brand {
+    padding: 0;
+	height: 65px;
+	line-height: 65px;
+}
+
+.navbar-brand .logo {
+	margin: auto;
+	display: inline-block;
+}
+
+
+.navbar-brand .logo > img {
+	max-height:70px;
+}
+
 #header.transparent-nav {
 	position:absolute;
 	background-color: #212529;
@@ -307,6 +328,10 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 
 #header.transparent-nav .main-menu li a {
 	color: white;
+}
+
+#header.transparent-nav .main-menu li{
+	padding-top: 6px;
 }
 
 .main-menu li a {
@@ -451,6 +476,25 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 	padding-bottom: 80px;
 }
 
+.home-title {
+	font-size: 65px;
+	font-weight: 700;
+}
+
+.home-phrase {
+	font-size: 26px;
+}
+
+@media only screen and (max-width: 767px) {
+	.home-title {
+		font-size: 45px;
+		font-weight: 700;
+	}
+	.home-phrase {
+		font-size: 16px;
+	}
+}
+
 #home.hero-area {
 	height:calc(100vh - 130px);
 	padding-top: 0px;
@@ -459,7 +503,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 
 .home-wrapper {
 	position:absolute;
-	top:45%;
+	top:50%;
 	-webkit-transform:translateY(-50%);
 	    -ms-transform:translateY(-50%);
 	        transform:translateY(-50%);
@@ -1676,7 +1720,7 @@ outline: 4px solid lightsalmon;
 }
 
 .display-chart {
-	width: 95%;
+	width: 100%;
 	height: auto;
 	margin-top: 15px;
 }
