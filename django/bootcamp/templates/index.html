@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        {% load static %}
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		<title>Court Science</title>
+
+		<!-- Tab Icon -->
+		<link rel="icon" type="image/png" href="{% static 'favicon.png'%}">
+
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}"/>
+
+		<!-- Font Awesome Icon -->
+		<link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet">
+
+		<!-- Custom stylesheet -->
+		<link href="{% static 'css/style.css'%}" rel="stylesheet" type="text/css">
+
+		<!-- JS Scripts to include -->
+		<script src="{% static 'Script/CourtScienceMagic.js'%}"></script>
+
+    </head>
+	<body>
+
+		<!-- Header -->
+        {% include 'header.html' %}
+		<!-- /Header -->
+
+		<!-- Home -->
+		<div id="home" class="hero-area">
+
+			<!-- Backgound Image -->
+			<div class="bg-image bg-parallax overlay" style="background-image:url(static/img/home-background.jpg)"></div>
+			<!-- /Backgound Image -->
+
+			<div class="home-wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="text-center">
+							<h1 class="white-text home-title">STEM THROUGH SPORTS.</h1>
+							<br>
+                            <p class="lead white-text home-phrase">Court Science is the interactive online platform that makes it fun and easy for youth to explore sports data science and step up their game in the classroom and on the court!</p>
+							<br>
+                            <a class="main-button icon-button" href="/viz-lab">TRY IT NOW</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /Home -->
+
+        <div id="about" class="section">
+
+			<!-- container -->
+			<div class="container">
+
+				<!-- row -->
+				<div class="row">
+
+						<div class="section-header text-center">
+							<h2>WHO WE ARE</h2>
+							<p class="lead" style="text-align: left;">
+                                Court Science is a Canadian not-for-profit organization that aims to bridge the gap between STEM and sports
+                                by making the power of Data Science accessible to youth and sports enthusiasts worldwide through our free online interactive
+								data visualization platform and community initiatives. <br><br>
+								
+								In light of COVID-19, we have shifted all of our outreach efforts online, including a <a class="link-redirect" href="/camp"><span style="font-weight: bold; color: #FF6700;">FREE</span> Sports Science Camp.</a> <br> It is a series of live virtual workshops geared towards youth interested in
+                                exploring their favourite sport through the lens of STEM and creative problem solving.
+                            </p>
+						</div>
+
+				</div>
+				<!-- row -->
+
+			</div>
+			<!-- container -->
+		</div>
+
+
+		<!-- About -->
+		<div id="virtual-workshops" class="section alternate">
+
+			<!-- container -->
+			<div class="container">
+
+				<!-- row -->
+				<div class="row">
+					<h2 class="text-center">COURT SCIENCE VIRTUAL CAMP</h2>
+					<div class="col-md-6">
+						<div class="section-header">
+							<p class="lead"><b>Court Science Virtual Camp</b> is a first of its kind interactive educational program where sports meets active learning, putting math and science in an exciting new light!</p>
+						</div>
+
+						<!-- feature -->
+						<div class="feature">
+							<i class="feature-icon fa fa-flask"></i>
+							<div class="feature-content">
+								<h4>Virtual Learning</h4>
+								<p>Regular workshops offered free of cost, aimed at K-12 students, bring the virtual classroom to the court</p>
+							</div>
+						</div>
+						<!-- /feature -->
+
+						<!-- feature -->
+						<div class="feature">
+							<i class="feature-icon fa fa-users"></i>
+							<div class="feature-content">
+								<h4>Expert Instructors</h4>
+								<p>A curriculum developed and taught by knowledgeable and passionate instructors</p>
+							</div>
+						</div>
+						<!-- /feature -->
+
+						<!-- feature -->
+						<div class="feature">
+							<i class="feature-icon fa fa-comments"></i>
+							<div class="feature-content">
+								<h4>Engagement</h4>
+                                <p>
+                                    Students investigate questions about sports through data exploration using the scientific method and creative problem solving,
+                                    before presenting their findings and engaging in friendly discussions with other campers
+                                </p>
+							</div>
+						</div>
+                        <br>
+                        <a class="main-button icon-button" href="/camp">LEARN MORE</a>
+						<!-- /feature -->
+
+					</div>
+
+					<div class="col-md-6">
+						<div class="about-img">
+							<img src="{% static 'img/about.png'%}" alt="">
+						</div>
+					</div>
+
+				</div>
+				<!-- row -->
+
+			</div>
+			<!-- container -->
+		</div>
+		<!-- /About -->
+
+		<!-- Courses -->
+		<div id="courses" class="section">
+
+			<!-- container -->
+			<div class="container">
+
+				<!-- row -->
+				<div class="row">
+					<div class="section-header text-center">
+						<h2>SAMPLE OUTPUTS</h2>
+						<p class="lead">These are the types of charts and data the students learn to interpret and apply:</p>
+					</div>
+				</div>
+				<!-- /row -->
+
+				<!-- courses -->
+				<div id="courses-wrapper">
+
+					<!-- row -->
+					<div class="row">
+
+						<!-- single course -->
+						<div class="col-md-4 col-sm-6 col-xs-6">
+							<div class="course">
+								<a href="/viz-lab" class="course-img">
+									<img src="{% static 'img/Sample Radar Chart.png'%}" style="height: 330px;" alt="">
+									<i class="course-button main-button" href="/viz-lab">BUILD ONE YOURSELF!</i>
+								</a>
+								<a class="course-title">Radar Charts display holistic view of a player's skills</a>
+								<!-- <div class="course-details">
+									<span class="course-category">Business</span>
+									<span class="course-price course-free">Free</span>
+								</div> -->
+							</div>
+						</div>
+						<!-- /single course -->
+
+						<!-- single course -->
+						<div class="col-md-4 col-sm-6 col-xs-6">
+							<div class="course">
+								<a href="/viz-lab" class="course-img">
+									<img src="{% static 'img/Sample Bar Chart.png'%}" style="height: 330px;" alt="">
+									<i class="course-button main-button" href="/viz-lab">BUILD ONE YOURSELF!</i>
+								</a>
+								<a class="course-title">Bar Charts depict specific skill comparisons</a>
+								<!-- <div class="course-details">
+									<span class="course-category">Web Design</span>
+									<span class="course-price course-premium">Premium</span>
+								</div> -->
+							</div>
+						</div>
+						<!-- /single course -->
+
+						<!-- single course -->
+						<div class="col-md-4 col-sm-6 col-xs-6">
+							<div class="course">
+								<a href="/viz-lab" class="course-img">
+									<img src="{% static 'img/Sample Scatter Chart.png'%}" style="height: 330px;" alt="">
+									<i class="course-button main-button" href="/viz-lab">BUILD ONE YOURSELF!</i>
+								</a>
+								<a class="course-title">Scatter plots help visualize patterns and correlations</a>
+								<!-- <div class="course-details">
+									<span class="course-category">Drawing</span>
+									<span class="course-price course-premium">Premium</span>
+								</div> -->
+							</div>
+						</div>
+						<!-- /single course -->
+
+					</div>
+					<!-- /row -->
+
+				</div>
+				<!-- /courses -->
+
+			</div>
+			<!-- container -->
+
+		</div>
+		<!-- /Courses -->
+
+		<!-- Contact CTA -->
+		<div id="contact-cta" class="section">
+
+			<!-- Backgound Image -->
+			<div class="bg-image bg-parallax overlay" style="background-image:url(static/img/cta2-background.jpg)"></div>
+			<!-- Backgound Image -->
+
+			<!-- container -->
+			<div class="container">
+
+				<!-- row -->
+				<div class="row">
+
+					<div class="col-md-8 col-md-offset-2 text-center">
+						<h2 class="white-text">CONTACT US</h2>
+						<p class="lead white-text">Give us a shout! We'd love to hear your feedback or work together.</p>
+						<button id="contact-button" class="main-button icon-button" onclick="sendMail(); return false">CONTACT US</button>
+					</div>
+
+				</div>
+				<!-- /row -->
+
+			</div>
+			<!-- /container -->
+
+		</div>
+		<!-- /Contact CTA -->
+
+		<!-- Footer -->
+		<footer id="footer" class="section">
+
+			<!-- container -->
+			<div class="container">
+
+				<!-- row -->
+				<div class="row">
+
+					<!-- footer logo -->
+					<div class="col-md-6">
+						<div class="footer-logo">
+							<a class="logo" href="index.html">
+								<img src="{% static 'img/logo.png'%}" alt="logo">
+							</a>
+						</div>
+					</div>
+					<!-- footer logo -->
+
+					<!-- footer nav -->
+					<div class="col-md-6">
+						<ul class="footer-nav">
+							<li><a href="/home">Home</a></li>
+							<!-- <li><a href="#">About</a></li> -->
+							<li><a href="/viz-lab">Viz Lab</a></li>
+                            <li><a href="/camp">Camp</a></li>
+						</ul>
+					</div>
+					<!-- /footer nav -->
+
+				</div>
+				<!-- /row -->
+
+				<!-- row -->
+				<div id="bottom-footer" class="row">
+
+					<!-- social -->
+					<div class="col-md-4 col-md-push-8">
+						<ul class="footer-social">
+							<!-- <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li> -->
+							<!-- <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li> -->
+							<!-- <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li> -->
+							<!-- <li><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></li> -->
+							<!-- <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li> -->
+						</ul>
+					</div>
+					<!-- /social -->
+
+					<!-- copyright -->
+					<div class="col-md-8 col-md-pull-4">
+						<div class="footer-copyright">
+							<span>&copy; 2020 Court Science Inc. All rights reserved.</span>
+						</div>
+					</div>
+					<!-- /copyright -->
+
+				</div>
+				<!-- row -->
+
+			</div>
+			<!-- /container -->
+
+		</footer>
+		<!-- /Footer -->
+
+		<!-- preloader -->
+		<div id='preloader'><div class='preloader'></div></div>
+		<!-- /preloader -->
+
+
+		<!-- jQuery Plugins -->
+		<script src="{% static 'js/jquery.min.js'%}"></script>
+		<script src="{% static 'js/bootstrap.min.js'%}"></script>
+		<script src="{% static 'js/main.js'%}"></script>
+
+	</body>
+</html>

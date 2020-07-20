@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		{% load static %}
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		<title>Court Science</title>
+
+		<!-- Tab Icon -->
+		<link rel="icon" type="image/png" href="{% static 'favicon.png'%}">
+
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}"/>
+
+		<!-- Bootstrap and Font Awesome links -->
+		<!-- <link type="text/css" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> -->
+
+		<!-- Font Awesome -->
+		<link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet">
+
+		<!-- Custom stylesheet -->
+		<link href="{% static 'css/style.css'%}" rel="stylesheet" type="text/css">
+
+		<!-- 3rd Party JS Libraries -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+		<script src="{% static 'js/papaparse.min.js'%}"></script>
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+		<script src="https://www.gstatic.com/charts/loader.js"></script>
+		<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+
+	
+		<!-- JS Scripts to build charts -->
+		<script src="{% static 'Script/dataParser.js'%}"></script>
+		<script src="{% static 'Script/RadarChart.js'%}"></script>
+		<script src="{% static 'Script/groupedBarChart.js'%}"></script>
+		<script src="{% static 'Script/scatterChart.js'%}"></script>
+		<script src="{% static 'Script/tableFunctions.js'%}"></script>
+		<script src="{% static 'Script/CourtScienceMagic.js'%}"></script>
+
+    </head>
+	<body>
+
+		<!-- Header -->
+        {% include 'header.html' %}
+		<!-- /Header -->
+
+		<!-- Viz Lab Header-->
+		<div class="section">
+
+			<!-- Backgound Image -->
+			<div class="bg-image bg-parallax overlay" style="background-image:url(static/img/vizlab-background.jpg)"></div>
+			<!-- /Backgound Image -->
+
+			<!-- container -->
+			<div class="container">
+
+				<!-- row -->
+				<div class="row" style="display: block; margin-top: 15px;">
+						<div class="col-md-8 col-md-offset-2 text-center">
+							<h2 class="white-text">VISUALIZATION LAB</h2>
+							<p class="lead white-text">Explore countless sports datasets using intuitive and powerful tools.</p>
+							<!-- <a class="main-button icon-button" href="#">Try it now!</a> -->
+						</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /Viz Lab Header -->
+
+		<!-- Instructions and Table -->
+		<div class="section" style="padding-bottom: 10px;">
+			
+			<!-- container -->
+			<div class="container-fluid">
+				
+				<!-- row -->
+				<div class="row">
+					<!-- Welcome Header -->
+					<div class="col-md-8 col-md-offset-2 text-center">
+						<div class="section-header">
+							<h2>Welcome to the Court Science Visualization Lab!</h2>
+							<!-- <p class="lead">Follow these steps to create Court Science Magic!</p> -->
+						</div>
+					</div>
+					<!-- Welcome Header -->
+				</div>
+				
+				<!-- row -->
+				<div class="row">
+					<div id="instructions" class="col-md-4 col-md-offset-1">
+						<h4 style="width: 100%;">Follow the steps below: </h4>
+						<p>1. Select a sample dataset or upload your own CSV file <br></p>
+						<p>2. Select the chart type you want to plot <br></p>
+						<p>3. Drag and drop the stats to plot into the 'Drop Stats' area <br></p>
+						<p>4. Drag and drop the players to compare into the 'Drop Players' area <br></p>
+						<p>5. Watch your visualizations being created in real-time! <br></p>
+					</div>
+					<!-- /Instructions -->
+
+					<!-- Data Table -->
+					<div class="col-md-6">	
+						<h4>Look through your data in this table</h4>
+							<div id="table_div" >
+								<script>drawSampleTable()</script>
+							</div>
+					</div>
+					<!-- Data Table -->
+					
+				</div>
+				<!-- /row -->
+
+				<!-- row -->
+				<div class="row">
+					<div id="data-select" class="col-md-6 col-md-offset-5">
+						<select id="drop-down" name="Data selection">
+							<option value="" disabled selected>Select NBA Data Source</option>
+							<option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/2019-2020%20NBA%20Player%20Stats.xlsx%20-%20Sheet1.csv">2019-2020 NBA Season</option>
+                        	<option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/2018-2019%20NBA%20Player%20Stats.xlsx%20-%20Sheet1.csv">2018-2019 NBA Season</option>
+							<option value="https://raw.githubusercontent.com/court-science/MVP/master/NBA%20Data/nba_draft_combine_all_years.csv">NBA Draft Combine</option>
+						</select>
+
+						<body>&nbsp;OR&nbsp;</body>
+						
+						<div id="data-upload">
+							<input id="input-data" type="file" class="filestyle" accept=".csv" name="myCSV" data-buttonBefore="true" data-iconName="fa fa-upload" data-buttonText="Upload CSV" data-placeholder="No file selected"></input>
+						</div>					
+					</div>
+				</div>
+				<!-- /row -->
+				
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- Instructions and Table -->
+
+		<!-- Chart Section-->
+		<div id="chart-section" class="section" style="padding-top: 10px;">
+			<!-- container -->
+			<div class="container-fluid">
+				<!-- row -->
+				<div class="row">
+					<!-- Chart Data Input -->
+					<div id="chart-data-input" class="col-md-4 col-md-offset-1">
+						<!-- row level 2 -->
+						<div class="row">
+							<!-- Stats Search -->
+							<div class="col-md-6">
+								<h4>Stats</h4>
+								<!-- search widget -->
+								<div class="widget search-widget">
+									<form>
+										<input type="text" class="searchInput" name="search" autocomplete="off" id="searchInputStats" onkeyup="searchBarStats()" placeholder="Search for stats">
+										<i class="search-icon fa fa-search"></i>
+									</form>
+								</div>
+								<!-- /search widget -->
+							</div>
+							<!-- /Stats Search -->
+						</div>
+						<!-- /row level 2-->
+						
+						<!-- row level 2 -->
+						<div class="row"> 
+							<!-- Stats Container -->
+							<div class="col-md-6">
+								<div class='div-container' id='drag-stats' ondrop='drop(event)' ondragover='allowDropStatsBack(event)'></div>
+							</div>
+							<!-- Stats Container -->
+
+							<!-- Stats Drop Container -->
+							<div class="col-md-5 col-sm-offset-1">
+								<div class='drop-zone' id="drop-stats" text-placeholder='Drop Stats Here' ondrop='drop(event)' ondragover='allowDropStats(event)'></div>
+								<p><i id='stats-message'>*Drop 3-7 stats</i></p>			
+							</div>
+							<!-- /Stats Drop Container -->
+						</div>
+						<!-- /row level 2-->
+
+						<!-- row level 2-->
+						<div class="row"> 
+							<!-- Players Search -->
+							<div class="col-md-6">
+								<h4>Players</h4>
+							
+								<!-- search widget -->
+								<div class="widget search-widget">
+									<form>
+										<input type="text" class="searchInput" name="search" autocomplete="off" id="searchInputPlayers" onkeyup="searchBarPlayers()" placeholder="Search for players">
+										<i class="search-icon fa fa-search"></i>
+									</form>
+								</div>
+								<!-- /search widget -->
+							</div>
+							<!-- /Players Search -->
+						</div>
+						<!-- /row level 2-->
+						
+						<!-- row level 2 -->
+						<div class="row"> 
+							<!-- Players Container -->
+							<div class="col-md-6">
+								<div class='div-container' id='drag-players' ondrop='drop(event)' ondragover='allowDropPlayersBack(event)'></div>
+							</div>
+							<!-- Players Container -->
+						
+							<!-- Players Drop Container -->
+							<div class="col-md-5 col-sm-offset-1">
+								<div class='drop-zone' id='drop-players' text-placeholder='Drop Players Here' ondrop='drop(event)' ondragover='allowDropPlayers(event)'></div>
+								<p><i id='players-message'>*Drop 1-3 players</i></p>			
+							</div>
+							<!-- /Players Drop Container -->
+						</div>
+						<!-- /row level 2-->
+						
+						<!-- row level 2 -->
+						<div class="row">
+							<div class="col-md-6 text-center" id='submit-reset'>
+								<button type='button' class='btn' id='reset-button' value='Reset' onclick='resetButton()'>Reset</button>
+							</div>
+						</div>
+						<!-- /row level 2-->
+
+					</div>
+					<!-- /Chart Data Input -->
+
+					<!-- Chart Image Area -->
+					<div id="chart-image-area" class="col-md-6">
+						<!-- row level 2 -->
+						<div class="row">
+							<!-- <h4 class="text-center">Chart Type</h4> -->
+								<div class="col-md-12 col-md-offset-4 text-center" id="chart-selection">
+									<!-- Radar Selector -->
+									<label class="col-md-1" style="margin:5px; padding:0;">
+										<input id='radar-input' type="radio" name="radio-button" value="Radar" checked>
+										<img class='chart-radio' title="Radar Chart" src="{% static 'Radar_Chart_Button.png'%}">
+									</label>
+									<!-- /Radar Selector -->
+									
+									<!-- Bar Selector -->
+									<label class="col-md-1" style="margin:5px; padding:0;">
+										<input id='bar-input' type="radio" name="radio-button" value="Bar">
+										<img class='chart-radio' title="Bar Chart" src="{% static 'Bar_Chart_Button.png'%}">
+									</label>
+									<!-- /Bar Selector -->
+
+									<!-- Scatter Selector -->
+									<label class="col-md-1" style="margin:5px; padding:0;">
+										<input id='scatter-input' type="radio" name="radio-button" value="Scatter">
+										<img class='chart-radio' title="Scatter Chart" src="{% static 'Scatter_Chart_Button.png'%}">
+									</label>
+									<!-- /Scatter Selector -->
+
+									<i id="reset-icon" class="col-md-1"></i>
+								</div>
+							</div>
+							<!-- /row level 2 -->
+							
+							<!-- row level 2 -->
+							<div class="row" id="chart-row">
+								<div id="chart-div" class="col-md-10 col-md-offset-1 text-center">
+									<img src="{% static 'Radar-Chart.png'%}" id="starter-img" alt="Radar-Chart.png" class="display-chart">
+								</div>
+							</div>
+							<!-- /row level 2 -->
+					</div>
+					<!-- /Chart Image Area-->
+
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- Chart Data-->
+		
+		<!-- <div id="filler-section" class="section"></div> -->
+		
+
+		<!-- Contact CTA -->
+		<div id="contact-cta" class="section">
+
+			<!-- Backgound Image -->
+			<div class="bg-image bg-parallax overlay" style="background-image:url(static/img/vizlab-background.jpg)"></div>
+			<!-- Backgound Image -->
+
+			<!-- container -->
+			<div class="container">
+
+				<!-- row -->
+				<div class="row">
+
+					<div class="col-md-8 col-md-offset-2 text-center">
+						<h2 class="white-text">CONTACT US</h2>
+						<p class="lead white-text">Give us a shout! We'd love to hear your feedback or work together.</p>
+						<button id="contact-button" class="main-button icon-button" onclick="sendMail(); return false">CONTACT US</button>
+					</div>
+
+				</div>
+				<!-- /row -->
+
+			</div>
+			<!-- /container -->
+
+		</div>
+		<!-- /Contact CTA -->
+
+		<!-- Footer -->
+		<footer id="footer" class="section">
+
+			<!-- container -->
+			<div class="container">
+
+				<!-- row -->
+				<div class="row">
+
+					<!-- footer logo -->
+					<div class="col-md-6">
+						<div class="footer-logo">
+							<a class="logo" href="index.html">
+								<img src="{% static 'img/logo.png'%}" alt="logo">
+							</a>
+						</div>
+					</div>
+					<!-- footer logo -->
+
+					<!-- footer nav -->
+					<div class="col-md-6">
+						<ul class="footer-nav">
+							<li><a href="/home">Home</a></li>
+							<!-- <li><a href="#">About</a></li> -->
+							<li><a href="/viz-lab">Viz Lab</a></li>
+							<!-- <li><a href="/learning-center">Learning Center</a></li> -->
+							<li><a href="/camp">Camp</a></li>
+						</ul>
+					</div>
+					<!-- /footer nav -->
+
+				</div>
+				<!-- /row -->
+
+				<!-- row -->
+				<div id="bottom-footer" class="row">
+
+					<!-- social -->
+					<div class="col-md-4 col-md-push-8">
+						<ul class="footer-social">
+							<!-- <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li> -->
+							<!-- <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li> -->
+							<!-- <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li> -->
+							<!-- <li><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></li> -->
+							<!-- <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li> -->
+						</ul>
+					</div>
+					<!-- /social -->
+
+					<!-- copyright -->
+					<div class="col-md-8 col-md-pull-4">
+						<div class="footer-copyright">
+							<span>&copy; 2020 Court Science Inc. All rights reserved.</span>
+						</div>
+					</div>
+					<!-- /copyright -->
+
+				</div>
+				<!-- row -->
+
+			</div>
+			<!-- /container -->
+
+		</footer>
+		<!-- /Footer -->
+
+		<!--  Scripts -->
+		<script>
+			
+			const inputElement = document.getElementById("input-data");
+			const dropDown = document.getElementById("drop-down");
+			const radar_input = document.getElementById('radar-input');
+			const bar_input = document.getElementById('bar-input');
+			const scatter_input = document.getElementById('scatter-input');
+			const stats_div = document.getElementById('drop-stats');
+			var img_src = "static/Radar-Chart.png";
+			var target_id = "";
+			var max_players = 3;
+			var min_players = 1;
+			var max_stats = 7;
+			var min_stats = 3;
+			var checked_charts = ["Radar"];
+
+			var inputCSV = "";
+			inputElement.addEventListener("change", handleFiles, false);
+			dropDown.addEventListener("change", handleLocalFiles, false);
+
+			var stats_message = document.getElementById('stats-message');
+			var players_message = document.getElementById('players-message');
+			var image_display = document.getElementById('starter-img');
+
+			radar_input.addEventListener("change", handleRadar, false);
+			bar_input.addEventListener("change", handleBar, false);
+			scatter_input.addEventListener("change", handleScatter, false);
+
+		</script>
+
+		<!-- preloader -->
+		<div id='preloader'><div class='preloader'></div></div>
+		<!-- /preloader -->
+
+		<!-- Plugins -->
+		<script src="{% static 'js/jquery.min.js'%}"></script>
+		<script src="{% static 'js/bootstrap.min.js'%}"></script>
+		<script src="{% static 'js/bootstrap-filestyle.min.js'%}"></script>
+		<script src="{% static 'js/main.js'%}"></script>
+
+	</body>
+</html>
