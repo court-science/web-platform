@@ -1822,3 +1822,9 @@ outline: 4px solid lightsalmon;
 	opacity:1;
 	z-index:999;
 }
+
+.link-redirect:hover {
+	text-decoration: underline;
+	text-decoration-color: #FF6700;
+	font-weight: bolder;
+}
