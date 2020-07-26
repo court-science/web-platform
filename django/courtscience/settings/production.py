@@ -33,7 +33,7 @@ DATABASES = {
 }
 
 #INTERNAL_IPS = ("127.0.0.1", "172.17.0.1")
-ALLOWED_HOSTS = ["courtscience.ca"]
+ALLOWED_HOSTS = [".courtscience.ca"]
 
 DEBUG_PROPAGATE_EXCEPTIONS = True
 LOGGING = {
