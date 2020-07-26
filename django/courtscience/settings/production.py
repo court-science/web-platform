@@ -52,7 +52,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'mysite.log',
+            'filename': 'courtscience.log',
             'formatter': 'verbose'
         },
     },
