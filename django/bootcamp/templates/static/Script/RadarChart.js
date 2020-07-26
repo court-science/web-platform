@@ -15,6 +15,13 @@ var RadarChart = {
                 .append("svg")
                 .attr("viewBox", [10, 0, width, height]);
     var margin = {top: 30, right: 20, bottom: 30, left: 50};
+
+    const save = d3.select('#chart-div').append('div')
+                            .attr('class','btn')
+                            .attr('id','save-button')
+                            .style('height','xx')
+                            .attr('value','Save')
+                            .html('Save Chart');
     cfg = {
       radius: 5,
       h: height - 90,
@@ -259,6 +266,17 @@ var RadarChart = {
       .attr("class","legend-labels")
       .text(function(d) { return d; })
       ;	
+  
+    // Set-up the export button
+    d3.select('#save-button').on('click', function(){
+      var svgString = getSVGString(g.node());
+      svgString2Image( svgString, 2*width, 2*height, 'png', save ); // passes Blob and filesize String to the callback
+    
+      function save( dataBlob, filesize ){
+        saveAs( dataBlob, 'Court Science Radar Chart.png' ); // FileSaver.js function
+      }
+    });
+
   }
   
 };

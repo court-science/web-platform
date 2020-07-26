@@ -6,9 +6,15 @@ const groupedBarChart = function(rawData) {
                 .append('svg')
                 .attr("viewBox", [0, 0, width, height]);
     var margin = {top: 10, right: 20, bottom: 30, left: 40},
-
     height = height - margin.top - margin.bottom,
     width = width - margin.left - margin.right - 130;
+
+    const save = d3.select('#chart-div').append('div')
+                            .attr('class','btn')
+                            .attr('id','save-button')
+                            .style('height','xx')
+                            .attr('value','Save')
+                            .html('Save Chart');
 
     var tip = d3.select("#chart-div").append("div")	
                     .attr("class", "tooltip")				
@@ -291,6 +297,17 @@ const groupedBarChart = function(rawData) {
         legend.transition().duration(500).delay(function(d,i){console.log("Number of players in legend=",i); return 1300 + 100 * i; }).style("opacity","1");
             };
 
+        };
+
+        // Set-up the export button
+        d3.select('#save-button').on('click', function(){
+            var svgString = getSVGString(svg.node());
+            svgString2Image( svgString, 2*width, 2*height, 'png', save ); // passes Blob and filesize String to the callback
+            
+            function save( dataBlob, filesize ){
+                saveAs( dataBlob, 'Court Science Bar Chart.png' ); // FileSaver.js function
+            }
+        });
+
     var t1 = performance.now()
     //console.log("Parsing and plotting took " + (t1 - t0) + " milliseconds.")
-};

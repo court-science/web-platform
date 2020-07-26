@@ -1743,6 +1743,19 @@ outline: 4px solid lightsalmon;
 	color: white;
 }
 
+#save-button {
+	border-radius: 4px;
+	outline: 1px solid #212529;
+	width: 200px;
+	font-style: inherit;
+}
+
+#save-button:hover {
+	background-color: lightsalmon;
+	font-style: inherit;
+	color: white;
+}
+
 /* .btn.btn-primary:hover {
 	position: relative;
 	transition-delay: 2s; 
