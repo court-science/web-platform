@@ -6,7 +6,7 @@ import dotenv
 
 def main():
     dotenv.read_dotenv()
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'courtscience.settings.dev')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'courtscience.settings.production')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
