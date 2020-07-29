@@ -13,6 +13,7 @@ var RadarChart = {
     var height = 550;
     var g = d3.select("#chart-div")
                 .append("svg")
+                .attr("class","graph-svg-component")
                 .attr("viewBox", [10, 0, width, height]);
     var margin = {top: 30, right: 20, bottom: 30, left: 50};
 
@@ -38,7 +39,7 @@ var RadarChart = {
       ExtraWidthX: 100,
       ExtraWidthY: 100,
       color:  d3.scaleOrdinal()
-      .range(["#ca0020","#f4a582","#92c5de","#0571b0","#ffbf4f"])
+                  .range(["#0049B7","#00DDFF","#ffbf4f","#8458B3","#59ce8f"])
      };
 
      cfg.maxValue = Math.max(cfg.maxValue, d3.max(d, function(i){return d3.max(i.map(function(o){return o.value;}))}));

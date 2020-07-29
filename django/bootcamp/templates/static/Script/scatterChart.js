@@ -4,7 +4,9 @@ const scatterChart = function(data) {
   const height = 350
 
   const svg = d3.select('#chart-div').append('svg')
+                  .attr("class","graph-svg-component")
                   .attr("viewBox", [0, 0, width, height]);
+                  
   var tip = d3.select("#chart-div").append("div")	
                   .attr("class", "tooltip")				
                   .style("opacity", 0);
@@ -38,7 +40,7 @@ const scatterChart = function(data) {
       const innerHeight = height - margin.top - margin.bottom;
       
       const color = d3.scaleOrdinal()
-      .range(["#92c5de","#0571b0","#ffbf4f"]);
+                        .range(["#0049B7","#00DDFF","#ffbf4f","#8458B3","#59ce8f"]);
       const unselectedColor = 'red';
 
       const xScale = d3.scaleLinear()

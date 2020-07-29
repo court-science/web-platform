@@ -4,6 +4,7 @@ const groupedBarChart = function(rawData) {
 
     var svg = d3.select('#chart-div')
                 .append('svg')
+                .attr("class","graph-svg-component")
                 .attr("viewBox", [0, 0, width, height]);
     var margin = {top: 10, right: 20, bottom: 30, left: 40},
     height = height - margin.top - margin.bottom,
@@ -30,7 +31,7 @@ const groupedBarChart = function(rawData) {
         .rangeRound([height, 0]);
 
     var color = d3.scaleOrdinal()
-        .range(["#ca0020","#f4a582","#92c5de","#0571b0","#ffbf4f"]);
+                    .range(["#0049B7","#00DDFF","#ffbf4f","#8458B3","#59ce8f"]);
 
     svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
