@@ -4,11 +4,18 @@ const groupedBarChart = function(rawData) {
 
     var svg = d3.select('#chart-div')
                 .append('svg')
+                .attr("class","graph-svg-component")
                 .attr("viewBox", [0, 0, width, height]);
     var margin = {top: 10, right: 20, bottom: 30, left: 40},
-
     height = height - margin.top - margin.bottom,
     width = width - margin.left - margin.right - 130;
+
+    const save = d3.select('#chart-div').append('div')
+                            .attr('class','btn')
+                            .attr('id','save-button')
+                            .style('height','xx')
+                            .attr('value','Save')
+                            .html('Save Chart');
 
     var tip = d3.select("#chart-div").append("div")	
                     .attr("class", "tooltip")				
@@ -24,7 +31,7 @@ const groupedBarChart = function(rawData) {
         .rangeRound([height, 0]);
 
     var color = d3.scaleOrdinal()
-        .range(["#ca0020","#f4a582","#92c5de","#0571b0","#ffbf4f"]);
+                    .range(["#0049B7","#00DDFF","#ffbf4f","#8458B3","#59ce8f"]);
 
     svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -291,6 +298,17 @@ const groupedBarChart = function(rawData) {
         legend.transition().duration(500).delay(function(d,i){console.log("Number of players in legend=",i); return 1300 + 100 * i; }).style("opacity","1");
             };
 
+        };
+
+        // Set-up the export button
+        d3.select('#save-button').on('click', function(){
+            var svgString = getSVGString(svg.node());
+            svgString2Image( svgString, 2*width, 2*height, 'png', save ); // passes Blob and filesize String to the callback
+            
+            function save( dataBlob, filesize ){
+                saveAs( dataBlob, 'Court Science Bar Chart.png' ); // FileSaver.js function
+            }
+        });
+
     var t1 = performance.now()
     //console.log("Parsing and plotting took " + (t1 - t0) + " milliseconds.")
-};

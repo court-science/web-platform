@@ -1660,6 +1660,10 @@ div .bootstrap-filestyle .input-group {
     left: 10px;
 }
 
+.graph-svg-component {
+    background-color: aliceblue;
+}
+
 .tooltip {	
 	position: absolute;		
     text-align: center;			
@@ -1738,6 +1742,22 @@ outline: 4px solid lightsalmon;
 }
 
 #reset-button:hover {
+	background-color: lightsalmon;
+	font-style: inherit;
+	color: white;
+}
+
+#save-button {
+	border-radius: 4px;
+	outline: 1px solid #212529;
+	width: 200px;
+	font-style: inherit;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#save-button:hover {
 	background-color: lightsalmon;
 	font-style: inherit;
 	color: white;
